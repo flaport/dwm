@@ -35,6 +35,11 @@ like this in your .xinitrc:
     exec dwm
 ```
 
+## Patches
+The following patches were applied:
+* [`https://dwm.suckless.org/patches/fullgaps/`](https://dwm.suckless.org/patches/fullgaps/)
+* [`https://dwm.suckless.org/patches/autostart/`](https://dwm.suckless.org/patches/autostart/)
+
 
 ## Configuration
 The configuration of dwm is done by creating a custom config.h
