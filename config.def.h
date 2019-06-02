@@ -44,7 +44,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -61,29 +61,64 @@ static const char *termcmd[]  = { "st", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+
+    /* spawn terminal */
+	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+
+    /* toggle menu bar */
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
+
+    /* focus next window */
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
+
+    /* focus previous window */
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+
+    /* increase number of windows in master area */
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
+
+    /* decrease number of windows in master area */
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+
+    /* decrease master area size */
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
+
+    /* increase master area size */
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
+
+    /* promote window */
+	{ MODKEY|ShiftMask,             XK_j,      zoom,           {0} },
+
+    /* toggles between the previously selected tags */
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+
+    /* kill current window */
+	{ MODKEY,                       XK_q,      killclient,     {0} },
+
+    /* set tiling layout */
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+    
+    /* set floating layout */
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+
+    /* set monocle layout */
+	{ MODKEY,                       XK_n,      setlayout,      {.v = &layouts[2]} },
+
+    /* toggle between current and previous layout */
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
+
+    /* toggle floating layout */
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+
+    /* quit wdm */
+	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+
+    /* view all windows with any tag */
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
+
+    /* apply all tags to focused window */
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -93,7 +128,6 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
 /* button definitions */
