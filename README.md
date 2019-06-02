@@ -39,6 +39,7 @@ like this in your .xinitrc:
 The following patches were applied:
 * [`https://dwm.suckless.org/patches/fullgaps/`](https://dwm.suckless.org/patches/fullgaps/)
 * [`https://dwm.suckless.org/patches/autostart/`](https://dwm.suckless.org/patches/autostart/)
+* [`https://dwm.suckless.org/patches/combo/`](https://dwm.suckless.org/patches/combo/)
 
 
 ## Configuration
