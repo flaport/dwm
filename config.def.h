@@ -95,7 +95,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 
     /* promote window */
-	{ MODKEY|ShiftMask,             XK_j,      zoom,           {0} },
+	{ MODKEY|ControlMask,           XK_Return, zoom,           {0} },
 
     /* toggles between the previously selected tags */
 	{ MODKEY,                       XK_Tab,    view,           {0} },
@@ -148,26 +148,30 @@ static Key keys[] = {
     /* apply all tags to focused window */
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 
-    /* decrease gaps between windows */
-	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
-
     /* increase gaps between windows */
-	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_l,      setgaps,        {.i = +1 } },
 
-    /* reset gaps between windows */
-	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
+    /* decrease gaps between windows */
+	{ MODKEY|ShiftMask,             XK_h,      setgaps,        {.i = -1 } },
 
     /* focus on monitor left */
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_j,      focusmon,       {.i = -1 } },
 
     /* focus on monitor right */
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,      focusmon,       {.i = +1 } },
 
     /* move active window to monitor left */
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_j,      tagmon,         {.i = -1 } },
 
     /* move active window to monitor right */
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY|ControlMask,           XK_k,      tagmon,         {.i = +1 } },
+
+    /* move active window AND focus to monitor left */
+	{ MODKEY|ControlMask|ShiftMask, XK_j,      tagandfocusmon,         {.i = -1 } },
+
+    /* move active window AND focus to monitor right */
+	{ MODKEY|ControlMask|ShiftMask, XK_k,      tagandfocusmon,         {.i = +1 } },
+
 
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
