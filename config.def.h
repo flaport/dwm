@@ -114,6 +114,18 @@ static Key keys[] = {
     /* set monocle layout */
 	{ MODKEY,                       XK_n,      setlayout,      {.v = &layouts[2]} },
 
+    /* set default layout */
+	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[0]} },
+    
+    /* set default layout */
+	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[0]} },
+
+    /* set default dwindle layout */
+	{ MODKEY|ShiftMask,             XK_g,      setlayout,      {.v = &layouts[0]} },
+
+    /* set default layout */
+	{ MODKEY|ShiftMask,             XK_n,      setlayout,      {.v = &layouts[0]} },
+
     /* toggle between current and previous layout */
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 
@@ -137,6 +149,18 @@ static Key keys[] = {
 
     /* reset gaps between windows */
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
+
+    /* focus on monitor left */
+	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
+
+    /* focus on monitor right */
+	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
+
+    /* move active window to monitor left */
+	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
+
+    /* move active window to monitor right */
+	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
