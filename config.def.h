@@ -54,9 +54,9 @@ static const Layout layouts[] = {
 /* key definitions */
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      comboview,           {.ui = 1 << TAG} }, \
+	{ MODKEY,                       KEY,      comboview,      {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             KEY,      combotag,            {.ui = 1 << TAG} }, \
+	{ MODKEY|ShiftMask,             KEY,      combotag,       {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
@@ -96,6 +96,9 @@ static Key keys[] = {
 
     /* promote window */
 	{ MODKEY|ControlMask,           XK_Return, zoom,           {0} },
+
+    /* promote window */
+	{ Mod1Mask,                     XK_Return, zoom,           {0} },
 
     /* toggles between the previously selected tags */
 	{ MODKEY,                       XK_Tab,    view,           {0} },
@@ -161,10 +164,10 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_k,      tagmon,         {.i = +1 } },
 
     /* move active window AND focus to monitor left */
-	{ MODKEY|ControlMask|ShiftMask, XK_j,      tagandfocusmon,         {.i = -1 } },
+	{ MODKEY|ControlMask|ShiftMask, XK_j,      tagandfocusmon, {.i = -1 } },
 
     /* move active window AND focus to monitor right */
-	{ MODKEY|ControlMask|ShiftMask, XK_k,      tagandfocusmon,         {.i = +1 } },
+	{ MODKEY|ControlMask|ShiftMask, XK_k,      tagandfocusmon, {.i = +1 } },
 
 
 	TAGKEYS(                        XK_1,                      0)
