@@ -47,7 +47,8 @@ static const Layout layouts[] = {
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
  	{ "[\\]",     dwindle },
- 	{ "[@]",      spiral },
+/* 	{ "[@]",      spiral }, */
+	{ NULL,       NULL },
 };
 
 /* key definitions */
@@ -101,6 +102,12 @@ static Key keys[] = {
 
     /* kill current window */
 	{ MODKEY,                       XK_q,      killclient,     {0} },
+
+    /* cycle forward through layout list */
+	{ MODKEY|ControlMask,		    XK_comma,  cyclelayout,    {.i = -1 } },
+
+    /* cycle backward through layout list */
+	{ MODKEY|ControlMask,           XK_period, cyclelayout,    {.i = +1 } },
 
     /* set tiling layout */
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },

@@ -41,6 +41,7 @@ The following patches were applied:
 * [`https://dwm.suckless.org/patches/autostart/`](https://dwm.suckless.org/patches/autostart/)
 * [`https://dwm.suckless.org/patches/combo/`](https://dwm.suckless.org/patches/combo/)
 * [`https://dwm.suckless.org/patches/fibonacci/`](https://dwm.suckless.org/patches/fibonacci/)
+* [`https://dwm.suckless.org/patches/cyclelayouts/`](https://dwm.suckless.org/patches/cyclelayouts/)
 
 
 ## Configuration
