@@ -2,7 +2,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const unsigned int gappx     = 15;        /* gaps between windows */
+static const unsigned int gappx     = 20;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -147,12 +147,6 @@ static Key keys[] = {
 
     /* apply all tags to focused window */
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-
-    /* increase gaps between windows */
-	{ MODKEY|ShiftMask,             XK_l,      setgaps,        {.i = +1 } },
-
-    /* decrease gaps between windows */
-	{ MODKEY|ShiftMask,             XK_h,      setgaps,        {.i = -1 } },
 
     /* focus on monitor left */
 	{ MODKEY|ShiftMask,             XK_j,      focusmon,       {.i = -1 } },
