@@ -42,10 +42,9 @@ The following patches were applied:
 * [`https://dwm.suckless.org/patches/cyclelayouts/`](https://dwm.suckless.org/patches/cyclelayouts/)
 * [`https://dwm.suckless.org/patches/tilegap/`](https://dwm.suckless.org/patches/tilegap/)
 * [`https://dwm.suckless.org/patches/fibonacci/`](https://dwm.suckless.org/patches/fibonacci/) [manually patched for gaps]
+* [`https://dwm.suckless.org/patches/alpha/`](https://dwm.suckless.org/patches/alpha/)
 * [`https://dwm.suckless.org/patches/systray/`](https://dwm.suckless.org/patches/systray/)
 
-Note: systray patch and alpha patch do not work well together. Checkout the alpha branch
-for a dwm build with alpha patch enabled (without systray).
 
 ## Configuration
 The configuration of dwm is done by creating a custom config.h
