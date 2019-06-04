@@ -47,7 +47,7 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
@@ -56,9 +56,10 @@ static const Layout layouts[] = {
 	/* symbol     arrange function */
     /* first entry is default */
  	{ "[@]",      fibonacci }, /* fibonacci */
-	{ "><>",      NULL }, /* floating */
+	{ "[F]",      NULL }, /* floating */
 	{ "[M]",      monocle }, /* full screen */
-	{ "[]=",      tile }, /* tiling */
+	{ "[D]=",      deck }, /* deck */
+	/* { "[T]=",      tile },*/ /* tiling */
 	{ NULL,       NULL },
 };
 

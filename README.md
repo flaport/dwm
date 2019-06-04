@@ -44,6 +44,7 @@ The following patches were applied:
 * [`https://dwm.suckless.org/patches/fibonacci/`](https://dwm.suckless.org/patches/fibonacci/) [manually patched for gaps]
 * [`https://dwm.suckless.org/patches/alpha/`](https://dwm.suckless.org/patches/alpha/)
 * [`https://dwm.suckless.org/patches/systray/`](https://dwm.suckless.org/patches/systray/)
+* [`https://dwm.suckless.org/patches/deck/`](https://dwm.suckless.org/patches/deck/)
 
 
 ## Configuration
