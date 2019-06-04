@@ -43,8 +43,7 @@ The following patches were applied:
 * [`https://dwm.suckless.org/patches/tilegap/`](https://dwm.suckless.org/patches/tilegap/)
 * [`https://dwm.suckless.org/patches/fibonacci/`](https://dwm.suckless.org/patches/fibonacci/) [manually patched for gaps]
 * [`https://dwm.suckless.org/patches/alpha/`](https://dwm.suckless.org/patches/alpha/)
-
-Note: alpha patch and systray patch do not work well together, hence this branch.
+* [`https://dwm.suckless.org/patches/systray/`](https://dwm.suckless.org/patches/systray/)
 
 
 ## Configuration
