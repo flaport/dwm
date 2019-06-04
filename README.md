@@ -45,6 +45,7 @@ The following patches were applied:
 * [`https://dwm.suckless.org/patches/alpha/`](https://dwm.suckless.org/patches/alpha/)
 * [`https://dwm.suckless.org/patches/systray/`](https://dwm.suckless.org/patches/systray/)
 * [`https://dwm.suckless.org/patches/deck/`](https://dwm.suckless.org/patches/deck/)
+* [`https://dwm.suckless.org/patches/winview/`](https://dwm.suckless.org/patches/winview/)
 
 
 ## Configuration

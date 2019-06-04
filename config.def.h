@@ -148,6 +148,9 @@ static Key keys[] = {
     /* set default layout */
 	{ MODKEY|ShiftMask,             XK_n,      setlayout,      {.v = &layouts[0]} },
 
+    /* activate tags to which current window belongs */
+	{ MODKEY,                       XK_o,      winview,        {0} },
+
     /* toggle between current and previous layout */
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 
