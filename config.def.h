@@ -57,9 +57,9 @@ static const Layout layouts[] = {
     /* first entry is default */
  	{ "[@]",      fibonacci }, /* fibonacci */
 	{ "[F]",      NULL }, /* floating */
+	{ "[T]=",      tile },/* tiling */
 	{ "[M]",      monocle }, /* full screen */
 	{ "[D]=",      deck }, /* deck */
-	/* { "[T]=",      tile },*/ /* tiling */
 	{ NULL,       NULL },
 };
 
@@ -85,20 +85,56 @@ static Key keys[] = {
     /* spawn terminal */
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 
-    /* toggle menu bar */
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
-
     /* focus next window */
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 
     /* focus previous window */
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 
-    /* increase number of windows in master area */
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
+    /* promote window */
+	{ MODKEY|ShiftMask,             XK_j,      zoom,       {.i = -1 } },
 
-    /* decrease number of windows in master area */
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+    /* promote window */
+	{ MODKEY|ShiftMask,             XK_k,      zoom,       {.i = +1 } },
+
+    /* focus on next monitor */
+	{ Mod1Mask,                     XK_j,      focusmon,       {.i = -1 } },
+
+    /* focus on previous monitor */
+	{ Mod1Mask,                     XK_k,      focusmon,       {.i = +1 } },
+
+    /* promote window to next monitor */
+	{ Mod1Mask|ShiftMask,           XK_j,      tagmon,       {.i = -1 } },
+
+    /* promote window to previous monitor */
+	{ Mod1Mask|ShiftMask,           XK_k,      tagmon,       {.i = +1 } },
+
+    /* toggle between the previously selected tags */
+	{ MODKEY,                       XK_Tab,    view,           {0} },
+
+    /* cycle forward through layout list */
+	{ MODKEY,		                XK_semicolon,  cyclelayout,    {.i = -1 } },
+
+    /* cycle backward through layout list */
+	{ MODKEY|ShiftMask,             XK_semicolon, cyclelayout,    {.i = +1 } },
+
+    /* set floating layout */
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+
+    /* toggle between current and previous layout */
+	{ MODKEY,                       XK_space,  setlayout,      {0} },
+
+    /* toggle floating layout for current window */
+	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+    
+    /* enable default layout */
+	{ MODKEY|ControlMask,           XK_space,  setlayout,       {.v = &layouts[0]} },
+
+    /* kill current window */
+	{ MODKEY,                       XK_q,      killclient,     {0} },
+
+    /* quit wdm */
+	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 
     /* decrease master area size */
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
@@ -106,77 +142,23 @@ static Key keys[] = {
     /* increase master area size */
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 
-    /* promote window */
-	{ MODKEY|ControlMask,           XK_Return, zoom,           {0} },
+    /* increase number of windows in master area */
+	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 
-    /* promote window */
-	{ Mod1Mask,                     XK_Return, zoom,           {0} },
+    /* decrease number of windows in master area */
+	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 
-    /* toggles between the previously selected tags */
-	{ MODKEY,                       XK_Tab,    view,           {0} },
-
-    /* kill current window */
-	{ MODKEY,                       XK_q,      killclient,     {0} },
-
-    /* cycle forward through layout list */
-	{ MODKEY|ControlMask,		    XK_comma,  cyclelayout,    {.i = -1 } },
-
-    /* cycle backward through layout list */
-	{ MODKEY|ControlMask,           XK_period, cyclelayout,    {.i = +1 } },
-
-    /* set tiling layout */
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[3]} },
-    
-    /* set floating layout */
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-
-    /* set fibonacci dwindle layout */
-	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[0]} },
-
-    /* set monocle layout */
-	{ MODKEY,                       XK_n,      setlayout,      {.v = &layouts[2]} },
-
-    /* set default layout */
-	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[0]} },
-    
-    /* set default layout */
-	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[0]} },
-
-    /* set default dwindle layout */
-	{ MODKEY|ShiftMask,             XK_g,      setlayout,      {.v = &layouts[0]} },
-
-    /* set default layout */
-	{ MODKEY|ShiftMask,             XK_n,      setlayout,      {.v = &layouts[0]} },
+    /* toggle menu bar */
+	{ MODKEY,                       XK_b,      togglebar,      {0} },
 
     /* activate tags to which current window belongs */
 	{ MODKEY,                       XK_o,      winview,        {0} },
-
-    /* toggle between current and previous layout */
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-
-    /* toggle floating layout */
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-
-    /* quit wdm */
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 
     /* view all windows with any tag */
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 
     /* apply all tags to focused window */
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-
-    /* focus on monitor left */
-	{ MODKEY|ShiftMask,             XK_j,      focusmon,       {.i = -1 } },
-
-    /* focus on monitor right */
-	{ MODKEY|ShiftMask,             XK_k,      focusmon,       {.i = +1 } },
-
-    /* move active window to monitor left */
-	{ MODKEY|ControlMask,           XK_j,      tagmon,         {.i = -1 } },
-
-    /* move active window to monitor right */
-	{ MODKEY|ControlMask,           XK_k,      tagmon,         {.i = +1 } },
 
     /* move active window AND focus to monitor left */
 	{ MODKEY|ControlMask|ShiftMask, XK_j,      tagandfocusmon, {.i = -1 } },
