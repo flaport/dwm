@@ -37,7 +37,7 @@ like this in your .xinitrc:
 
 ## Patches
 The following patches were applied:
-* [`https://dwm.suckless.org/patches/autostart/`](https://dwm.suckless.org/patches/autostart/)
+* [`https://dwm.suckless.org/patches/autostart/`](https://dwm.suckless.org/patches/autostart/) [autostart in `~/.config/dwm`]
 * [`https://dwm.suckless.org/patches/combo/`](https://dwm.suckless.org/patches/combo/)
 * [`https://dwm.suckless.org/patches/cyclelayouts/`](https://dwm.suckless.org/patches/cyclelayouts/)
 * [`https://dwm.suckless.org/patches/tilegap/`](https://dwm.suckless.org/patches/tilegap/)
