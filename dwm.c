@@ -248,6 +248,7 @@ static void spawn(const Arg *arg);
 static Monitor *systraytomon(Monitor *m);
 static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
+static void getmon(const Arg *arg);
 static void tagandfocusmon(const Arg *arg);
 static void tile(Monitor *);
 static void togglebar(const Arg *arg);
@@ -1987,27 +1988,48 @@ tag(const Arg *arg)
 		arrange(selmon);
 	}
 }
-
 void
 tagmon(const Arg *arg)
 {
+	Monitor *m, *curmon;
+    m = dirtomon(arg->i);
+
+    curmon = dirtomon(selmon->num);
+
 	if (!selmon->sel || !mons->next)
 		return;
-	sendmon(selmon->sel, dirtomon(arg->i));
+	sendmon(selmon->sel, m);
+
+    if (curmon == selmon)
+        return;
+    selmon = curmon;
+    focus(NULL);
+
 }
 
 void
 focusmon(const Arg *arg)
 {
 	Monitor *m;
+    m = dirtomon(arg->i);
 
 	if (!mons->next)
 		return;
-	if ((m = dirtomon(arg->i)) == selmon)
+	if (m == selmon)
 		return;
 	unfocus(selmon->sel, 0);
 	selmon = m;
 	focus(NULL);
+}
+
+void
+getmon(const Arg *arg)
+{
+    FILE *f = fopen("/home/flaport/getmon.txt", "w");
+    fprintf(f, "selmon: %d\n", selmon->num);
+    if (selmon->next)
+        fprintf(f, "nextmon %d\n", selmon->next->num);
+    fclose(f);
 }
 
 void

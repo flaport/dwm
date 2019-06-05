@@ -200,5 +200,5 @@ static Button buttons[] = {
 /* trigger signals using `xsetroot -name "fsignal:<signum>"` */
 static Signal signals[] = {
 	/* signum       function        argument  */
-	{ 1,            setlayout,      {.v = 0} },
+	{ 1,            getmon,      {.v = 0} },
 };
