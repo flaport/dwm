@@ -46,6 +46,7 @@ The following patches were applied:
 * [dwm-fsignal-6.1](https://dwm.suckless.org/patches/fsignal/)
 * [dwm-6.0-winview](https://dwm.suckless.org/patches/winview/)
 * [dwm-deck-6.0](https://dwm.suckless.org/patches/deck/)
+* [dwm-alpha-20180613-b69c870](https://dwm.suckless.org/patches/alpha/)
 
 
 ## Configuration
