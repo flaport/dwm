@@ -48,6 +48,30 @@ The following patches were applied:
 * [dwm-deck-6.0](https://dwm.suckless.org/patches/deck/)
 * [dwm-alpha-20180613-b69c870](https://dwm.suckless.org/patches/alpha/)
 
+## Master Monitor patch
+The [mastermonitor patch](https://github.com/flaport/dwm/tree/dwm-mastermonitor-6.2) is a
+custom patch incorporated in commit `55a46c0` patching the `dwm-6.2` 
+release at `cb3f58a`. It can also be found in the `dwm-mastermonitor-6.2` branch of this
+repository.
+
+The patch introduces a "master" monitor.
+
+The master monitor is the only monitor with tags. All other monitors will have no tags.
+The tags from the master can be accessed (enabled/disabled/send to) with the normal
+keybindings from any monitor. This makes the tag system a lot less confusing in a multi
+monitor setup.
+
+Why is this useful? In most multi-monitor setups you'll usually have a preferred monitor
+to work on anyway. Other monitors will be less important and will mostly
+be used to station content in view. If this resembles your workflow,
+this patch is for you!
+
+Two new kind of keybindings were added: [Control]+[1..n] to move focus to monitor n and
+[Control]+[Shift]+[1..n] to move the focused window to monitor n.
+
+The behavior of the default keybindings to view/toggle/tag tags was
+changed in such a way that they always have effect on the tags of the
+master monitor.
 
 ## Configuration
 The configuration of dwm is done by creating a custom config.h
