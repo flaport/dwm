@@ -40,6 +40,8 @@ The following patches were applied:
 * [dwm-mastermonitor-6.2](https://github.com/flaport/dwm/tree/dwm-mastermonitor-6.2)
 * [dwm-autostart-20161205-bb3bd6f](https://dwm.suckless.org/patches/autostart/)
 * [dwm-cyclelayouts-20180524-6.2](https://dwm.suckless.org/patches/cyclelayouts/)
+* [dwm-tilegap-6.2](https://dwm.suckless.org/patches/tilegap/)
+* [dwm-fibonacci-5.8.2](https://dwm.suckless.org/patches/fibonacci/) [[patched for tilegap](https://github.com/flaport/dwm/blob/v0.1/fibonacci.c)]
 
 
 ## Configuration
