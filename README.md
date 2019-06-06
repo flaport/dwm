@@ -45,6 +45,7 @@ The following patches were applied:
 * [dwm-systray-20190208-cb3f58a](https://dwm.suckless.org/patches/systray/)
 * [dwm-fsignal-6.1](https://dwm.suckless.org/patches/fsignal/)
 * [dwm-6.0-winview](https://dwm.suckless.org/patches/winview/)
+* [dwm-deck-6.0](https://dwm.suckless.org/patches/deck/)
 
 
 ## Configuration
