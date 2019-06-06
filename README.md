@@ -38,6 +38,7 @@ like this in your .xinitrc:
 ## Patches
 The following patches were applied:
 * [dwm-mastermonitor-6.2](https://github.com/flaport/dwm/tree/dwm-mastermonitor-6.2)
+* [dwm-autostart-20161205-bb3bd6f](https://dwm.suckless.org/patches/autostart/)
 
 
 ## Configuration
