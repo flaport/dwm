@@ -1,5 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 
+/* master monitor */
+static const unsigned int MASTERMON  = 4;        /* master monitor [1-...] */
+
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -50,6 +53,9 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+#define MONKEYS(KEY,TAG) \
+	{ ControlMask,                  KEY,      absfocusmon,    {.ui = 1 << TAG} }, \
+	{ ControlMask|ShiftMask,        KEY,      abstagmon,      {.ui = 1 << TAG} }, \
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -93,6 +99,15 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+	MONKEYS(                        XK_1,                      0)
+	MONKEYS(                        XK_2,                      1)
+	MONKEYS(                        XK_3,                      2)
+	MONKEYS(                        XK_4,                      3)
+	MONKEYS(                        XK_5,                      4)
+	MONKEYS(                        XK_6,                      5)
+	MONKEYS(                        XK_7,                      6)
+	MONKEYS(                        XK_8,                      7)
+	MONKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
