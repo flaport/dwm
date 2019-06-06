@@ -874,16 +874,13 @@ drawbar(Monitor *m)
 	}
 	x = 0;
 
-    char strmon[12];
-    sprintf(strmon, "%d", m->num+1);
-	w = blw = TEXTW(strmon);
+	w = blw = TEXTW(montags[m->num]);
     if (m == selmon) {
         drw_setscheme(drw, scheme[SchemeSel]);
     } else {
         drw_setscheme(drw, scheme[SchemeNorm]);
     }
-	x = drw_text(drw, x, 0, w, bh, lrpad / 2, strmon, 0);
-	w = blw = TEXTW(" ");
+	x = drw_text(drw, x, 0, w, bh, lrpad / 2, montags[m->num], 0);
 	drw_setscheme(drw, scheme[SchemeNorm]);
 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, " ", 0);
 
