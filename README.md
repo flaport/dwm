@@ -44,6 +44,7 @@ The following patches were applied:
 * [dwm-fibonacci-5.8.2](https://dwm.suckless.org/patches/fibonacci/) [[patched for tilegap](https://github.com/flaport/dwm/blob/v0.1/fibonacci.c)]
 * [dwm-systray-20190208-cb3f58a](https://dwm.suckless.org/patches/systray/)
 * [dwm-fsignal-6.1](https://dwm.suckless.org/patches/fsignal/)
+* [dwm-6.0-winview](https://dwm.suckless.org/patches/winview/)
 
 
 ## Configuration
