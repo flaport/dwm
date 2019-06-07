@@ -491,9 +491,9 @@ buttonpress(XEvent *e)
 		do
 			x += TEXTW(tags[i]);
 		while (ev->x >= x && ++i < LENGTH(tags));
-		if (i < LENGTH(tags)) {
+		if (i < LENGTH(tags) + 2) {
 			click = ClkTagBar;
-			arg.ui = 1 << i;
+			arg.ui = 1 << (i-2);
 		} else if (ev->x < x + blw)
 			click = ClkLtSymbol;
 		else if (ev->x > selmon->ww - TEXTW(stext) - getsystraywidth())
