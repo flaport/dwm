@@ -242,6 +242,7 @@ static void setclientstate(Client *c, long state);
 static void setfocus(Client *c);
 static void setfullscreen(Client *c, int fullscreen);
 static void setlayout(const Arg *arg);
+static void setmastermon(const Arg *arg);
 static void setmfact(const Arg *arg);
 static void setup(void);
 static void seturgent(Client *c, int urg);
@@ -2008,6 +2009,12 @@ tag(const Arg *arg)
         focus(NULL);
         arrange(selmon);
     }
+}
+
+void
+setmastermon(const Arg *arg){
+    mastermon = selmon;
+    drawbars();
 }
 
 void
