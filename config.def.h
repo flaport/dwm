@@ -13,27 +13,31 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;     /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=11" };
-static const char dmenufont[]       = "monospace:size=11";
+static const char *fonts[]          = { "monospace:size=12" };
+
+/* alphas */
 static const unsigned int opaque = 255; /* alpha */
-static const unsigned int transparent = 200; /* alpha */
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
-static const char col_red[]         = "#ff0000";
-static const char col_green[]       = "#00ff00";
-static const char col_blue[]        = "#0000ff";
+static const unsigned int transparent = 0; /* alpha */
+static const unsigned int semi_transparent = 170; /* alpha */
+
+/* colors */
+static const char col_fg[]      = "#00ad9c";
+static const char col_bg[]      = "#fdf6e3";
+static const char col_black[]   = "#222222";
+static const char col_gray[]    = "#bbbbbb";
+static const char col_red[]     = "#ff0000";
+static const char col_green[]   = "#00ff00";
+static const char col_blue[]    = "#0000ff";
+
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_green  },
+	/*               fg         bg          border   */
+	[SchemeNorm] = { col_gray,  col_black,  col_black },
+	[SchemeSel]  = { col_bg,    col_fg,     col_green  },
 };
 static const unsigned int alphas[][3]      = {
-	/*               fg      bg             border     */
-	[SchemeNorm] = { opaque, transparent,   opaque },
-	[SchemeSel]  = { opaque, transparent,   opaque },
+	/*               fg      bg                 border     */
+	[SchemeNorm] = { opaque, semi_transparent,  transparent },
+	[SchemeSel]  = { opaque, opaque,            opaque },
 };
 
 /* tags */
