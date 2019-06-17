@@ -41,7 +41,7 @@ static const unsigned int alphas[][3]      = {
 };
 
 /* tags */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", NULL };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "I" }; /* last tag is invisible */
 
 /* monitor tags */
 static const char *montags[] = { "Z", "X", "C", "V"}; /* max 4 monitors */
@@ -109,9 +109,12 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY,                       XK_o,      winview,        {0} },
-	{ MODKEY|ShiftMask,             XK_O,      view,           {.ui = ~0 } },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_O,      view,           {.ui = 511 } }, /*  111111111 */
+	{ MODKEY,                       XK_0,      view,           {.ui = 511 } }, /*  111111111 */
+	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = 511 } }, /*  111111111 */
+	{ MODKEY,                       XK_grave,  view,           {.ui = 512 } }, /* 1000000000 */
+	{ MODKEY|ShiftMask,             XK_grave,  tag,            {.ui = 512 } }, /* 1000000000 */
+	{ MODKEY|ControlMask,           XK_grave,  toggleview,     {.ui = 512 } }, /* 1000000000 */
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
