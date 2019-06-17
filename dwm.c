@@ -488,13 +488,15 @@ buttonpress(XEvent *e)
 	}
 	if (ev->window == selmon->barwin) {
 		i = x = 0;
+        x += TEXTW(montags[m->num]);
+        x += TEXTW(" ");
 		do
 			x += TEXTW(tags[i]);
-		while (ev->x >= x && ++i < LENGTH(tags));
-		if (i < LENGTH(tags) + 2) {
+		while (ev->x >= x && ++i < LENGTH(tags)); /* assumes NULL in end of tags list */
+		if (i < LENGTH(tags) - 1) {
 			click = ClkTagBar;
-			arg.ui = 1 << (i-2);
-		} else if (ev->x < x + blw)
+			arg.ui = 1 << i;
+		} else if (ev->x < x + TEXTW(" ")/2) /* assumes NULL in end of tags list */
 			click = ClkLtSymbol;
 		else if (ev->x > selmon->ww - TEXTW(stext) - getsystraywidth())
 			click = ClkStatusText;
