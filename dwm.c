@@ -235,6 +235,7 @@ static void resizerequest(XEvent *e);
 static void restack(Monitor *m);
 static void run(void);
 static void runAutostart(void);
+static void clickstatus(char *text, unsigned int x);
 static void scan(void);
 static int sendevent(Window w, Atom proto, int m, long d0, long d1, long d2, long d3, long d4);
 static void sendmon(Client *c, Monitor *m);
@@ -499,7 +500,7 @@ buttonpress(XEvent *e)
 		} else if (ev->x < x + TEXTW(" ")/2) /* assumes NULL in end of tags list */
 			click = ClkLtSymbol;
 		else if (ev->x > selmon->ww - TEXTW(stext) - getsystraywidth())
-			click = ClkStatusText;
+            clickstatus(stext, (ev->x - (selmon->ww - TEXTW(stext) - getsystraywidth())));
 		else
 			click = ClkWinTitle;
 	} else if ((c = wintoclient(ev->window))) {
@@ -1704,9 +1705,50 @@ run(void)
 }
 
 void
-runAutostart(void) {
+runAutostart(void)
+{
 	system("cd ~/.config/dwm; ./autostart_blocking.sh");
 	system("cd ~/.config/dwm; ./autostart.sh &");
+}
+
+void
+notify(char *title, char *message)
+{
+    unsigned int lt, lm;
+    lt = strlen(title);
+    lm = strlen(message);
+    char command[lt+lm+20];
+
+    sprintf(command, "notify-send \"%s\" \"%s\"", title, message);
+    system(command);
+}
+
+void
+clickstatus(char *text, unsigned int x){
+    char c; /* single character string */
+    char textcpy[strlen(text)];
+    unsigned int i, j;
+    unsigned int textlen;
+    char command[512];
+
+    sprintf(textcpy, "%s", text);
+    textlen = strlen(textcpy);
+    j = 0;
+    for (i=0; i < textlen; i++){
+        c = textcpy[i];
+        textcpy[i] = 0;
+        if (c == '|'){
+            if (x <= TEXTW(textcpy)) {
+                break;
+            }
+            j++;
+        }
+        textcpy[i] = c;
+    }
+
+    sprintf(command, "cd ~/.config/dwm; ./status.sh %d 1", j);
+    system(command);
+    drawbars();
 }
 
 void
