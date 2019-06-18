@@ -214,6 +214,10 @@ static void incnmaster(const Arg *arg);
 static void keypress(XEvent *e);
 static int fake_signal(void);
 static void killclient(const Arg *arg);
+static void dwmlog(const char *text);
+static void dwmreadlog(char *text);
+static void logselmon(const Arg *arg);
+static void logmastermon(const Arg *arg);
 static void manage(Window w, XWindowAttributes *wa);
 static void mappingnotify(XEvent *e);
 static void maprequest(XEvent *e);
@@ -324,6 +328,15 @@ static int useargb = 0;
 static Visual *visual;
 static int depth;
 static Colormap cmap;
+
+/* signal definitions */
+/* signum must be greater than 0 */
+/* trigger signals using `xsetroot -name "fsignal:<signum>"` */
+static Signal signals[] = {
+	/* signum       function        argument    */
+	{ 1,            logselmon,      {0}         },
+	{ 2,            logmastermon,   {0}         },
+};
 
 /* configuration, allows nested code to access above variables */
 #include "config.h"
@@ -1281,6 +1294,43 @@ killclient(const Arg *arg)
 		XSetErrorHandler(xerror);
 		XUngrabServer(dpy);
 	}
+}
+
+void
+dwmlog(const char *text)
+{
+    FILE *file = fopen("/tmp/dwm", "w");
+    if (file == NULL)
+    {
+        printf("Error opening file!\n");
+        return;
+    }
+    fprintf(file, text);
+    fclose(file);
+}
+
+void
+dwmreadlog(char *text)
+{
+    FILE *file = fopen("/tmp/dwm", "r");
+    fgets(text, sizeof text, (FILE*)file);
+    fclose(file);
+}
+
+void
+logselmon(const Arg *arg)
+{
+    char text[2];
+    sprintf(text, "%u", selmon->num+1);
+    dwmlog(text);
+}
+
+void
+logmastermon(const Arg *arg)
+{
+    char text[2];
+    sprintf(text, "%u", mastermon->num+1);
+    dwmlog(text);
 }
 
 void
@@ -2760,13 +2810,36 @@ zoom(const Arg *arg)
 	pop(c);
 }
 
+void
+usage(void){
+  die("usage: dwm [-v] [--mastermon] [--selmon]");
+}
+
+
 int
 main(int argc, char *argv[])
 {
-	if (argc == 2 && !strcmp("-v", argv[1]))
+	if (argc == 2){
+      if (strcmp("-v", argv[1]) == 0)
 		die("dwm-"VERSION);
-	else if (argc != 1)
-		die("usage: dwm [-v]");
+      else if (strcmp("--selmon", argv[1]) == 0){
+        system("xsetroot -name 'fsignal:1'");
+        char text[2];
+        dwmreadlog(text);
+        die(text);
+      }
+      else if (strcmp("--mastermon", argv[1]) == 0){
+        system("xsetroot -name 'fsignal:2'");
+        char text[2];
+        dwmreadlog(text);
+        die(text);
+      }
+      else{
+          usage();
+      }
+    } else if (argc != 1){
+        usage();
+    }
 	if (!setlocale(LC_CTYPE, "") || !XSupportsLocale())
 		fputs("warning: no locale support\n", stderr);
 	if (!(dpy = XOpenDisplay(NULL)))
