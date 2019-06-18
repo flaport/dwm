@@ -239,6 +239,7 @@ static void resizerequest(XEvent *e);
 static void restack(Monitor *m);
 static void run(void);
 static void runAutostart(void);
+static void clickstatus(char *text, unsigned int x);
 static void scan(void);
 static int sendevent(Window w, Atom proto, int m, long d0, long d1, long d2, long d3, long d4);
 static void sendmon(Client *c, Monitor *m);
@@ -501,16 +502,18 @@ buttonpress(XEvent *e)
 	}
 	if (ev->window == selmon->barwin) {
 		i = x = 0;
+        x += TEXTW(montags[m->num]);
+        x += TEXTW(" ");
 		do
 			x += TEXTW(tags[i]);
-		while (ev->x >= x && ++i < LENGTH(tags));
-		if (i < LENGTH(tags) + 2) {
+		while (ev->x >= x && ++i < LENGTH(tags)); /* assumes NULL in end of tags list */
+		if (i < LENGTH(tags) - 1) {
 			click = ClkTagBar;
-			arg.ui = 1 << (i-2);
-		} else if (ev->x < x + blw)
+			arg.ui = 1 << i;
+		} else if (ev->x < x + TEXTW(" ")/2) /* assumes NULL in end of tags list */
 			click = ClkLtSymbol;
 		else if (ev->x > selmon->ww - TEXTW(stext) - getsystraywidth())
-			click = ClkStatusText;
+            clickstatus(stext, (ev->x - (selmon->ww - TEXTW(stext) - getsystraywidth())));
 		else
 			click = ClkWinTitle;
 	} else if ((c = wintoclient(ev->window))) {
@@ -898,7 +901,7 @@ drawbar(Monitor *m)
 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, " ", 0);
 
     if (m == mastermon){
-	for (i = 0; i < LENGTH(tags); i++) {
+	for (i = 0; i < LENGTH(tags) - 1; i++) { /* tag 9 is hidden */
 		w = TEXTW(tags[i]);
 		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
 		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
@@ -1752,9 +1755,50 @@ run(void)
 }
 
 void
-runAutostart(void) {
+runAutostart(void)
+{
 	system("cd ~/.config/dwm; ./autostart_blocking.sh");
 	system("cd ~/.config/dwm; ./autostart.sh &");
+}
+
+void
+notify(char *title, char *message)
+{
+    unsigned int lt, lm;
+    lt = strlen(title);
+    lm = strlen(message);
+    char command[lt+lm+20];
+
+    sprintf(command, "notify-send \"%s\" \"%s\"", title, message);
+    system(command);
+}
+
+void
+clickstatus(char *text, unsigned int x){
+    char c; /* single character string */
+    char textcpy[strlen(text)];
+    unsigned int i, j;
+    unsigned int textlen;
+    char command[512];
+
+    sprintf(textcpy, "%s", text);
+    textlen = strlen(textcpy);
+    j = 0;
+    for (i=0; i < textlen; i++){
+        c = textcpy[i];
+        textcpy[i] = 0;
+        if (c == '|'){
+            if (x <= TEXTW(textcpy)) {
+                break;
+            }
+            j++;
+        }
+        textcpy[i] = c;
+    }
+
+    sprintf(command, "cd ~/.config/dwm; ./status.sh %d 1", j);
+    system(command);
+    drawbars();
 }
 
 void
