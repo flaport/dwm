@@ -17,21 +17,23 @@ static const char *fonts[]          = { "monospace:size=11" };
 
 /* alphas */
 static const unsigned int opaque = 255; /* alpha */
-static const unsigned int transparent = 0; /* alpha */
+static const unsigned int transparent = 1; /* alpha */
 static const unsigned int semi_transparent = 170; /* alpha */
 
 /* colors */
-static const char col_fg[]      = "#00ad9c";
+static const char col_fg[]      = "#2aa198";// "#268bd2"; //"#2aa198";
 static const char col_bg[]      = "#fdf6e3";
-static const char col_black[]   = "#222222";
-static const char col_gray[]    = "#bbbbbb";
+static const char col_black[]   = "#32302f";
+static const char col_white[]   = "#ffffff";
+static const char col_gray[]    = "#aaaaaa";
+static const char col_magenta[] = "#d33682";
 static const char col_red[]     = "#ff0000";
 static const char col_green[]   = "#00ff00";
 static const char col_blue[]    = "#0000ff";
 
 static const char *colors[][3]      = {
 	/*               fg         bg          border   */
-	[SchemeNorm] = { col_gray,  col_black,  col_black },
+	[SchemeNorm] = { col_bg,    col_black,  col_gray },
 	[SchemeSel]  = { col_bg,    col_fg,     col_green  },
 };
 static const unsigned int alphas[][3]      = {
