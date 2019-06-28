@@ -1,43 +1,53 @@
 # dwm - dynamic window manager
-dwm is an extremely fast, small, and dynamic window manager for X.
+
+`dwm` is an extremely fast, small, and dynamic window manager for X.
 
 
 ## Requirements
-In order to build dwm you need the Xlib header files.
+In order to build `dwm` you need the `Xlib` header files.
 
 
 ## Installation
-Edit `config.def.mk` to match your local setup (dwm is installed into
-the /usr/local namespace by default).
-
-Afterwards enter the following command to build and install dwm (if
-necessary as root):
+Edit `config.def.mk` to match your local setup and configure `config.def.h` to your liking. Afterwards enter the following command to build and install dwm:
 
 ```
-    make clean install
+    sudo make clean install
 ```
 
-## Autostart and status bar
-Make sure the two shell scripts `dwm_autostart` and `dwm_status` are in your path to
-have a fully functional status bar
+The `dwm` executable will be installed in `/usr/local/bin/`
 
 
 ## Running dwm
-Add the following line to your .xinitrc to start dwm using startx:
+Add the following line to your `.xinitrc` to start dwm using `startx`:
 ```
     exec dwm
 ```
 
-In order to display status info in the bar, you can do something
-like this in your .xinitrc:
+## Status bar and autostart
+For the creation of a status bar, `dwm` expects two scripts to be available in the system path: `dwm_autostart` and `dwm_status`. 
+`dwm_status` handles how the status bar looks using `xsetroot`; `dwm_autostart` handles how often the status bar gets updated and which other programs get started after starting `dwm`. A minimal example for both might look as follows:
 
+#### `dwm_status:`
 ```
-    while xsetroot -name "`date` `uptime | sed 's/.*,//'`"
-    do
-    	sleep 1
-    done &amp;
-    exec dwm
+    xsetroot -name "flaport`s dwm fork"
 ```
+
+#### `dwm_autostart`:
+```
+    # start other programs after dwm has started:
+    sxhkd & # keyboard shortcut daemon started after dwm, so that dwm keyboard shortcut take precedence.
+    
+    # update status bar every 10 seconds
+    # note that the status bar can also be updated manually by calling `dwm_status`.
+    while true; do
+        dwm_status
+        sleep 10
+    done &
+```
+
+A more complete example is included in this repository: [dwm_status](dwm_status), [dwm_autostart](dwm_autostart). Note that
+this `dwm` fork also communicates mouse click events as arguments to `dwm_status`. Have a look at the included `dwm_status` script to see how this works.
+
 
 ## Patches
 The following patches were applied:
@@ -76,7 +86,3 @@ Two new kind of keybindings were added: [Control]+[1..n] to move focus to monito
 The behavior of the default keybindings to view/toggle/tag tags was
 changed in such a way that they always have effect on the tags of the
 master monitor.
-
-## Configuration
-The configuration of dwm is done by creating a custom config.h
-and (re)compiling the source code.
