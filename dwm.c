@@ -1769,7 +1769,9 @@ run(void)
 void
 runAutostart(void)
 {
-	system("cd ~/.scripts/dwm; ./autostart.sh &");
+    // make sure the script dwm_autostart is added 
+    // to the path BEFORE dwm is executed. 
+	system("dwm_autostart &");
 }
 
 void
