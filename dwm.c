@@ -1809,7 +1809,7 @@ clickstatus(char *text, unsigned int x){
         textcpy[i] = c;
     }
 
-    sprintf(command, "cd ~/.config/dwm; ./status.sh %d 1", j);
+    sprintf(command, "dwm_status %d 1", j);
     system(command);
     drawbars();
 }

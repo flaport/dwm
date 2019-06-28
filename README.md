@@ -17,6 +17,10 @@ necessary as root):
     make clean install
 ```
 
+## Autostart and status bar
+Make sure the two shell scripts `dwm_autostart` and `dwm_status` are in your path to
+have a fully functional status bar
+
 
 ## Running dwm
 Add the following line to your .xinitrc to start dwm using startx:
