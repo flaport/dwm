@@ -10,7 +10,7 @@
 
 # date ------
 dte(){
-    date +'%Y-%m-%d'
+    date +'📅 %Y-%m-%d'
 }
 dte1(){
     notify-send "Date: $(date)"
@@ -74,7 +74,8 @@ wtr(){
 }
 wtr1(){
     s=$(cat ~/.cache/weatherreport)
-    report=$(cat ~/.cache/weatherreport | sed 7q)
+    # cat out the weather report, show only the first 7 lines and remove all colors
+    report=$(cat ~/.cache/weatherreport | sed 7q | sed 's/\x1b\[[0-9;]*m//g')
     notify-send Weather "$report"
 }
 # -----------
