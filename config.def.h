@@ -54,9 +54,9 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ NULL,       NULL,      "Figure",    0,            1,           -1 },
-	{ NULL,      "float",     NULL,       0,            1,           -1 },
+	{ "Gimp",     NULL,       NULL,       0,            1,           -1 }, /* Gimp */
+	{ NULL,       NULL,      "Figure",    0,            1,           -1 }, /* Matplotlib */
+	{ NULL,      "float",     NULL,       0,            1,           -1 }, /* st -n float */
 };
 
 /* layout(s) */
@@ -67,12 +67,12 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 #include "fibonacci.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
+	{ "[]=",      tile }, /* tile */
  	{ "[@]",      fibonacci }, /* fibonacci */
 	{ "><>",      NULL }, /* floating */
-	{ "[]=",      tile }, /* tile */
 	{ "[D]",      deck }, /* deck */
 	{ "[M]",      monocle }, /* monocle */
-	{ NULL,       NULL },
+	{ NULL,       NULL }, /* Sentinel */
 };
 
 /* key definitions */
