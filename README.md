@@ -61,6 +61,7 @@ The following patches were applied:
 * [dwm-6.0-winview](https://dwm.suckless.org/patches/winview/)
 * [dwm-deck-6.0](https://dwm.suckless.org/patches/deck/)
 * [dwm-alpha-20180613-b69c870](https://dwm.suckless.org/patches/alpha/)
+* [dwm-restartsig-20180523-6.2](https://dwm.suckless.org/patches/restartsig/)
 
 ## Master Monitor patch
 The [mastermonitor patch](https://github.com/flaport/dwm/tree/dwm-mastermonitor-6.2) is a
