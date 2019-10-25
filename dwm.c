@@ -1055,12 +1055,7 @@ void
 absfocusmon(const Arg *arg)
 {
     Monitor *mon;
-    unsigned int num = 0;
-    unsigned int ui = arg->ui;
-    while (ui >>= 1){
-        num++;
-    }
-    mon = numtomon(num);
+    mon = numtomon(arg->ui);
 
     if (!mon || mon==selmon){
         return;
@@ -2156,15 +2151,10 @@ tagmon(const Arg *arg)
 void
 abstagmon(const Arg *arg)
 {
+    Monitor *mon;
 	if (!selmon->sel)
 		return;
-    Monitor *mon;
-    unsigned int num = 0;
-    unsigned int ui = arg->ui;
-    while (ui >>= 1){
-        num++;
-    }
-    mon = numtomon(num);
+    mon = numtomon(arg->ui);
     if (!mon || mon==selmon){
         return;
     }
