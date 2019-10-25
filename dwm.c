@@ -174,6 +174,7 @@ struct Systray {
 /* function declarations */
 static void absfocusmon(const Arg *arg);
 static void abstagmon(const Arg *arg);
+static void swapmon(const Arg *arg);
 static void applyrules(Client *c);
 static int applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact);
 static void arrange(Monitor *m);
@@ -2159,6 +2160,45 @@ abstagmon(const Arg *arg)
         return;
     }
 	sendmon(selmon->sel, mon);
+}
+
+void
+swapmon(const Arg *arg)
+{
+	if (!selmon->sel)
+		return;
+
+    Client *sel;
+    Monitor *mon1, *mon2;
+    Arg next = {.i = 1};
+
+    mon1 = selmon;
+    mon2 = numtomon(arg->ui);
+
+    while (mon1->sel->next)
+        focusstack(&next);
+    sel = mon1->sel;
+
+    while (mon1->sel){
+        while (mon1->sel->next)
+            focusstack(&next);
+        sendmon(mon1->sel, mon2);
+    }
+
+	selmon = mon2;
+	focus(sel);
+
+    while (mon2->sel){
+        while (mon2->sel->next){
+            focusstack(&next);
+        }
+        if (mon2->sel == sel)
+            break;
+        sendmon(mon2->sel, mon1);
+    }
+
+    selmon = mon1;
+    focus(NULL);
 }
 
 void
