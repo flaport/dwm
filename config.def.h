@@ -1,8 +1,5 @@
 /* See LICENSE file for copyright and license details. */
 
-/* master monitor */
-static const unsigned int MASTERMON  = 3;        /* master monitor [1-...] */
-
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int gappx     = 20;       /* gap pixel between windows */

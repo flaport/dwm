@@ -292,7 +292,6 @@ static void xinitvisual();
 static void zoom(const Arg *arg);
 
 /* variables */
-static const unsigned int MASTERMON;
 static Systray *systray =  NULL;
 static const char broken[] = "broken";
 static char stext[256];
@@ -2505,7 +2504,6 @@ updategeom(void)
 		int i, j, n, nn;
 		Client *c;
 		Monitor *m;
-        unsigned int mastermonnum;
 		XineramaScreenInfo *info = XineramaQueryScreens(dpy, &nn);
 		XineramaScreenInfo *unique = NULL;
 
@@ -2517,7 +2515,6 @@ updategeom(void)
 				memcpy(&unique[j++], &info[i], sizeof(XineramaScreenInfo));
 		XFree(info);
 		nn = j;
-		mastermonnum = (MASTERMON - 1)%nn;
 		if (n <= nn) { /* new monitors available */
 			for (i = 0; i < (nn - n); i++) {
 				for (m = mons; m && m->next; m = m->next);
@@ -2538,9 +2535,7 @@ updategeom(void)
 					m->mw = m->ww = unique[i].width;
 					m->mh = m->wh = unique[i].height;
 					updatebarpos(m);
-                    if (i == mastermonnum){
-                        mastermon = m;
-                    }
+                    mastermon=m;
 				}
 		} else { /* less monitors available nn < n */
 			for (i = nn; i < n; i++) {
