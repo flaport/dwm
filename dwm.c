@@ -249,6 +249,8 @@ static void setclientstate(Client *c, long state);
 static void setfocus(Client *c);
 static void setfullscreen(Client *c, int fullscreen);
 static void setlayout(const Arg *arg);
+static void switchtolastmon(const Arg *arg);
+static void setselmon(Monitor *m);
 static void setmastermon(Monitor *m);
 static void setmastermonitor(const Arg *arg);
 static void setmfact(const Arg *arg);
@@ -327,7 +329,7 @@ static Cur *cursor[CurLast];
 static Clr **scheme;
 static Display *dpy;
 static Drw *drw;
-static Monitor *mons, *selmon, *mastermon;
+static Monitor *mons, *selmon, *mastermon, *lastmon;
 static Window root, wmcheckwin;
 
 static int useargb = 0;
@@ -502,7 +504,7 @@ buttonpress(XEvent *e)
 	/* focus monitor if necessary */
 	if ((m = wintomon(ev->window)) && m != selmon) {
 		unfocus(selmon->sel, 1);
-		selmon = m;
+		setselmon(m);
 		focus(NULL);
 	}
 	if (ev->window == selmon->barwin) {
@@ -968,7 +970,7 @@ enternotify(XEvent *e)
 	m = c ? c->mon : wintomon(ev->window);
 	if (m != selmon) {
 		unfocus(selmon->sel, 1);
-		selmon = m;
+		setselmon(m);
 	} else if (!c || c == selmon->sel)
 		return;
 	focus(c);
@@ -996,7 +998,7 @@ focus(Client *c)
 		unfocus(selmon->sel, 0);
 	if (c) {
 		if (c->mon != selmon)
-			selmon = c->mon;
+			setselmon(c->mon);
 		if (c->isurgent)
 			seturgent(c, 0);
 		detachstack(c);
@@ -1032,7 +1034,7 @@ focusmon(const Arg *arg)
 	if ((m = dirtomon(arg->i)) == selmon)
 		return;
 	unfocus(selmon->sel, 0);
-	selmon = m;
+	setselmon(m);
 	focus(NULL);
 }
 
@@ -1063,7 +1065,7 @@ absfocusmon(const Arg *arg)
     }
 
 	unfocus(selmon->sel, 0);
-	selmon = mon;
+	setselmon(mon);
 	focus(NULL);
 }
 
@@ -1465,7 +1467,7 @@ motionnotify(XEvent *e)
 		return;
 	if ((m = recttomon(ev->x_root, ev->y_root, 1, 1)) != mon && mon) {
 		unfocus(selmon->sel, 1);
-		selmon = m;
+		setselmon(m);
 		focus(NULL);
 	}
 	mon = m;
@@ -1526,7 +1528,7 @@ movemouse(const Arg *arg)
 	XUngrabPointer(dpy, CurrentTime);
 	if ((m = recttomon(c->x, c->y, c->w, c->h)) != selmon) {
 		sendmon(c, m);
-		selmon = m;
+		setselmon(m);
 		focus(NULL);
 	}
 }
@@ -1712,7 +1714,7 @@ resizemouse(const Arg *arg)
 	while (XCheckMaskEvent(dpy, EnterWindowMask, &ev));
 	if ((m = recttomon(c->x, c->y, c->w, c->h)) != selmon) {
 		sendmon(c, m);
-		selmon = m;
+		setselmon(m);
 		focus(NULL);
 	}
 }
@@ -2141,6 +2143,25 @@ setmastermonitor(const Arg *arg) {
 }
 
 void
+switchtolastmon(const Arg *arg)
+{
+    unfocus(selmon->sel, 1);
+    setselmon(lastmon);
+    if (selmon->sel){
+        focus(selmon->sel);
+    } else if (selmon->clients) {
+        focus(selmon->clients);
+    }
+}
+
+void
+setselmon(Monitor *m)
+{
+    lastmon = selmon;
+    selmon = m;
+}
+
+void
 setmastermon(Monitor *m)
 {
 
@@ -2394,7 +2415,7 @@ toggleview(const Arg *arg)
 	unsigned int newtagset;
 
     if (selmon != mastermon){
-        selmon = mastermon;
+        setselmon(mastermon);
     }
 
     newtagset = selmon->tagset[selmon->seltags] ^ (arg->ui & TAGMASK);
@@ -2576,7 +2597,7 @@ updategeom(void)
 					attachstack(c);
 				}
 				if (m == selmon)
-					selmon = mons;
+					setselmon(mons);
 				cleanupmon(m);
 			}
 		}
@@ -2594,8 +2615,8 @@ updategeom(void)
 		}
 	}
 	if (dirty) {
-		selmon = mons;
-		selmon = wintomon(root);
+		setselmon(mons);
+		setselmon(wintomon(root));
 	}
 	return dirty;
 }
@@ -2828,7 +2849,7 @@ view(const Arg *arg)
 	if (selmon == mastermon && ((arg->ui & TAGMASK) == selmon->tagset[selmon->seltags]))
 		return;
     if (selmon != mastermon){
-        selmon = mastermon;
+        setselmon(mastermon);
     }
 	selmon->seltags ^= 1; /* toggle sel tagset */
 	if (arg->ui & TAGMASK)
