@@ -2145,6 +2145,15 @@ setmastermonitor(const Arg *arg) {
 void
 switchtolastmon(const Arg *arg)
 {
+    if (!lastmon || lastmon == selmon) {
+        if (lastmon != mastermon && mastermon != selmon){
+            lastmon = mastermon;
+        } else if (lastmon != mons && mons != selmon){
+            lastmon = mons;
+        } else {
+            return ;
+        }
+    } 
     unfocus(selmon->sel, 1);
     setselmon(lastmon);
     if (selmon->sel){
@@ -2157,8 +2166,15 @@ switchtolastmon(const Arg *arg)
 void
 setselmon(Monitor *m)
 {
-    lastmon = selmon;
+    if (selmon != lastmon)
+        lastmon = selmon;
     selmon = m;
+
+    if (selmon->sel){
+        focus(selmon->sel);
+    } else if (selmon->clients){
+        focus(selmon->clients);
+    }
 }
 
 void
@@ -2248,12 +2264,28 @@ void
 swapmonitor(const Arg *arg)
 {
     Monitor *m;
+
+    if (arg->i == 0) { 
+        m = selmon;
+        if (mastermon != selmon){
+            swapmon(selmon, mastermon);
+        } else {
+            swapmon(lastmon, mastermon);
+        }
+        setselmon(m);
+        return;
+    }
+
     m = numtomon(arg->ui);
 
-    if (!m)
+    if (!m){
+        swapmon(selmon, mastermon);
+        setselmon(m);
         return;
+    }
 
     swapmon(selmon, m);
+    setselmon(m);
 }
 
 void
