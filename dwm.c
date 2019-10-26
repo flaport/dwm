@@ -174,7 +174,8 @@ struct Systray {
 /* function declarations */
 static void absfocusmon(const Arg *arg);
 static void abstagmon(const Arg *arg);
-static void swapmon(const Arg *arg);
+static void swapmon();
+static void swapmonitor(const Arg *arg);
 static void applyrules(Client *c);
 static int applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact);
 static void arrange(Monitor *m);
@@ -2196,6 +2197,7 @@ setmastermon(Monitor *m)
         focus(c1);
         arrange(c1->mon);
     }
+    // swapmon(mastermon, m);
     mastermon = m;
     drawbars();
 }
@@ -2222,37 +2224,29 @@ abstagmon(const Arg *arg)
 }
 
 void
-swapmon(const Arg *arg)
+swapmonitor(const Arg *arg)
 {
-    Client *c0, *c1, *c;
-    unsigned int n, p, N;
     Monitor *m;
-
     m = numtomon(arg->ui);
 
-    if (!m || selmon == m)
+    if (!m)
         return;
 
-    c0 = selmon->clients;
-    c1 = m->clients;
-    unfocus(c0, 1);
+    swapmon(selmon, m);
+}
 
-    if (c0){
-        for (N=1, c=c0; c->next; c=c->next, N++);
-        for (n=N; n>0; n--){
-            for (p=1, c=c0; p<n; p++, c=c->next);
-            if ISVISIBLE(c){
-                detach(c);
-                detachstack(c);
-                c->mon = m;
-                c->tags = m->tagset[m->seltags]; /* assign tags of target monitor */
-                attach(c);
-                attachstack(c);
-                focus(NULL);
-                arrange(NULL);
-            }
-        }
-    }
+void
+swapmon(Monitor *m1, Monitor *m2)
+{
+    Client *c1, *c2, *c;
+    unsigned int n, p, N;
+
+    if (m1 == m2)
+        return;
+
+    c1 = m1->clients;
+    c2 = m2->clients;
+    unfocus(c1, 1);
 
     if (c1){
         for (N=1, c=c1; c->next; c=c->next, N++);
@@ -2261,8 +2255,8 @@ swapmon(const Arg *arg)
             if ISVISIBLE(c){
                 detach(c);
                 detachstack(c);
-                c->mon = selmon;
-                c->tags = selmon->tagset[selmon->seltags]; /* assign tags of target monitor */
+                c->mon = m2;
+                c->tags = m2->tagset[m2->seltags]; /* assign tags of target monitor */
                 attach(c);
                 attachstack(c);
                 focus(NULL);
@@ -2271,11 +2265,28 @@ swapmon(const Arg *arg)
         }
     }
 
-    if (c1){
-        if (c0)
-            unfocus(c0, 1);
-        focus(c1);
-        arrange(c1->mon);
+    if (c2){
+        for (N=1, c=c2; c->next; c=c->next, N++);
+        for (n=N; n>0; n--){
+            for (p=1, c=c2; p<n; p++, c=c->next);
+            if ISVISIBLE(c){
+                detach(c);
+                detachstack(c);
+                c->mon = m1;
+                c->tags = m1->tagset[m1->seltags]; /* assign tags of target monitor */
+                attach(c);
+                attachstack(c);
+                focus(NULL);
+                arrange(NULL);
+            }
+        }
+    }
+
+    if (c2){
+        if (c1)
+            unfocus(c1, 1);
+        focus(c2);
+        arrange(c2->mon);
     } 
 }
 

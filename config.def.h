@@ -82,7 +82,7 @@ static const Layout layouts[] = {
 #define MONKEYS(KEY,TAG) \
 	{ MODKEY,                  KEY,      absfocusmon,    {.ui = TAG} }, \
 	{ MODKEY|ShiftMask,        KEY,      abstagmon,      {.ui = TAG} }, \
-	{ MODKEY|ControlMask,      KEY,      swapmon,        {.ui = TAG} },
+	{ MODKEY|ControlMask,      KEY,      swapmonitor,    {.ui = TAG} },
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
