@@ -248,7 +248,9 @@ static void setclientstate(Client *c, long state);
 static void setfocus(Client *c);
 static void setfullscreen(Client *c, int fullscreen);
 static void setlayout(const Arg *arg);
-static void setmastermon(const Arg *arg);
+static void setmastermon(Monitor *m);
+static void setselmon(Monitor *m);
+static void setmastermonitor(const Arg *arg);
 static void setmfact(const Arg *arg);
 static void setup(void);
 static void seturgent(Client *c, int urg);
@@ -507,7 +509,7 @@ buttonpress(XEvent *e)
 		i = x = 0;
         x += TEXTW(montags[m->num]);
         if (ev->x < x){
-            setmastermon(&arg);
+            setmastermon(selmon);
             return;
         }
 
@@ -2134,15 +2136,23 @@ tag(const Arg *arg)
 }
 
 void
-setmastermon(const Arg *arg)
+setmastermonitor(const Arg *arg) {
+    setmastermon(selmon);
+}
+
+void
+setmastermon(Monitor *m)
 {
-    if (selmon == mastermon)
+    if (m == mastermon)
         return;
 
     Client *c0, *c1, *c;
     unsigned int n, p, N;
+    unsigned int mastertagset;
 
-    c0 = selmon->clients;
+    mastertagset = mastermon->tagset[mastermon->seltags];
+
+    c0 = m->clients;
     c1 = mastermon->clients;
     unfocus(c0, 1);
 
@@ -2153,6 +2163,7 @@ setmastermon(const Arg *arg)
             detach(c);
             detachstack(c);
             c->mon = mastermon;
+            c->tags = 1;
             attach(c);
             attachstack(c);
             focus(NULL);
@@ -2166,7 +2177,7 @@ setmastermon(const Arg *arg)
             for (p=1, c=c1; p<n; p++, c=c->next);
             detach(c);
             detachstack(c);
-            c->mon = selmon;
+            c->mon = m;
             attach(c);
             attachstack(c);
             focus(NULL);
@@ -2174,13 +2185,17 @@ setmastermon(const Arg *arg)
         }
     }
 
+    m->tagset[m->seltags] = mastertagset;
+    mastermon->tagset[mastermon->seltags] = 1;
+    arrange(m);
+    arrange(mastermon);
     if (c1){
         if (c0)
             unfocus(c0, 1);
         focus(c1);
         arrange(c1->mon);
     }
-    mastermon = selmon;
+    mastermon = m;
     drawbars();
 }
 
