@@ -63,7 +63,10 @@ click on a tag label adds/removes that tag to/from the focused window.
 Move focus to monitor with the same label.
 .TP
 .B Super\-Shift\-[z,x,c,v]
-Move focused window to monitor with with the same label.
+Move focused window to monitor with with the same label (z, x, c, v).
+.TP
+.B Super\-Control\-[z,x,c,v]
+Swap all visible windows between the currently active monitor and the selected monitor (z, x, c, v).
 .TP
 .B Super\-,
 Focus previous screen, if any.
@@ -79,9 +82,6 @@ Send focused window to next screen, if any.
 .TP
 .B Super\-b
 Toggles bar on and off.
-.TP
-.B Super\-n
-Make current monitor the new master monitor.
 .TP
 .B Super\-f
 Sets full screen (monocle) layout.
@@ -124,6 +124,9 @@ Zooms/cycles focused window to/from master area (tiled layouts only).
 .TP
 .B Super\-Shift\-space
 Toggle focused window between tiled and floating state.
+.TP
+.B Super\-Control\-Space
+Make current monitor the new master monitor, i.e. the monitor with more than one tag.
 .TP
 .B Super\-Tab
 Toggles to the previously selected tags.

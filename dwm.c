@@ -508,8 +508,7 @@ buttonpress(XEvent *e)
 		i = x = 0;
         x += TEXTW(montags[m->num]);
         if (ev->x < x){
-            mastermon=selmon;
-            drawbars();
+            setmastermon(&arg);
             return;
         }
 
@@ -2141,10 +2140,9 @@ setmastermon(const Arg *arg)
     if (selmon == mastermon)
         return;
 
-    Client *c0, *c1, *c, *sel;
+    Client *c0, *c1, *c;
     unsigned int n, p, N;
 
-    sel = selmon->sel;
     c0 = selmon->clients;
     c1 = mastermon->clients;
     unfocus(c0, 1);
@@ -2178,14 +2176,10 @@ setmastermon(const Arg *arg)
     }
 
     if (c1){
+        if (c0)
+            unfocus(c0, 1);
         focus(c1);
         arrange(c1->mon);
-    } else if (c0) {
-        focus(c0);
-        arrange(c0->mon);
-    } else if (sel) {
-        focus(sel);
-        arrange(sel->mon);
     }
     mastermon = selmon;
     drawbars();
@@ -2215,7 +2209,7 @@ abstagmon(const Arg *arg)
 void
 swapmon(const Arg *arg)
 {
-    Client *c0, *c1, *c, *sel;
+    Client *c0, *c1, *c;
     unsigned int n, p, N;
     Monitor *m;
 
@@ -2224,7 +2218,6 @@ swapmon(const Arg *arg)
     if (!m || selmon == m)
         return;
 
-    sel = selmon->sel;
     c0 = selmon->clients;
     c1 = m->clients;
     unfocus(c0, 1);
@@ -2264,15 +2257,11 @@ swapmon(const Arg *arg)
     }
 
     if (c1){
+        if (c0)
+            unfocus(c0, 1);
         focus(c1);
         arrange(c1->mon);
-    } else if (c0) {
-        focus(c0);
-        arrange(c0->mon);
-    } else if (sel) {
-        focus(sel);
-        arrange(sel->mon);
-    }
+    } 
 }
 
 void
