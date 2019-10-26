@@ -249,7 +249,6 @@ static void setfocus(Client *c);
 static void setfullscreen(Client *c, int fullscreen);
 static void setlayout(const Arg *arg);
 static void setmastermon(Monitor *m);
-static void setselmon(Monitor *m);
 static void setmastermonitor(const Arg *arg);
 static void setmfact(const Arg *arg);
 static void setup(void);
@@ -2143,8 +2142,10 @@ setmastermonitor(const Arg *arg) {
 void
 setmastermon(Monitor *m)
 {
-    if (m == mastermon)
-        return;
+
+    if (m == mastermon){
+        m = m->next ? m->next : mons;
+    }
 
     Client *c0, *c1, *c;
     unsigned int n, p, N;
