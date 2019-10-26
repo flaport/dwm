@@ -2136,7 +2136,57 @@ tag(const Arg *arg)
 }
 
 void
-setmastermon(const Arg *arg){
+setmastermon(const Arg *arg)
+{
+    if (selmon == mastermon)
+        return;
+
+    Client *c0, *c1, *c, *sel;
+    unsigned int n, p, N;
+
+    sel = selmon->sel;
+    c0 = selmon->clients;
+    c1 = mastermon->clients;
+    unfocus(c0, 1);
+
+    if (c0){
+        for (N=1, c=c0; c->next; c=c->next, N++);
+        for (n=N; n>0; n--){
+            for (p=1, c=c0; p<n; p++, c=c->next);
+            detach(c);
+            detachstack(c);
+            c->mon = mastermon;
+            attach(c);
+            attachstack(c);
+            focus(NULL);
+            arrange(NULL);
+        }
+    }
+
+    if (c1){
+        for (N=1, c=c1; c->next; c=c->next, N++);
+        for (n=N; n>0; n--){
+            for (p=1, c=c1; p<n; p++, c=c->next);
+            detach(c);
+            detachstack(c);
+            c->mon = selmon;
+            attach(c);
+            attachstack(c);
+            focus(NULL);
+            arrange(NULL);
+        }
+    }
+
+    if (c1){
+        focus(c1);
+        arrange(c1->mon);
+    } else if (c0) {
+        focus(c0);
+        arrange(c0->mon);
+    } else if (sel) {
+        focus(sel);
+        arrange(sel->mon);
+    }
     mastermon = selmon;
     drawbars();
 }
@@ -2165,40 +2215,64 @@ abstagmon(const Arg *arg)
 void
 swapmon(const Arg *arg)
 {
-	if (!selmon->sel)
-		return;
+    Client *c0, *c1, *c, *sel;
+    unsigned int n, p, N;
+    Monitor *m;
 
-    Client *sel;
-    Monitor *mon1, *mon2;
-    Arg next = {.i = 1};
+    m = numtomon(arg->ui);
 
-    mon1 = selmon;
-    mon2 = numtomon(arg->ui);
+    if (!m || selmon == m)
+        return;
 
-    while (mon1->sel->next)
-        focusstack(&next);
-    sel = mon1->sel;
+    sel = selmon->sel;
+    c0 = selmon->clients;
+    c1 = m->clients;
+    unfocus(c0, 1);
 
-    while (mon1->sel){
-        while (mon1->sel->next)
-            focusstack(&next);
-        sendmon(mon1->sel, mon2);
-    }
-
-	selmon = mon2;
-	focus(sel);
-
-    while (mon2->sel){
-        while (mon2->sel->next){
-            focusstack(&next);
+    if (c0){
+        for (N=1, c=c0; c->next; c=c->next, N++);
+        for (n=N; n>0; n--){
+            for (p=1, c=c0; p<n; p++, c=c->next);
+            if ISVISIBLE(c){
+                detach(c);
+                detachstack(c);
+                c->mon = m;
+                c->tags = m->tagset[m->seltags]; /* assign tags of target monitor */
+                attach(c);
+                attachstack(c);
+                focus(NULL);
+                arrange(NULL);
+            }
         }
-        if (mon2->sel == sel)
-            break;
-        sendmon(mon2->sel, mon1);
     }
 
-    selmon = mon1;
-    focus(NULL);
+    if (c1){
+        for (N=1, c=c1; c->next; c=c->next, N++);
+        for (n=N; n>0; n--){
+            for (p=1, c=c1; p<n; p++, c=c->next);
+            if ISVISIBLE(c){
+                detach(c);
+                detachstack(c);
+                c->mon = selmon;
+                c->tags = selmon->tagset[selmon->seltags]; /* assign tags of target monitor */
+                attach(c);
+                attachstack(c);
+                focus(NULL);
+                arrange(NULL);
+            }
+        }
+    }
+
+    if (c1){
+        focus(c1);
+        arrange(c1->mon);
+    } else if (c0) {
+        focus(c0);
+        arrange(c0->mon);
+    } else if (sel) {
+        focus(sel);
+        arrange(sel->mon);
+    }
 }
 
 void
