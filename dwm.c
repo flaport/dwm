@@ -241,7 +241,7 @@ static void resizerequest(XEvent *e);
 static void restack(Monitor *m);
 static void run(void);
 static void runAutostart(void);
-static void clickstatus(char *text, unsigned int x);
+static void clickstatus(char *text, unsigned int x, unsigned int btn);
 static void scan(void);
 static int sendevent(Window w, Atom proto, int m, long d0, long d1, long d2, long d3, long d4);
 static void sendmon(Client *c, Monitor *m);
@@ -511,7 +511,10 @@ buttonpress(XEvent *e)
 		i = x = 0;
         x += TEXTW(montags[m->num]);
         if (ev->x < x){
-            setmastermon(selmon);
+            if (ev->button == 1)
+                setmastermon(selmon);
+            if (ev->button == 3)
+                swapmon(selmon, lastmon);
             return;
         }
 
@@ -531,7 +534,7 @@ buttonpress(XEvent *e)
 		} else if (ev->x < x + TEXTW(selmon->ltsymbol)) 
 			click = ClkLtSymbol;
 		else if (ev->x > selmon->ww - TEXTW(stext) - getsystraywidth())
-            clickstatus(stext, (ev->x - (selmon->ww - TEXTW(stext) - getsystraywidth())));
+            clickstatus(stext, (ev->x - (selmon->ww - TEXTW(stext) - getsystraywidth())), ev->button);
 		else
 			click = ClkWinTitle;
 	} else if ((c = wintoclient(ev->window))) {
@@ -1789,7 +1792,7 @@ notify(char *title, char *message)
 }
 
 void
-clickstatus(char *text, unsigned int x){
+clickstatus(char *text, unsigned int x, unsigned int btn){
     char c; /* single character string */
     char textcpy[strlen(text)];
     unsigned int i, j;
@@ -1811,7 +1814,7 @@ clickstatus(char *text, unsigned int x){
         textcpy[i] = c;
     }
 
-    sprintf(command, "dwm_status %d 1", j);
+    sprintf(command, "dwm_status %d %d", j, btn);
     system(command);
     drawbars();
 }
@@ -2181,6 +2184,16 @@ void
 setmastermon(Monitor *m)
 {
 
+    Monitor *mon;
+    
+    for (mon=mons; (mon && mon!=mastermon) ; mon=mon->next);
+
+    if (mon != mastermon){
+        mastermon = m;
+        drawbars();
+        return;
+    }
+
     if (m == mastermon){
         m = m->next ? m->next : mons;
     }
@@ -2269,8 +2282,10 @@ swapmonitor(const Arg *arg)
         m = selmon;
         if (mastermon != selmon){
             swapmon(selmon, mastermon);
-        } else {
+        } else if (mastermon != lastmon) {
             swapmon(lastmon, mastermon);
+        } else {
+            swapmon(lastmon, selmon);
         }
         setselmon(m);
         return;
@@ -2291,11 +2306,11 @@ swapmonitor(const Arg *arg)
 void
 swapmon(Monitor *m1, Monitor *m2)
 {
+    if (!m1 || !m2 || m1 == m2)
+        return;
+
     Client *c1, *c2, *c;
     unsigned int n, p, N;
-
-    if (m1 == m2)
-        return;
 
     c1 = m1->clients;
     c2 = m2->clients;
