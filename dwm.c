@@ -2149,13 +2149,12 @@ void
 switchtolastmon(const Arg *arg)
 {
     if (!lastmon || lastmon == selmon) {
-        if (lastmon != mastermon && mastermon != selmon){
-            lastmon = mastermon;
-        } else if (lastmon != mons && mons != selmon){
-            lastmon = mons;
-        } else {
-            return ;
+        for (lastmon=mons; (lastmon && lastmon!=mastermon) ; lastmon=lastmon->next);
+        if (!lastmon || lastmon == selmon){
+            for (lastmon=mons; lastmon==selmon; lastmon=lastmon->next);
         }
+        if (lastmon == selmon)
+            return;
     } 
     unfocus(selmon->sel, 1);
     setselmon(lastmon);
@@ -2276,31 +2275,29 @@ abstagmon(const Arg *arg)
 void
 swapmonitor(const Arg *arg)
 {
+    Client *c;
     Monitor *m;
 
     if (arg->i == 0) { 
-        m = selmon;
-        if (mastermon != selmon){
-            swapmon(selmon, mastermon);
-        } else if (mastermon != lastmon) {
-            swapmon(lastmon, mastermon);
-        } else {
-            swapmon(lastmon, selmon);
+        m = lastmon;
+        if (!m || m == selmon) {
+            for (m=mons; (m && m!=mastermon) ; m=m->next);
+            if (!m || m == selmon){
+                for (m=mons; m==selmon; m=m->next);
+            }
+            if (m == selmon)
+                return;
         }
-        setselmon(m);
-        return;
+    } else {
+        m = numtomon(arg->ui);
     }
-
-    m = numtomon(arg->ui);
-
-    if (!m){
-        swapmon(selmon, mastermon);
-        setselmon(m);
-        return;
-    }
-
+    c = m->clients;
+    unfocus(m->sel, 1);
+    unfocus(selmon->sel, 1);
     swapmon(selmon, m);
-    setselmon(m);
+    arrange(m);
+    arrange(selmon);
+    focus(c);
 }
 
 void
