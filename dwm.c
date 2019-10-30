@@ -2172,6 +2172,13 @@ setselmon(Monitor *m)
         lastmon = selmon;
     selmon = m;
 
+    Monitor *mon;
+    for (mon=mons; (mon && mon!=mastermon) ; mon=mon->next);
+    if (mon != mastermon){
+        mastermon = selmon;
+        drawbars();
+    }
+
     if (selmon->sel){
         focus(selmon->sel);
     } else if (selmon->clients){
