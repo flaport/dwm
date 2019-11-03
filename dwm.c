@@ -2148,6 +2148,8 @@ setmastermonitor(const Arg *arg) {
 void
 switchtolastmon(const Arg *arg)
 {
+    if (!mons->next)
+        return ;
     if (!lastmon || lastmon == selmon) {
         for (lastmon=mons; (lastmon && lastmon!=mastermon) ; lastmon=lastmon->next);
         if (!lastmon || lastmon == selmon){
@@ -2282,6 +2284,9 @@ abstagmon(const Arg *arg)
 void
 swapmonitor(const Arg *arg)
 {
+    if (!mons->next)
+        return;
+
     Client *c;
     Monitor *m;
 
