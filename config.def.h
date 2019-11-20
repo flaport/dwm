@@ -31,7 +31,7 @@ static const char col_blue[]    = "#0000ff";
 static const char *colors[][3]      = {
 	/*               fg         bg          border   */
 	[SchemeNorm] = { col_bg,    col_black,  col_gray },
-	[SchemeSel]  = { col_bg,    col_fg,     col_green  },
+	[SchemeSel]  = { col_bg,    col_fg,     col_fg  },
 };
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg                 border     */
