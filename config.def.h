@@ -50,11 +50,14 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 }, /* Gimp */
-	{ "Conky",    NULL,       NULL,       0,            1,           -1 }, /* Conky */
-	{ NULL,       NULL,      "Figure",    0,            1,           -1 }, /* Matplotlib */
-	{ NULL,      "float",     NULL,       0,            1,           -1 }, /* st -n float */
+	/* class            instance    title       tags mask     isfloating   monitor */
+	{ "Gimp",           NULL,       NULL,       0,            1,           -1 }, /* Gimp */
+	{ "Conky",          NULL,       NULL,       0,            1,           -1 }, /* Conky */
+	{ "Pavucontrol",    NULL,       NULL,       0,            1,           -1 }, /* Pavucontrol */
+	{ "Blueman",        NULL,       NULL,       0,            1,           -1 }, /* Blueman */
+	{ "Arandr",         NULL,       NULL,       0,            1,           -1 }, /* Arandr */
+	{ NULL,             NULL,       "Figure",   0,            1,           -1 }, /* Matplotlib */
+	{ NULL,             "float",    NULL,       0,            1,           -1 }, /* st -n float */
 };
 
 /* layout(s) */
