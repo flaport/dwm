@@ -15,28 +15,31 @@ static const char *fonts[]          = { "monospace:size=11" };
 /* alphas */
 static const unsigned int opaque = 255; /* alpha */
 static const unsigned int transparent = 1; /* alpha */
-static const unsigned int semi_transparent = 170; /* alpha */
+static const unsigned int semi_transparent = 150; /* alpha */
 
 /* colors */
-static const char col_fg[]      = "#2aa198";// "#268bd2"; //"#2aa198";
-static const char col_bg[]      = "#fdf6e3";
-static const char col_black[]   = "#32302f";
-static const char col_white[]   = "#ffffff";
-static const char col_gray[]    = "#aaaaaa";
-static const char col_magenta[] = "#d33682";
-static const char col_red[]     = "#ff0000";
-static const char col_green[]   = "#00ff00";
-static const char col_blue[]    = "#0000ff";
+char col_bg[]      = "#fdf6e3";
+char col_black[]   = "#32302f";
+char col_red[]     = "#ff0000";
+char col_green[]   = "#00ff00";
+char col_yellow[]  = "#ffff00";
+char col_blue[]    = "#0000ff";
+char col_magenta[] = "#ff00ff";
+char col_cyan[]    = "#00ffff";
+char col_gray[]    = "#aaaaaa";
+char col_white[]   = "#ffffff";
+char col_fg[]      = "#2aa198";// "#268bd2"; //"#2aa198";
 
-static const char *colors[][3]      = {
-	/*               fg         bg          border   */
-	[SchemeNorm] = { col_bg,    col_black,  col_gray },
-	[SchemeSel]  = { col_bg,    col_fg,     col_fg  },
+char *colors[][3]      = {
+	/*               fg         bg              border   */
+	[SchemeNorm] = { "#FFFFFF",    "#000000",     col_black },
+	[SchemeSel]  = { "#FFFFFF",    col_cyan,      col_cyan  },
 };
+
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg                 border     */
-	[SchemeNorm] = { opaque, semi_transparent,  transparent },
-	[SchemeSel]  = { opaque, opaque,            opaque },
+	[SchemeNorm] = { opaque, 50,  transparent },
+	[SchemeSel]  = { opaque, opaque,  opaque },
 };
 
 /* tags */
@@ -123,6 +126,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_grave,  view,           {.ui = 512 } }, /* 1000000000 */
 	{ MODKEY|ShiftMask,             XK_grave,  tag,            {.ui = 512 } }, /* 1000000000 */
 	{ MODKEY|ControlMask,           XK_grave,  toggleview,     {.ui = 512 } }, /* 1000000000 */
+	{ MODKEY|ShiftMask,             XK_d,      xrdb,           {.v = NULL } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -156,3 +160,12 @@ static Button buttons[] = {
 };
 
 
+/* signal definitions */
+/* signum must be greater than 0 */
+/* trigger signals using `xsetroot -name "fsignal:<signum>"` */
+static Signal signals[] = {
+	/* signum       function        argument    */
+	{ 0,            logselmon,      {0}         },
+	{ 0,            logmastermon,   {0}         },
+	{ 1,            xrdb,           {.v = NULL} },
+};
