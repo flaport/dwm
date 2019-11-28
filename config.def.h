@@ -33,20 +33,24 @@ char col_fg[]      = "#2aa198";// "#268bd2"; //"#2aa198";
 char *colors[][3]      = {
 	/*               fg         bg              border   */
 	[SchemeNorm] = { "#FFFFFF",    "#000000",     col_black },
-	[SchemeSel]  = { "#FFFFFF",    col_cyan,      col_cyan  },
+	[SchemeSel]  = {  col_cyan,    "#000000",      col_cyan  },
+	[SchemeSelTag] = { col_cyan,    "#000000",     col_black },
 };
 
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg                 border     */
 	[SchemeNorm] = { opaque, 50,  transparent },
-	[SchemeSel]  = { opaque, opaque,  opaque },
+	[SchemeSel]  = { opaque, 50,  opaque },
+	[SchemeSelTag] = { opaque, 50,  transparent },
 };
 
 /* tags */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "I" }; /* last tag is invisible */
+
+static const char *tags[] = { "", "", "", "", "", "", "", "", "", "I" }; /* last tag is invisible */
+static const char *seltags[] = { "", "", "", "", "", "", "", "", "", "I" }; /* last tag is invisible */
 
 /* monitor tags */
-static const char *montags[] = { "Z", "X", "C", "V"}; /* max 4 monitors */
+static const char *montags[] = { "", "", "", ""}; /* keyboard: z, x, c, v */
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -71,11 +75,11 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 #include "fibonacci.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile }, /* tile */
- 	{ "[@]",      fibonacci }, /* fibonacci */
-	{ "><>",      NULL }, /* floating */
-	{ "[D]",      deck }, /* deck */
-	{ "[M]",      monocle }, /* monocle */
+	{ "",      tile }, /* tile */
+ 	{ "",      fibonacci }, /* fibonacci */
+	{ "",      NULL }, /* floating */
+	{ "",      deck }, /* deck */
+	{ "",      monocle }, /* monocle */
 	{ NULL,       NULL }, /* Sentinel */
 };
 
