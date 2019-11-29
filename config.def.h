@@ -32,9 +32,9 @@ char col_fg[]      = "#2aa198";// "#268bd2"; //"#2aa198";
 
 char *colors[][3]      = {
 	/*               fg         bg              border   */
-	[SchemeNorm] = { "#dddddd",    "#000000",     col_black },
-	[SchemeSel]  = {  col_cyan,    "#000000",      col_cyan  },
-	[SchemeSelTag] = { col_cyan,    "#000000",     col_black },
+	[SchemeNorm] = { "#dddddd",    "#000000",     "#000000" },
+	[SchemeSel]  = {  col_yellow,    "#000000",      col_yellow  },
+	[SchemeSelTag] = { col_yellow,    "#000000",     "#000000" },
 };
 
 static const unsigned int alphas[][3]      = {
