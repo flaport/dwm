@@ -1864,7 +1864,8 @@ clickstatus(char *text, unsigned int x, unsigned int btn){
         textcpy[i] = c;
     }
 
-    sprintf(command, "dwm_status %d %d", j, btn);
+    sprintf(command, "dwm_status %d %d &", j, btn);
+    dwmlog(command);
     system(command);
     drawbars();
 }

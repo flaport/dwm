@@ -32,7 +32,7 @@ char col_fg[]      = "#2aa198";// "#268bd2"; //"#2aa198";
 
 char *colors[][3]      = {
 	/*               fg         bg              border   */
-	[SchemeNorm] = { "#FFFFFF",    "#000000",     col_black },
+	[SchemeNorm] = { col_fg,    "#000000",     col_black },
 	[SchemeSel]  = {  col_cyan,    "#000000",      col_cyan  },
 	[SchemeSelTag] = { col_cyan,    "#000000",     col_black },
 };
