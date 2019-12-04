@@ -47,8 +47,8 @@ static const unsigned int alphas[][3]      = {
 
 /* tags */
 
-static const char *tags[] = { "", "", "", "", "", "", "", "", "", "I" }; /* last tag is invisible */
-static const char *seltags[] = { "", "", "", "", "", "", "", "", "", "I" }; /* last tag is invisible */
+static const char *tags[] = { "", "", "", "", "", "", "", "", "", "", "I" }; /* last two tags:  : always visible, I: hidden tag */
+static const char *seltags[] = { "", "", "", "", "", "", "", "", "", "", "I" }; /* last two tags:  : always visible, I: hidden tag */
 
 /* monitor tags */
 static const char *montags[] = { "", "", "", ""}; /* keyboard: z, x, c, v */
@@ -113,7 +113,7 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_Tab,    setmastermonitor, {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} }, 
+	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} },
 	{ MODKEY,                       XK_t,      setlayout,      {0} }, /* toggle last two layouts */
 	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[0]} }, /* toggle last two layouts */
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[4]} },
@@ -125,12 +125,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY,                       XK_o,      winview,        {0} },
-	{ MODKEY|ShiftMask,             XK_O,      view,           {.ui = 511 } }, /*  111111111 */
 	{ MODKEY,                       XK_0,      view,           {.ui = 511 } }, /*  111111111 */
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = 511 } }, /*  111111111 */
-	{ MODKEY,                       XK_grave,  view,           {.ui = 512 } }, /* 1000000000 */
-	{ MODKEY|ShiftMask,             XK_grave,  tag,            {.ui = 512 } }, /* 1000000000 */
-	{ MODKEY|ControlMask,           XK_grave,  toggleview,     {.ui = 512 } }, /* 1000000000 */
 	{ MODKEY|ShiftMask,             XK_d,      xrdb,           {.v = NULL } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
@@ -141,6 +137,8 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+	TAGKEYS(                        XK_backslash,              9)
+	TAGKEYS(                        XK_grave,                  10)
 	MONKEYS(                        XK_z,                      0)
 	MONKEYS(                        XK_x,                      1)
 	MONKEYS(                        XK_c,                      2)

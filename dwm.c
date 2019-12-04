@@ -540,7 +540,7 @@ buttonpress(XEvent *e)
 		if ((i < LENGTH(tags) - 1) && (selmon == mastermon)) { /* assumes last tag invisible */
 			click = ClkTagBar;
 			arg.ui = 1 << i;
-		} else if (ev->x < x + TEXTW(selmon->ltsymbol)) 
+		} else if (ev->x < x + TEXTW(selmon->ltsymbol))
 			click = ClkLtSymbol;
 		else if (ev->x > selmon->ww - TEXTW(stext) - getsystraywidth())
             clickstatus(stext, (ev->x - (selmon->ww - TEXTW(stext) - getsystraywidth())), ev->button);
@@ -931,7 +931,7 @@ drawbar(Monitor *m)
 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, " ", 0);
 
     if (m == mastermon){
-	for (i = 0; i < LENGTH(tags) - 1; i++) { /* tag 9 is hidden */
+	for (i = 0; i < LENGTH(tags) - 1; i++) { /* tag 10 is hidden */
 		w = TEXTW(tags[i]);
         is_selected = m->tagset[m->seltags] & 1 << i;
 		drw_setscheme(drw, scheme[is_selected ? SchemeSelTag : SchemeNorm]);
@@ -1828,8 +1828,8 @@ run(void)
 void
 runAutostart(void)
 {
-    // make sure the script dwm_autostart is added 
-    // to the path BEFORE dwm is executed. 
+    // make sure the script dwm_autostart is added
+    // to the path BEFORE dwm is executed.
 	system("dwm_autostart &");
 }
 
@@ -2212,7 +2212,7 @@ switchtolastmon(const Arg *arg)
         }
         if (lastmon == selmon)
             return;
-    } 
+    }
     unfocus(selmon->sel, 1);
     setselmon(lastmon);
     if (selmon->sel){
@@ -2248,7 +2248,7 @@ setmastermon(Monitor *m)
 {
 
     Monitor *mon;
-    
+
     for (mon=mons; (mon && mon!=mastermon) ; mon=mon->next);
 
     if (mon != mastermon){
@@ -2345,7 +2345,7 @@ swapmonitor(const Arg *arg)
     Client *c;
     Monitor *m;
 
-    if (arg->i == 0) { 
+    if (arg->i == 0) {
         m = lastmon;
         if (!m || m == selmon) {
             for (m=mons; (m && m!=mastermon) ; m=m->next);
@@ -2419,7 +2419,7 @@ swapmon(Monitor *m1, Monitor *m2)
             unfocus(c1, 1);
         focus(c2);
         arrange(c2->mon);
-    } 
+    }
 }
 
 void
@@ -2961,15 +2961,19 @@ updatewmhints(Client *c)
 void
 view(const Arg *arg)
 {
+    unsigned int favtag;
 	if (selmon == mastermon && ((arg->ui & TAGMASK) == selmon->tagset[selmon->seltags]))
 		return;
     if (selmon != mastermon){
         setselmon(mastermon);
     }
+    favtag = (selmon->tagset[selmon->seltags] >= 512);
 	selmon->seltags ^= 1; /* toggle sel tagset */
 	if (arg->ui & TAGMASK)
-		selmon->tagset[selmon->seltags] = arg->ui & TAGMASK;
-	focus(NULL);
+		selmon->tagset[selmon->seltags] = (arg->ui & TAGMASK);
+    if (favtag && (selmon->tagset[selmon->seltags] < 512))
+        selmon->tagset[selmon->seltags] += 512;
+    char text[12];
 	arrange(selmon);
 }
 
