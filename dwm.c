@@ -366,7 +366,7 @@ void
 applyrules(Client *c)
 {
 	const char *class, *instance;
-	unsigned int i;
+	unsigned int i, tagset;
 	const Rule *r;
 	Monitor *m;
 	XClassHint ch = { NULL, NULL };
@@ -395,7 +395,18 @@ applyrules(Client *c)
 		XFree(ch.res_class);
 	if (ch.res_name)
 		XFree(ch.res_name);
-	c->tags = c->tags & TAGMASK ? c->tags & TAGMASK : c->mon->tagset[c->mon->seltags];
+
+    // two special tags (hidden tag @ 1024, favorite tag @ 512) demand special attention
+    tagset = c->mon->tagset[c->mon->seltags];
+    if (c->mon->tagset[c->mon->seltags] != 512 && c->mon->tagset[c->mon->seltags] != 1024){
+        if (c->mon->tagset[c->mon->seltags] > 1024) {
+            tagset = c->mon->tagset[c->mon->seltags] - 1024;
+        }
+        if (c->mon->tagset[c->mon->seltags] > 512) {
+            tagset = c->mon->tagset[c->mon->seltags] - 512;
+        }
+    }
+    c->tags = c->tags & TAGMASK ? c->tags & TAGMASK : tagset;
 }
 
 int
@@ -933,10 +944,15 @@ drawbar(Monitor *m)
     if (m == mastermon){
 	for (i = 0; i < LENGTH(tags) - 1; i++) { /* tag 10 is hidden */
 		w = TEXTW(tags[i]);
-        is_selected = m->tagset[m->seltags] & 1 << i;
+        is_selected = (m->tagset[m->seltags] & 1 << i);
+        // TODO: clean this up... (when ONLY favorite tag is selected, change its icon.)
 		drw_setscheme(drw, scheme[is_selected ? SchemeSelTag : SchemeNorm]);
         if (is_selected){
-            drw_text(drw, x, 0, w, bh, lrpad / 2, seltags[i], urg & 1 << i);
+            if (m->tagset[m->seltags] != 512){
+                drw_text(drw, x, 0, w, bh, lrpad / 2, seltags[i], urg & 1 << i);
+            } else {
+                drw_text(drw, x, 0, w, bh, lrpad / 2, "", urg & 1 << i);
+            }
         } else {
             drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
         }
@@ -2967,14 +2983,15 @@ view(const Arg *arg)
     if (selmon != mastermon){
         setselmon(mastermon);
     }
-    favtag = (selmon->tagset[selmon->seltags] >= 512);
+    favtag = ((selmon->tagset[selmon->seltags] >= 512) && (selmon->tagset[selmon->seltags] != 1024));
 	selmon->seltags ^= 1; /* toggle sel tagset */
-	if (arg->ui & TAGMASK)
+	if (arg->ui & TAGMASK){
 		selmon->tagset[selmon->seltags] = (arg->ui & TAGMASK);
-    if (favtag && (selmon->tagset[selmon->seltags] < 512))
+    }
+    if (favtag && ((selmon->tagset[selmon->seltags] < 512) || (selmon->tagset[selmon->seltags] == 1024))){
         selmon->tagset[selmon->seltags] += 512;
-    char text[12];
-	arrange(selmon);
+    }
+    arrange(selmon);
 }
 
 Client *

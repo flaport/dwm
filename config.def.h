@@ -47,8 +47,8 @@ static const unsigned int alphas[][3]      = {
 
 /* tags */
 
-static const char *tags[] = { "", "", "", "", "", "", "", "", "", "", "I" }; /* last two tags:  : always visible, I: hidden tag */
-static const char *seltags[] = { "", "", "", "", "", "", "", "", "", "", "I" }; /* last two tags:  : always visible, I: hidden tag */
+static const char *tags[] = { "", "", "", "", "", "", "", "", "", "", "I" }; /* last two tags:  : favorite tag (always visible), I: hidden tag */
+static const char *seltags[] = { "", "", "", "", "", "", "", "", "", "", "I" }; /* last two tags:  : favorite tag (always visible), I: hidden tag */
 
 /* monitor tags */
 static const char *montags[] = { "", "", "", ""}; /* keyboard: z, x, c, v */
