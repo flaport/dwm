@@ -64,6 +64,8 @@ static const Rule rules[] = {
 	{ "Pavucontrol",    NULL,       NULL,       0,            1,           -1 }, /* Pavucontrol */
 	{ "Blueman",        NULL,       NULL,       0,            1,           -1 }, /* Blueman */
 	{ "Arandr",         NULL,       NULL,       0,            1,           -1 }, /* Arandr */
+	{ "Nm-connection-editor",       NULL,       NULL,       0,            1,           -1 }, /* Arandr */
+	{ "Nm-applet",       NULL,       NULL,       0,            1,           -1 }, /* Arandr */
 	{ NULL,             NULL,       "Figure",   0,            1,           -1 }, /* Matplotlib */
 	{ NULL,             "float",    NULL,       0,            1,           -1 }, /* st -n float */
 };
