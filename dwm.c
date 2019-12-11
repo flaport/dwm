@@ -2992,6 +2992,7 @@ view(const Arg *arg)
         selmon->tagset[selmon->seltags] += 512;
     }
     arrange(selmon);
+    focus(selmon->sel);
 }
 
 Client *
