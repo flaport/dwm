@@ -65,6 +65,7 @@ static const Rule rules[] = {
 	{ "Gimp",           NULL,       NULL,       0,            1,           -1 }, /* Gimp */
 	{ "Conky",          NULL,       NULL,       0,            1,           -1 }, /* Conky */
 	{ "Pavucontrol",    NULL,       NULL,       0,            1,           -1 }, /* Pavucontrol */
+	{ "SimpleScreenRecorder", NULL, NULL,       0,            1,           -1 }, /* SimpleScreenRecorder */
 	{ "Blueman",        NULL,       NULL,       0,            1,           -1 }, /* Blueman */
 	{ "Arandr",         NULL,       NULL,       0,            1,           -1 }, /* Arandr */
 	{ "Nm-connection-editor", NULL, NULL,       0,            1,           -1 }, /* NetworkManager Connections */
