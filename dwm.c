@@ -2297,8 +2297,6 @@ setmastermon(Monitor *m)
             c->tags = 1;
             attach(c);
             attachstack(c);
-            focus(NULL);
-            arrange(NULL);
         }
     }
 
@@ -2311,9 +2309,12 @@ setmastermon(Monitor *m)
             c->mon = m;
             attach(c);
             attachstack(c);
-            focus(NULL);
-            arrange(NULL);
         }
+    }
+
+    if (c0 || c1){
+        focus(NULL);
+        arrange(NULL);
     }
 
     m->tagset[m->seltags] = mastertagset;
@@ -2326,7 +2327,6 @@ setmastermon(Monitor *m)
         focus(c1);
         arrange(c1->mon);
     }
-    // swapmon(mastermon, m);
     mastermon = m;
     drawbars();
 }
@@ -2407,8 +2407,6 @@ swapmon(Monitor *m1, Monitor *m2)
                 c->tags = m2->tagset[m2->seltags]; /* assign tags of target monitor */
                 attach(c);
                 attachstack(c);
-                focus(NULL);
-                arrange(NULL);
             }
         }
     }
@@ -2424,10 +2422,13 @@ swapmon(Monitor *m1, Monitor *m2)
                 c->tags = m1->tagset[m1->seltags]; /* assign tags of target monitor */
                 attach(c);
                 attachstack(c);
-                focus(NULL);
-                arrange(NULL);
             }
         }
+    }
+
+    if (c1 || c2){
+        focus(NULL);
+        arrange(NULL);
     }
 
     if (c2){
