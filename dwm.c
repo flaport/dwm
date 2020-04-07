@@ -208,6 +208,7 @@ static void seturgent(Client *c, int urg);
 static void showhide(Client *c);
 static void sigchld(int unused);
 static void spawn(const Arg *arg);
+static void swapmon(const Arg *arg);
 static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
 static void tile(Monitor *);
@@ -1779,6 +1780,78 @@ spawn(const Arg *arg)
 		perror(" failed");
 		exit(EXIT_SUCCESS);
 	}
+}
+
+void
+swapmon(const Arg *arg)
+{
+    if (!mons->next)
+        return;
+
+    if (arg->i != -1 && arg->i != +1)
+        return;
+
+    Monitor *m1, *m2;
+    Client *c, *c1, *c2;
+    unsigned int N, n, p;
+
+    m1 = selmon;
+    if (arg->i == -1){
+        for (m2=mons; (m2->next && m2->next==m1); m2=m2->next);
+    } else {
+        m2 = m1->next ? m1->next : mons;
+    }
+    unfocus(m1->sel, 1);
+    unfocus(m2->sel, 1);
+
+    c1 = c = m1->clients;
+    c2 = m2->clients;
+    unfocus(c1, 1);
+
+    if (c1){
+        for (N=1, c=c1; c->next; c=c->next, N++);
+        for (n=N; n>0; n--){
+            for (p=1, c=c1; p<n; p++, c=c->next);
+            if ISVISIBLE(c){
+                detach(c);
+                detachstack(c);
+                c->mon = m2;
+                c->tags = m2->tagset[m2->seltags]; /* assign tags of target monitor */
+                attach(c);
+                attachstack(c);
+            }
+        }
+    }
+
+    if (c2){
+        for (N=1, c=c2; c->next; c=c->next, N++);
+        for (n=N; n>0; n--){
+            for (p=1, c=c2; p<n; p++, c=c->next);
+            if ISVISIBLE(c){
+                detach(c);
+                detachstack(c);
+                c->mon = m1;
+                c->tags = m1->tagset[m1->seltags]; /* assign tags of target monitor */
+                attach(c);
+                attachstack(c);
+            }
+        }
+    }
+
+    if (c1 || c2){
+        focus(NULL);
+        arrange(NULL);
+    }
+
+    if (c2){
+        if (c1)
+            unfocus(c1, 1);
+        focus(c2);
+        arrange(c2->mon);
+    }
+
+    arrange(selmon);
+    focus(c);
 }
 
 void
