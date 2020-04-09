@@ -1,8 +1,9 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int normborderpx  = 0;        /* border pixel of windows */
-static const unsigned int selborderpx  = 2;        /* border pixel of windows */
+static const unsigned int statusbardelimiter = 32; /* ascii code for delimiter character used in status bar */
+static const unsigned int normborderpx  = 0;    /* border pixel of windows */
+static const unsigned int selborderpx  = 2;     /* border pixel of windows */
 static const unsigned int gappx     = 20;       /* gap pixel between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */

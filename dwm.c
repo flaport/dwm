@@ -1875,7 +1875,7 @@ clickstatus(char *text, unsigned int x, unsigned int btn){
     for (i=0; i < textlen; i++){
         c = textcpy[i];
         textcpy[i] = 0;
-        if (c == 31){
+        if (c == statusbardelimiter){
             if (x <= TEXTW(textcpy)) {
                 break;
             }
