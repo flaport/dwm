@@ -128,6 +128,7 @@ static const Layout layouts[] = {
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
+	{ MODKEY|ShiftMask,             XK_d,      xrdb,           {.v = NULL } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
@@ -139,7 +140,7 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_space,  setmastermonitor, {0} },
 	{ MODKEY,                       XK_Tab,    swapmonitor,    {0} },
 	{ MODKEY|ShiftMask,             XK_Tab,    switchtolastmon,    {0} },
-	{ MODKEY|ControlMask,           XK_Tab,    setmastermonitor, {0} },
+	{ MODKEY|ControlMask,           XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} },
@@ -156,7 +157,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_o,      winview,        {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = 511 } }, /*  111111111 */
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = 511 } }, /*  111111111 */
-	{ MODKEY|ShiftMask,             XK_d,      xrdb,           {.v = NULL } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
