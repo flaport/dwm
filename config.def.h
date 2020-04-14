@@ -75,6 +75,7 @@ static const Rule rules[] = {
 	{ "Blueman",        NULL,       NULL,       0,            1,           -1 }, /* Blueman */
 	{ "CfgDFInput",     NULL,       NULL,       0,            1,           -1 }, /* PCSXR */
 	{ "Conky",          NULL,       NULL,       0,            1,           -1 }, /* Conky */
+	{ "Fceux",          NULL,       NULL,       0,            1,           -1 }, /* Fceux NES emulator */
 	{ "Gimp",           NULL,       NULL,       0,            1,           -1 }, /* Gimp */
 	{ "Helpdesk DICT",  NULL,       NULL,       0,            1,           -1 }, /* Steam */
 	{ "mpv",            NULL,       NULL,       0,            1,           -1 }, /* MPV Media Player */
