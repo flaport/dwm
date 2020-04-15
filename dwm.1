@@ -40,7 +40,10 @@ prints version information to standard output, then exits.
 .B X root window name
 is read and displayed in the status text area. It can be set with the
 .BR xsetroot (1)
-command.
+command. By using a predefined delimiter (space by default), the status bar can
+be made interactive. Dwm will call `dwm_status` (place this in your path) with
+two arguments: $1: widget index clicked, $2: mouse button index. An example
+`dwm_status` script is supplied with this dwm repository.
 .TP
 .B Button1
 click on a tag label to display all windows with that tag, click on the layout
