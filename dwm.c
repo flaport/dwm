@@ -222,6 +222,7 @@ static void setup(void);
 static void seturgent(Client *c, int urg);
 static void showhide(Client *c);
 static void sigchld(int unused);
+static void sigusr1(int unused);
 static void spawn(const Arg *arg);
 static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
@@ -1580,6 +1581,9 @@ setup(void)
 	/* clean up any zombies immediately */
 	sigchld(0);
 
+    /* signals */
+	signal(SIGUSR1, sigusr1);
+
 	/* init screen */
 	screen = DefaultScreen(dpy);
 	sw = DisplayWidth(dpy, screen);
@@ -1678,6 +1682,13 @@ sigchld(int unused)
 	if (signal(SIGCHLD, sigchld) == SIG_ERR)
 		die("can't install SIGCHLD handler:");
 	while (0 < waitpid(-1, NULL, WNOHANG));
+}
+
+void
+sigusr1(int unused)
+{
+	Arg a = {.i = 0};
+    xrdb(&a);
 }
 
 void
