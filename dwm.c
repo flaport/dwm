@@ -741,11 +741,13 @@ drawbar(Monitor *m)
 
 	x = 0;
 
-	w = blw = TEXTW(montags[m->num]);
-    drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeInactive]);
-	x = drw_text(drw, x, 0, w, bh, lrpad / 2, montags[m->num], 0);
-	drw_setscheme(drw, scheme[SchemeNorm]);
-	x = drw_text(drw, x, 0, w, bh, lrpad / 2, " ", 0);
+    if (mons->next){
+        w = blw = TEXTW(montags[m->num]);
+        drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeInactive]);
+        x = drw_text(drw, x, 0, w, bh, lrpad / 2, montags[m->num], 0);
+        drw_setscheme(drw, scheme[SchemeNorm]);
+        x = drw_text(drw, x, 0, w, bh, lrpad / 2, " ", 0);
+    }
 
     if (m == mastermon){
         for (i = 0; i < LENGTH(tags); i++) {
