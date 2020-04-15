@@ -258,6 +258,7 @@ static void seturgent(Client *c, int urg);
 static void showhide(Client *c);
 static void sigchld(int unused);
 static void sighup(int unused);
+static void sigusr1(int unused);
 static void sigterm(int unused);
 static void spawn(const Arg *arg);
 static void swapmon(const Arg *arg);
@@ -1953,7 +1954,9 @@ setup(void)
 	/* clean up any zombies immediately */
 	sigchld(0);
 
+    /* signals */
 	signal(SIGHUP, sighup);
+	signal(SIGUSR1, sigusr1);
 	signal(SIGTERM, sigterm);
 
 	/* init screen */
@@ -2081,6 +2084,13 @@ sigterm(int unused)
 {
 	Arg a = {.i = 0};
 	quit(&a);
+}
+
+void
+sigusr1(int unused)
+{
+	Arg a = {.i = 0};
+    xrdb(&a);
 }
 
 void
