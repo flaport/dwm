@@ -152,6 +152,7 @@ static void buttonpress(XEvent *e);
 static void checkotherwm(void);
 static void cleanup(void);
 static void cleanupmon(Monitor *mon);
+static void clickstatus(char *stext, unsigned int x, unsigned int btn);
 static void clientmessage(XEvent *e);
 static void configure(Client *c);
 static void configurenotify(XEvent *e);
@@ -439,9 +440,11 @@ buttonpress(XEvent *e)
 			arg.ui = 1 << i;
 		} else if (ev->x < x + blw)
 			click = ClkLtSymbol;
-		else if (ev->x > selmon->ww - TEXTW(stext))
+		else if (ev->x > selmon->ww - TEXTW(stext)){
 			click = ClkStatusText;
-		else
+            clickstatus(stext, (ev->x - (selmon->ww - TEXTW(stext))), ev->button);
+        }
+        else
 			click = ClkWinTitle;
 	} else if ((c = wintoclient(ev->window))) {
 		focus(c);
@@ -507,6 +510,33 @@ cleanupmon(Monitor *mon)
 	XUnmapWindow(dpy, mon->barwin);
 	XDestroyWindow(dpy, mon->barwin);
 	free(mon);
+}
+
+void
+clickstatus(char *stext, unsigned int x, unsigned int btn){
+    char c;
+    char command[512];
+    char stextcpy[strlen(stext)];
+    unsigned int i, j, stextlen;
+
+    sprintf(stextcpy, "%s", stext);
+    stextlen = strlen(stextcpy);
+    j = 0;
+    for (i=0; i < stextlen; i++){
+        c = stextcpy[i];
+        stextcpy[i] = 0;
+        if (c == stextdelim){
+            if (x <= TEXTW(stextcpy)) {
+                break;
+            }
+            j++;
+        }
+        stextcpy[i] = c;
+    }
+
+    sprintf(command, "dwm_status %d %d &", j, btn);
+    system(command);
+    drawbars();
 }
 
 void
