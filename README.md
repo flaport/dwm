@@ -1,6 +1,21 @@
 # dwm - dynamic window manager
 `dwm` is an extremely fast, small, and dynamic window manager for X.
 
+## Patches
+Each branch in this repository represents a single, often modified,
+patch to vanilla dwm. Below you find all the applied patches in the
+order they were merged into the master branch of this repository.
+
+#### systray+alpha
+
+* download [my combined patch](https://github.com/flaport/dwm/compare/upstream..systray+alpha.diff) ‧ [my alpha patch](https://github.com/flaport/dwm/compare/upstream..alpha.diff) ‧ [my systray patch](https://github.com/flaport/dwm/compare/upstream..systray.diff)
+* see [my combined branch](https://github.com/flaport/dwm/tree/systray+alpha) ‧ [my alpha branch](https://github.com/flaport/dwm/tree/alpha) ‧ [my systray branch](https://github.com/flaport/dwm/tree/systray)
+
+Combining the `alpha` patch with the `systray` patch is not easy.
+Hence, I first combined them in a separate branch, `systray+alpha`,
+before merging them into master. I highly recommend using the combined
+patch if you want both `alpha` and `systray` at the same time.
+
 
 ## Requirements
 In order to build `dwm` you need the Xlib header files.
