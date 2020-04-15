@@ -55,6 +55,7 @@
 #define WIDTH(X)                ((X)->w + 2 * (X)->bw)
 #define HEIGHT(X)               ((X)->h + 2 * (X)->bw)
 #define TAGMASK                 ((1 << LENGTH(tags)) - 1)
+#define TAGMASK0                ((1 << (LENGTH(tags)-1)) - 1)
 #define TEXTW(X)                (drw_fontset_getwidth(drw, (X)) + lrpad)
 
 /* enums */
@@ -714,7 +715,7 @@ drawbar(Monitor *m)
 			urg |= c->tags;
 	}
 	x = 0;
-	for (i = 0; i < LENGTH(tags); i++) {
+	for (i = 0; i < LENGTH(tags)-1; i++) {
 		w = TEXTW(tags[i]);
 		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
 		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
@@ -1655,11 +1656,19 @@ spawn(const Arg *arg)
 void
 tag(const Arg *arg)
 {
-	if (selmon->sel && arg->ui & TAGMASK) {
+    if (!selmon->sel)
+        return;
+
+    if (arg->ui == ~0){
+		selmon->sel->tags = arg->ui & TAGMASK0;
+    } else if (arg->ui & TAGMASK) {
 		selmon->sel->tags = arg->ui & TAGMASK;
-		focus(NULL);
-		arrange(selmon);
-	}
+	} else {
+        return;
+    }
+
+    focus(NULL);
+    arrange(selmon);
 }
 
 void
@@ -2038,8 +2047,11 @@ view(const Arg *arg)
 	if ((arg->ui & TAGMASK) == selmon->tagset[selmon->seltags])
 		return;
 	selmon->seltags ^= 1; /* toggle sel tagset */
-	if (arg->ui & TAGMASK)
+    if (arg->ui == ~0){
+		selmon->tagset[selmon->seltags] = TAGMASK0;
+    } else if (arg->ui & TAGMASK){
 		selmon->tagset[selmon->seltags] = arg->ui & TAGMASK;
+    }
 	focus(NULL);
 	arrange(selmon);
 }
