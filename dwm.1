@@ -165,19 +165,21 @@ Toggles focused window between floating and tiled state.
 .TP
 .B Mod1\-Button3
 Resize focused window while dragging. Tiled windows will be toggled to the floating state.
+.SH SIGNALS
+A signal can be sent as follows: xsetroot -name "fsignal:idx". This won't
+interfere with the status bar. The following signal handlers are defined:
+.TP
+.B "fsignal:1"
+Cleanly terminate the dwm process.
+.TP
+.B "fsignal:2"
+Restart the dwm process.
+.TP
+.B "fsignal:3"
+Reload Xrdb colors
 .SH CUSTOMIZATION
 dwm is customized by creating a custom config.h and (re)compiling the source
 code. This keeps it fast, secure and simple.
-.SH SIGNALS
-.TP
-.B SIGHUP - 1
-Restart the dwm process.
-.TP
-.B SIGUSR1 - 10
-Reload Xrdb xolors
-.TP
-.B SIGTERM - 15
-Cleanly terminate the dwm process.
 .SH SEE ALSO
 .BR dmenu (1),
 .BR st (1)
