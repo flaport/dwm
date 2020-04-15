@@ -28,14 +28,14 @@ static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
+	[SchemeNorm] = { col_gray4, col_gray1, col_gray2 },
 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 	[SchemeInactive] = { col_gray4, col_gray2, NULL },
 };
 static const unsigned int alphas[][3]      = {
 	/*               fg    bg  border  */
 	[SchemeNorm] = { 255,  50,   0   },
-	[SchemeSel]  = { 255,  50, 255   },
+	[SchemeSel]  = { 255,  150, 255   },
 };
 
 /* tagging */
