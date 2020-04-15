@@ -1383,8 +1383,7 @@ run(void)
 
 void
 runAutostart(void) {
-	system("cd ~/.dwm; ./autostart_blocking.sh");
-	system("cd ~/.dwm; ./autostart.sh &");
+	system("dwm_autostart &"); // make sure the 'dwm_autostart' script is in your $PATH.
 }
 
 void
