@@ -49,6 +49,29 @@ script can then use that info to start a specific action. An example
 
 This small custom patch adds a hidden (invisible) tag to the tagset.
 
+
+#### mastermon
+
+* download [my custom patch](https://github.com/flaport/dwm/compare/upstream..mastermon.diff)
+* see [branch](https://github.com/flaport/dwm/tree/mastermon)
+
+The mastermon patch introduces a "master" monitor. The master monitor
+is the only monitor with tags. All other monitors will have no tags.
+The tags from the master can be accessed (enabled/disabled/send to)
+with the normal keybindings from any monitor. This makes the tag
+system a lot less confusing in a multi monitor setup.
+
+Why is this useful? In most multi-monitor setups you'll usually have a
+preferred monitor to work on anyway. Other monitors will be less
+important and will mostly be used to station content in view. If this
+resembles your workflow, this patch is for you!
+
+Some new kind of keybindings were added: `mod+[z|x|c|v]` to move focus
+to monitor 1,2,3 or 4 and  `mod+shift+[z|x|c|v]` to move the focused
+window to monitor n. Moreover, `mod+ctrl+m` can be used to "promote"
+the current monitor to the master monitor and `mod+ctrl+space` to
+quickly swap the content between two adjacent monitors.
+
 ## Requirements
 In order to build `dwm` you need the Xlib header files.
 
