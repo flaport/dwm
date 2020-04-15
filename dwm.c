@@ -960,6 +960,7 @@ expose(XEvent *e)
 void
 focus(Client *c)
 {
+	XWindowChanges wc;
 	if (!c || !ISVISIBLE(c))
 		for (c = selmon->stack; c && !ISVISIBLE(c); c = c->snext);
 	if (selmon->sel && selmon->sel != c)
@@ -972,6 +973,9 @@ focus(Client *c)
 		detachstack(c);
 		attachstack(c);
 		grabbuttons(c, 1);
+        c->bw = borderpx;
+        wc.border_width = c->bw;
+        XConfigureWindow(dpy, c->win, CWBorderWidth, &wc);
 		XSetWindowBorder(dpy, c->win, scheme[SchemeSel][ColBorder].pixel);
 		setfocus(c);
 	} else {
@@ -1317,7 +1321,7 @@ manage(Window w, XWindowAttributes *wa)
 	/* only fix client y-offset, if the client center might cover the bar */
 	c->y = MAX(c->y, ((c->mon->by == c->mon->my) && (c->x + (c->w / 2) >= c->mon->wx)
 		&& (c->x + (c->w / 2) < c->mon->wx + c->mon->ww)) ? bh : c->mon->my);
-	c->bw = borderpx;
+	c->bw = 0; // borderpx
 
 	wc.border_width = c->bw;
 	XConfigureWindow(dpy, w, CWBorderWidth, &wc);
@@ -2238,9 +2242,13 @@ toggleview(const Arg *arg)
 void
 unfocus(Client *c, int setfocus)
 {
+	XWindowChanges wc;
 	if (!c)
 		return;
 	grabbuttons(c, 0);
+    c->bw = 0; // borderpx
+    wc.border_width = c->bw;
+    XConfigureWindow(dpy, c->win, CWBorderWidth, &wc);
 	XSetWindowBorder(dpy, c->win, scheme[SchemeNorm][ColBorder].pixel);
 	if (setfocus) {
 		XSetInputFocus(dpy, root, RevertToPointerRoot, CurrentTime);
