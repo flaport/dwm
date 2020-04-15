@@ -35,6 +35,10 @@ dwm draws a small border around windows to indicate the focus state.
 .B \-v
 prints version information to standard output, then exits.
 .SH USAGE
+.SS Autostart
+Upon starting, dwm will call `dwm_autostart`. By placing such a script in your
+$PATH, several programs can be started automatically after dwm has started. An
+example `dwm_autostart` script is supplied with this dwm repository.
 .SS Status bar
 .TP
 .B X root window name
