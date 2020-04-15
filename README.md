@@ -87,6 +87,17 @@ from non-active windows as well.
 
 Restart `dwm` with mod+ctrl+shift+q
 
+#### libxft-bgra
+
+* download [my custom patch](https://github.com/flaport/dwm/compare/upstream..libxft-bgra.diff)
+* see [branch](https://github.com/flaport/dwm/tree/libxft-bgra)
+
+Enables color emojis when
+[`libxft-bgra`](https://gitlab.freedesktop.org/xorg/lib/libxft/-/merge_requests/1)
+is installed on the system (currently only checks this by doing a
+Pacman query). If `libxft-bgra` is not installed, color emojis will be
+ignored.
+
 
 ## Requirements
 In order to build `dwm` you need the Xlib header files.
