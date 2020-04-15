@@ -51,6 +51,10 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+#define MONKEYS(KEY,TAG) \
+	{ MODKEY,                  KEY,      focusmon,    {.i = TAG+1} }, \
+	{ MODKEY|ShiftMask,        KEY,      tagmon,      {.i = TAG+1} }, \
+	{ MODKEY|ControlMask,      KEY,      swapmon,     {.i = TAG+1} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -89,6 +93,7 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_comma,  setmastermon,   {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_period, setmastermon,   {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_m,      setmastermon,   {.i = 0} },
+	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -98,7 +103,10 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	MONKEYS(                        XK_z,                      1)
+	MONKEYS(                        XK_x,                      2)
+	MONKEYS(                        XK_c,                      3)
+	MONKEYS(                        XK_v,                      4)
 };
 
 /* button definitions */

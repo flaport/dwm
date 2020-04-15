@@ -184,6 +184,7 @@ static void maprequest(XEvent *e);
 static void monocle(Monitor *m);
 static void motionnotify(XEvent *e);
 static void movemouse(const Arg *arg);
+static Monitor *numtomon(const unsigned int num);
 static Client *nexttiled(Client *c);
 static void pop(Client *);
 static void propertynotify(XEvent *e);
@@ -857,11 +858,16 @@ void
 focusmon(const Arg *arg)
 {
 	Monitor *m;
-
-	if (!mons->next)
-		return;
-	if ((m = dirtomon(arg->i)) == selmon)
-		return;
+    if (arg->i > 1){
+        m = numtomon(arg->i-2);
+    } else if ((arg->i == -1) || (arg->i == 1)){
+        if (!mons->next)
+            return;
+        if ((m = dirtomon(arg->i)) == selmon)
+            return;
+    } else {
+        return;
+    }
 	unfocus(selmon->sel, 0);
 	selmon = m;
 	focus(NULL);
@@ -1304,6 +1310,23 @@ nexttiled(Client *c)
 {
 	for (; c && (c->isfloating || !ISVISIBLE(c)); c = c->next);
 	return c;
+}
+
+
+Monitor
+*numtomon(const unsigned int num){
+    Monitor *m;
+    if (num == selmon->num)
+       return selmon;
+	for (m = mons; m->next; m = m->next);
+    if (num > m->num){
+        return NULL;
+    }
+    if (num == m->num){
+        return m;
+    }
+    for (m=mons; m->next->num <= num; m = m->next);
+    return m;
 }
 
 void
@@ -1882,7 +1905,13 @@ tag(const Arg *arg)
 void
 tagmon(const Arg *arg)
 {
-	if (!selmon->sel || !mons->next)
+	if (!selmon->sel)
+		return;
+    if (arg->i > 1){
+        sendmon(selmon->sel, numtomon(arg->ui-2));
+        return;
+    }
+	if (!mons->next)
 		return;
 	sendmon(selmon->sel, dirtomon(arg->i));
 }
