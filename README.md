@@ -42,6 +42,13 @@ arguments: the widget index and the mouse button. The `dwm_status`
 script can then use that info to start a specific action. An example
 [`dwm_status`](dwm_status) script can be found in this repository.
 
+#### hiddentag
+
+* download [my custom patch](https://github.com/flaport/dwm/compare/upstream..hiddentag.diff)
+* see [branch](https://github.com/flaport/dwm/tree/hiddentag)
+
+This small custom patch adds a hidden (invisible) tag to the tagset.
+
 ## Requirements
 In order to build `dwm` you need the Xlib header files.
 
