@@ -98,6 +98,12 @@ is installed on the system (currently only checks this by doing a
 Pacman query). If `libxft-bgra` is not installed, color emojis will be
 ignored.
 
+#### xrdb
+
+* download [my modified patch](https://github.com/flaport/dwm/compare/upstream..xrdb.diff)
+* see [branch](https://github.com/flaport/dwm/tree/xrdb)
+
+Read in colors from Xresources and apply them to dwm.
 
 ## Requirements
 In order to build `dwm` you need the Xlib header files.
