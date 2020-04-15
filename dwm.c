@@ -856,6 +856,8 @@ focusmon(const Arg *arg)
 	Monitor *m;
     if (arg->i > 1){
         m = numtomon(arg->i-2);
+        if (!m)
+            return;
     } else if ((arg->i == -1) || (arg->i == 1)){
         if (!mons->next)
             return;
@@ -1901,10 +1903,13 @@ tag(const Arg *arg)
 void
 tagmon(const Arg *arg)
 {
+    Monitor *m;
 	if (!selmon->sel)
 		return;
     if (arg->i > 1){
-        sendmon(selmon->sel, numtomon(arg->ui-2));
+        m=numtomon(arg->ui-2);
+        if (m)
+            sendmon(selmon->sel, m);
         return;
     }
 	if (!mons->next)
