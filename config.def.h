@@ -21,6 +21,7 @@ static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeInactive] = { col_gray4, col_gray2, NULL },
 };
 static const unsigned int alphas[][3]      = {
 	/*               fg    bg  border  */
@@ -30,6 +31,7 @@ static const unsigned int alphas[][3]      = {
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "[hidden]"};
+static const char *montags[] = { "Z", "X", "C", "V"};
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -60,6 +62,10 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+#define MONKEYS(KEY,TAG) \
+	{ MODKEY,                  KEY,      focusmon,    {.i = TAG+1} }, \
+	{ MODKEY|ShiftMask,        KEY,      tagmon,      {.i = TAG+1} }, \
+	{ MODKEY|ControlMask,      KEY,      swapmon,     {.i = TAG+1} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -94,6 +100,11 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY|ControlMask,           XK_space,  swapmon,        {.i = +1} },
+	{ MODKEY|ControlMask,           XK_comma,  setmastermon,   {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_period, setmastermon,   {.i = +1 } },
+	{ MODKEY|ControlMask,           XK_m,      setmastermon,   {.i = 0} },
+	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -104,7 +115,10 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	TAGKEYS(                        XK_grave,                  9)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	MONKEYS(                        XK_z,                      1)
+	MONKEYS(                        XK_x,                      2)
+	MONKEYS(                        XK_c,                      3)
+	MONKEYS(                        XK_v,                      4)
 };
 
 /* button definitions */

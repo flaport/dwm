@@ -77,7 +77,7 @@
 
 /* enums */
 enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
-enum { SchemeNorm, SchemeSel }; /* color schemes */
+enum { SchemeNorm, SchemeSel, SchemeInactive }; /* color schemes */
 enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
 	   NetSystemTray, NetSystemTrayOP, NetSystemTrayOrientation, NetSystemTrayOrientationHorz, NetSystemTrayVisual,
 	   NetWMFullscreen, NetActiveWindow, NetWMWindowType, NetWMWindowTypeDock,
@@ -206,12 +206,14 @@ static void grabkeys(void);
 static void incnmaster(const Arg *arg);
 static void keypress(XEvent *e);
 static void killclient(const Arg *arg);
+static void makemastermon(Monitor *m);
 static void manage(Window w, XWindowAttributes *wa);
 static void mappingnotify(XEvent *e);
 static void maprequest(XEvent *e);
 static void monocle(Monitor *m);
 static void motionnotify(XEvent *e);
 static void movemouse(const Arg *arg);
+static Monitor *numtomon(const unsigned int num);
 static Client *nexttiled(Client *c);
 static void pop(Client *);
 static void propertynotify(XEvent *e);
@@ -232,12 +234,14 @@ static void setclientstate(Client *c, long state);
 static void setfocus(Client *c);
 static void setfullscreen(Client *c, int fullscreen);
 static void setlayout(const Arg *arg);
+static void setmastermon(const Arg *arg);
 static void setmfact(const Arg *arg);
 static void setup(void);
 static void seturgent(Client *c, int urg);
 static void showhide(Client *c);
 static void sigchld(int unused);
 static void spawn(const Arg *arg);
+static void swapmon(const Arg *arg);
 static Monitor *systraytomon(Monitor *m);
 static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
@@ -306,7 +310,7 @@ static Cur *cursor[CurLast];
 static Clr **scheme;
 static Display *dpy;
 static Drw *drw;
-static Monitor *mons, *selmon;
+static Monitor *mons, *selmon, *mastermon;
 static Window root, wmcheckwin;
 
 static int useargb = 0;
@@ -477,13 +481,27 @@ buttonpress(XEvent *e)
 	}
 	if (ev->window == selmon->barwin) {
 		i = x = 0;
-		do
-			x += TEXTW(tags[i]);
-		while (ev->x >= x && ++i < LENGTH(tags));
-		if (i < LENGTH(tags)) {
+        x += TEXTW(montags[m->num]);
+        if (ev->x < x){
+            if (ev->button == 1){
+                makemastermon(selmon);
+            }
+            return;
+        }
+        x += TEXTW(" ");
+        if (ev->x < x)
+            return;
+
+        if (selmon == mastermon){
+            do
+                x += TEXTW(tags[i]);
+            while (ev->x >= x && ++i < LENGTH(tags));
+        }
+
+		if ((i < LENGTH(tags)) && (selmon == mastermon)) {
 			click = ClkTagBar;
 			arg.ui = 1 << i;
-		} else if (ev->x < x + blw)
+		} else if (ev->x < x + TEXTW(selmon->ltsymbol))
 			click = ClkLtSymbol;
 		else if (ev->x > selmon->ww - TEXTW(stext) - getsystraywidth()){
 			click = ClkStatusText;
@@ -557,6 +575,13 @@ cleanupmon(Monitor *mon)
 		for (m = mons; m && m->next != mon; m = m->next);
 		m->next = mon->next;
 	}
+    if (mon == mastermon){
+        mastermon = mon->next;
+        if (!mastermon){
+            mastermon = mons; // do not use makemastermon here.
+        }
+        drawbars();
+    }
 	XUnmapWindow(dpy, mon->barwin);
 	XDestroyWindow(dpy, mon->barwin);
 	free(mon);
@@ -847,17 +872,27 @@ drawbar(Monitor *m)
 		if (c->isurgent)
 			urg |= c->tags;
 	}
+
 	x = 0;
-	for (i = 0; i < LENGTH(tags)-1; i++) {
-		w = TEXTW(tags[i]);
-		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
-		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
-		if (occ & 1 << i)
-			drw_rect(drw, x + boxs, boxs, boxw, boxw,
-				m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
-				urg & 1 << i);
-		x += w;
-	}
+
+	w = blw = TEXTW(montags[m->num]);
+    drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeInactive]);
+	x = drw_text(drw, x, 0, w, bh, lrpad / 2, montags[m->num], 0);
+	drw_setscheme(drw, scheme[SchemeNorm]);
+	x = drw_text(drw, x, 0, w, bh, lrpad / 2, " ", 0);
+
+    if (m == mastermon){
+        for (i = 0; i < LENGTH(tags)-1; i++) {
+            w = TEXTW(tags[i]);
+            drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? ( m == selmon ? SchemeSel : SchemeInactive) : SchemeNorm]);
+            drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
+            if (occ & 1 << i)
+                drw_rect(drw, x + boxs, boxs, boxw, boxw,
+                    m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
+                    urg & 1 << i);
+            x += w;
+        }
+    }
 	w = blw = TEXTW(m->ltsymbol);
 	drw_setscheme(drw, scheme[SchemeNorm]);
 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
@@ -959,11 +994,16 @@ void
 focusmon(const Arg *arg)
 {
 	Monitor *m;
-
-	if (!mons->next)
-		return;
-	if ((m = dirtomon(arg->i)) == selmon)
-		return;
+    if (arg->i > 1){
+        m = numtomon(arg->i-2);
+    } else if ((arg->i == -1) || (arg->i == 1)){
+        if (!mons->next)
+            return;
+        if ((m = dirtomon(arg->i)) == selmon)
+            return;
+    } else {
+        return;
+    }
 	unfocus(selmon->sel, 0);
 	selmon = m;
 	focus(NULL);
@@ -1172,6 +1212,75 @@ killclient(const Arg *arg)
 }
 
 void
+makemastermon(Monitor *m){
+    Monitor *mon;
+
+    for (mon=mons; (mon && mon!=mastermon) ; mon=mon->next);
+
+    if (mon != mastermon){
+        mastermon = m;
+        drawbars();
+        return;
+    }
+
+    if (m == mastermon){
+        m = m->next ? m->next : mons;
+    }
+
+    unsigned int mastertagset, N, n, p;
+    Client *clients, *otherclients, *masterclients;
+
+    masterclients = mastermon->clients;
+    mastertagset = mastermon->tagset[mastermon->seltags];
+
+    otherclients = m->clients;
+    unfocus(otherclients, 1);
+
+    if (otherclients){
+        for (N=1, clients=otherclients; clients->next; clients=clients->next, N++);
+        for (n=N; n>0; n--){
+            for (p=1, clients=otherclients; p<n; p++, clients=clients->next);
+            detach(clients);
+            detachstack(clients);
+            clients->mon = mastermon;
+            clients->tags = 1;
+            attach(clients);
+            attachstack(clients);
+        }
+    }
+
+    if (masterclients){
+        for (N=1, clients=masterclients; clients->next; clients=clients->next, N++);
+        for (n=N; n>0; n--){
+            for (p=1, clients=masterclients; p<n; p++, clients=clients->next);
+            detach(clients);
+            detachstack(clients);
+            clients->mon = m;
+            attach(clients);
+            attachstack(clients);
+        }
+    }
+
+    if (masterclients || otherclients){
+        focus(NULL);
+        arrange(NULL);
+    }
+
+    m->tagset[m->seltags] = mastertagset;
+    mastermon->tagset[mastermon->seltags] = 1;
+    arrange(m);
+    arrange(mastermon);
+    if (masterclients){
+        if (otherclients)
+            unfocus(otherclients, 1);
+        focus(masterclients);
+        arrange(masterclients->mon);
+    }
+    mastermon = m;
+    drawbars();
+}
+
+void
 manage(Window w, XWindowAttributes *wa)
 {
 	Client *c, *t = NULL;
@@ -1359,6 +1468,23 @@ nexttiled(Client *c)
 {
 	for (; c && (c->isfloating || !ISVISIBLE(c)); c = c->next);
 	return c;
+}
+
+
+Monitor
+*numtomon(const unsigned int num){
+    Monitor *m;
+    if (num == selmon->num)
+       return selmon;
+	for (m = mons; m->next; m = m->next);
+    if (num > m->num){
+        return NULL;
+    }
+    if (num == m->num){
+        return m;
+    }
+    for (m=mons; m->next->num <= num; m = m->next);
+    return m;
 }
 
 void
@@ -1723,6 +1849,29 @@ setlayout(const Arg *arg)
 		drawbar(selmon);
 }
 
+void
+setmastermon(const Arg *arg) {
+
+    if ((selmon != mastermon)){
+        makemastermon(selmon);
+        return;
+    }
+
+    if (arg->i != -1 && arg->i != +1)
+        return;
+
+    Monitor *m;
+    if (arg->i == -1){
+        for (m=mons; (m->next && m->next==selmon); m=m->next);
+    } else {
+        m = selmon->next ? selmon->next : mons;
+    }
+    makemastermon(m);
+	unfocus(selmon->sel, 0);
+	selmon = m;
+	focus(NULL);
+}
+
 /* arg > 1.0 will set mfact absolutely */
 void
 setmfact(const Arg *arg)
@@ -1878,6 +2027,78 @@ spawn(const Arg *arg)
 }
 
 void
+swapmon(const Arg *arg)
+{
+    if (!mons->next)
+        return;
+
+    if (arg->i != -1 && arg->i != +1)
+        return;
+
+    Monitor *m1, *m2;
+    Client *c, *c1, *c2;
+    unsigned int N, n, p;
+
+    m1 = selmon;
+    if (arg->i == -1){
+        for (m2=mons; (m2->next && m2->next==m1); m2=m2->next);
+    } else {
+        m2 = m1->next ? m1->next : mons;
+    }
+    unfocus(m1->sel, 1);
+    unfocus(m2->sel, 1);
+
+    c1 = c = m1->clients;
+    c2 = m2->clients;
+    unfocus(c1, 1);
+
+    if (c1){
+        for (N=1, c=c1; c->next; c=c->next, N++);
+        for (n=N; n>0; n--){
+            for (p=1, c=c1; p<n; p++, c=c->next);
+            if ISVISIBLE(c){
+                detach(c);
+                detachstack(c);
+                c->mon = m2;
+                c->tags = m2->tagset[m2->seltags]; /* assign tags of target monitor */
+                attach(c);
+                attachstack(c);
+            }
+        }
+    }
+
+    if (c2){
+        for (N=1, c=c2; c->next; c=c->next, N++);
+        for (n=N; n>0; n--){
+            for (p=1, c=c2; p<n; p++, c=c->next);
+            if ISVISIBLE(c){
+                detach(c);
+                detachstack(c);
+                c->mon = m1;
+                c->tags = m1->tagset[m1->seltags]; /* assign tags of target monitor */
+                attach(c);
+                attachstack(c);
+            }
+        }
+    }
+
+    if (c1 || c2){
+        focus(NULL);
+        arrange(NULL);
+    }
+
+    if (c2){
+        if (c1)
+            unfocus(c1, 1);
+        focus(c2);
+        arrange(c2->mon);
+    }
+
+    arrange(selmon);
+    focus(c);
+}
+
+void
 tag(const Arg *arg)
 {
     if (!selmon->sel)
@@ -1891,14 +2112,28 @@ tag(const Arg *arg)
         return;
     }
 
+    Client *c = selmon->sel;
+    unfocus(c, 1);
+    detach(c);
+    detachstack(c);
+    c->mon = mastermon;
+    c->tags = arg->ui & TAGMASK;
+    attach(c);
+    attachstack(c);
     focus(NULL);
-    arrange(selmon);
+    arrange(NULL);
 }
 
 void
 tagmon(const Arg *arg)
 {
-	if (!selmon->sel || !mons->next)
+	if (!selmon->sel)
+		return;
+    if (arg->i > 1){
+        sendmon(selmon->sel, numtomon(arg->ui-2));
+        return;
+    }
+	if (!mons->next)
 		return;
 	sendmon(selmon->sel, dirtomon(arg->i));
 }
@@ -2145,6 +2380,7 @@ updategeom(void)
 					m->my = m->wy = unique[i].y_org;
 					m->mw = m->ww = unique[i].width;
 					m->mh = m->wh = unique[i].height;
+                    mastermon = m; // do not use makemastermon here.
 					updatebarpos(m);
 				}
 		} else { /* less monitors available nn < n */
@@ -2159,7 +2395,7 @@ updategeom(void)
 					attachstack(c);
 				}
 				if (m == selmon)
-					selmon = mons;
+                    selmon = mons;
 				cleanupmon(m);
 			}
 		}
@@ -2419,16 +2655,18 @@ updatewmhints(Client *c)
 void
 view(const Arg *arg)
 {
-	if ((arg->ui & TAGMASK) == selmon->tagset[selmon->seltags])
+	if ((selmon == mastermon) && ((arg->ui & TAGMASK) == selmon->tagset[selmon->seltags]))
 		return;
+	if (selmon != mastermon)
+		selmon = mastermon;
 	selmon->seltags ^= 1; /* toggle sel tagset */
     if (arg->ui == ~0){
 		selmon->tagset[selmon->seltags] = TAGMASK0;
     } else if (arg->ui & TAGMASK){
 		selmon->tagset[selmon->seltags] = arg->ui & TAGMASK;
     }
-	focus(NULL);
-	arrange(selmon);
+    arrange(selmon);
+    focus(selmon->sel);
 }
 
 Client *
