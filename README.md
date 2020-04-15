@@ -9,13 +9,24 @@ order they were merged into the master branch of this repository.
 #### systray+alpha
 
 * download [my combined patch](https://github.com/flaport/dwm/compare/upstream..systray+alpha.diff) ‧ [my alpha patch](https://github.com/flaport/dwm/compare/upstream..alpha.diff) ‧ [my systray patch](https://github.com/flaport/dwm/compare/upstream..systray.diff)
-* see [my combined branch](https://github.com/flaport/dwm/tree/systray+alpha) ‧ [my alpha branch](https://github.com/flaport/dwm/tree/alpha) ‧ [my systray branch](https://github.com/flaport/dwm/tree/systray)
+* see [combined branch](https://github.com/flaport/dwm/tree/systray+alpha) ‧ [alpha branch](https://github.com/flaport/dwm/tree/alpha) ‧ [systray branch](https://github.com/flaport/dwm/tree/systray)
 
 Combining the `alpha` patch with the `systray` patch is not easy.
 Hence, I first combined them in a separate branch, `systray+alpha`,
 before merging them into master. I highly recommend using the combined
 patch if you want both `alpha` and `systray` at the same time.
 
+#### autostart
+
+* download [my modified patch](https://github.com/flaport/dwm/compare/upstream..autostart.diff)
+* see [branch](https://github.com/flaport/dwm/tree/systray+alpha)
+* see [dwm_autostart](dwm_autostart) file.
+
+The vanilla autostart patch from the suckless website is already very
+minimal. In this modified patch, I removed the blocking call and
+assumed the script `dwm_autostart` is added to the path. An example
+[`dwm_autostart`](dwm_autostart) file is added to the repository as
+well.
 
 ## Requirements
 In order to build `dwm` you need the Xlib header files.
