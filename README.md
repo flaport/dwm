@@ -19,14 +19,28 @@ patch if you want both `alpha` and `systray` at the same time.
 #### autostart
 
 * download [my modified patch](https://github.com/flaport/dwm/compare/upstream..autostart.diff)
-* see [branch](https://github.com/flaport/dwm/tree/systray+alpha)
-* see [dwm_autostart](dwm_autostart) file.
+* see [branch](https://github.com/flaport/dwm/tree/autostart)
+* see example [dwm_autostart](dwm_autostart) script.
 
 The vanilla autostart patch from the suckless website is already very
 minimal. In this modified patch, I removed the blocking call and
 assumed the script `dwm_autostart` is added to the path. An example
-[`dwm_autostart`](dwm_autostart) file is added to the repository as
-well.
+[`dwm_autostart`](dwm_autostart) script can be found in this repository.
+
+#### interactivestatusbar
+
+* download [my custom patch](https://github.com/flaport/dwm/compare/upstream..interactivestatusbar.diff)
+* see [branch](https://github.com/flaport/dwm/tree/interactivestatusbar)
+* see example [dwm_status](dwm_status) script.
+
+This is a completely custom patch I use to make the `dwm` status bar
+interactive. The statusbar is still set with `xsetroot`, however a
+unique character is used as delimiter between each widget. By using
+this delimiter, `dwm` can figure out which widget was clicked and
+calls in turn `dwm_status` (which should be placed in your path) with two
+arguments: the widget index and the mouse button. The `dwm_status`
+script can then use that info to start a specific action. An example
+[`dwm_status`](dwm_status) script can be found in this repository.
 
 ## Requirements
 In order to build `dwm` you need the Xlib header files.
