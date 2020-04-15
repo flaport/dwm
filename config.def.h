@@ -48,8 +48,30 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "Anki",           NULL,       NULL,       0,            1,           -1 }, /* Anki */
+	{ "Arandr",         NULL,       NULL,       0,            1,           -1 }, /* Arandr */
+	{ "Barrier",        NULL,       NULL,       0,            1,           -1 }, /* Barrier */
+	{ "Blueman",        NULL,       NULL,       0,            1,           -1 }, /* Blueman */
+	{ "CfgDFInput",     NULL,       NULL,       0,            1,           -1 }, /* PCSXR */
+	{ "Conky",          NULL,       NULL,       0,            1,           -1 }, /* Conky */
+	{ "Fceux",          NULL,       NULL,       0,            1,           -1 }, /* Fceux NES emulator */
+	{ "Gimp",           NULL,       NULL,       0,            1,           -1 }, /* Gimp */
+	{ "Helpdesk DICT",  NULL,       NULL,       0,            1,           -1 }, /* Steam */
+	{ "mpv",            NULL,       NULL,       0,            1,           -1 }, /* MPV Media Player */
+	{ "Nextcloud",      NULL,       NULL,       0,            1,           -1 }, /* Nextcloud client */
+	{ "Nm-applet",      NULL,       NULL,       0,            1,           -1 }, /* NetworkManager Applets */
+	{ "Nm-connection-editor", NULL, NULL,       0,            1,           -1 }, /* NetworkManager Connections */
+	{ "Pavucontrol",    NULL,       NULL,       0,            1,           -1 }, /* Pavucontrol */
+	{ "PCSXR",          NULL,       NULL,       0,            1,           -1 }, /* PCSXR */
+	{ "SimpleScreenRecorder", NULL, NULL,       0,            1,           -1 }, /* SimpleScreenRecorder */
+	{ "Steam",          NULL,       NULL,       0,            1,           -1 }, /* Steam */
+	{ "Wfica",          NULL,       NULL,       0,            1,           -1 }, /* ICA Client */
+
+	{ NULL,             "float",    NULL,       0,            1,           -1 }, /* st -n float */
+
+	{ NULL,             NULL,       "Figure",   0,            1,           -1 }, /* Matplotlib */
+	{ NULL, NULL, "Microsoft Teams Notification", 0,          1,           -1 }, /* Microsoft Teams Notifications */
+	{ NULL, NULL, "Message from webpage",       0,            1,           -1 }, /* SAP notifications */
 };
 
 /* layout(s) */
@@ -59,13 +81,13 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
+	{ "",      tile },    /* first entry is default */
+	{ "",      NULL },    /* no layout function means floating behavior */
+	{ "",      monocle },
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -86,36 +108,35 @@ static const char *termcmd[]  = { "st", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_t,      setlayout,      {0} },
+	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY|ControlMask,           XK_m,      setmastermon,   {.i = 0} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
+	{ MODKEY,                       XK_space,  zoom,           {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY|ControlMask,           XK_space,  swapmon,        {.i = +1} },
-	{ MODKEY,                       XK_o,      winview,        {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_comma,  setmastermon,   {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_period, setmastermon,   {.i = +1 } },
+	{ MODKEY,                       XK_o,      winview,        {0} },
+	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -125,6 +146,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+	TAGKEYS(                        XK_grave,                  9)
 	MONKEYS(                        XK_z,                      1)
 	MONKEYS(                        XK_x,                      2)
 	MONKEYS(                        XK_c,                      3)
