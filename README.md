@@ -80,6 +80,13 @@ quickly swap the content between two adjacent monitors.
 Gaps between windows. Who doesn't want them? I removed the borders
 from non-active windows as well.
 
+#### restartsig
+
+* download [patch](https://github.com/flaport/dwm/compare/upstream..restartsig.diff)
+* see [branch](https://github.com/flaport/dwm/tree/restartsig)
+
+Restart `dwm` with mod+ctrl+shift+q
+
 
 ## Requirements
 In order to build `dwm` you need the Xlib header files.
