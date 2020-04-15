@@ -72,6 +72,13 @@ window to monitor n. Moreover, `mod+ctrl+m` can be used to "promote"
 the current monitor to the master monitor and `mod+ctrl+space` to
 quickly swap the content between two adjacent monitors.
 
+#### tilegap
+
+* download [my modified patch](https://github.com/flaport/dwm/compare/upstream..tilegap.diff)
+* see [branch](https://github.com/flaport/dwm/tree/tilegap)
+
+Gaps between windows. Who doesn't want them?
+
 ## Requirements
 In order to build `dwm` you need the Xlib header files.
 
