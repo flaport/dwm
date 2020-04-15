@@ -77,7 +77,9 @@ quickly swap the content between two adjacent monitors.
 * download [my modified patch](https://github.com/flaport/dwm/compare/upstream..tilegap.diff)
 * see [branch](https://github.com/flaport/dwm/tree/tilegap)
 
-Gaps between windows. Who doesn't want them?
+Gaps between windows. Who doesn't want them? I removed the borders
+from non-active windows as well.
+
 
 ## Requirements
 In order to build `dwm` you need the Xlib header files.
