@@ -59,7 +59,7 @@
 
 /* enums */
 enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
-enum { SchemeNorm, SchemeSel }; /* color schemes */
+enum { SchemeNorm, SchemeSel, SchemeInactive }; /* color schemes */
 enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
        NetWMFullscreen, NetActiveWindow, NetWMWindowType,
        NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
@@ -742,11 +742,7 @@ drawbar(Monitor *m)
 	x = 0;
 
 	w = blw = TEXTW(montags[m->num]);
-    if (m == selmon) {
-        drw_setscheme(drw, scheme[SchemeSel]);
-    } else {
-        drw_setscheme(drw, scheme[SchemeNorm]);
-    }
+    drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeInactive]);
 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, montags[m->num], 0);
 	drw_setscheme(drw, scheme[SchemeNorm]);
 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, " ", 0);
@@ -754,7 +750,7 @@ drawbar(Monitor *m)
     if (m == mastermon){
         for (i = 0; i < LENGTH(tags); i++) {
             w = TEXTW(tags[i]);
-            drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
+            drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? ( m == selmon ? SchemeSel : SchemeInactive) : SchemeNorm]);
             drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
             if (occ & 1 << i)
                 drw_rect(drw, x + boxs, boxs, boxw, boxw,
