@@ -39,7 +39,7 @@ static const unsigned int alphas[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "[hidden]"};
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "H"}; /* last tag is hidden */
 static const char *montags[] = { "Z", "X", "C", "V"};
 
 static const Rule rules[] = {

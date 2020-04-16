@@ -523,10 +523,10 @@ buttonpress(XEvent *e)
         if (selmon == mastermon){
             do
                 x += TEXTW(tags[i]);
-            while (ev->x >= x && ++i < LENGTH(tags));
+            while (ev->x >= x && ++i < LENGTH(tags)-1);
         }
 
-		if ((i < LENGTH(tags)) && (selmon == mastermon)) {
+		if ((i < LENGTH(tags)-1) && (selmon == mastermon)) {
 			click = ClkTagBar;
 			arg.ui = 1 << i;
 		} else if (ev->x < x + TEXTW(selmon->ltsymbol))
