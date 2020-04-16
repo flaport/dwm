@@ -68,8 +68,8 @@ resembles your workflow, this patch is for you!
 
 Some new kind of keybindings were added: `mod+[z|x|c|v]` to move focus
 to monitor 1,2,3 or 4 and  `mod+shift+[z|x|c|v]` to move the focused
-window to monitor n. Moreover, `mod+ctrl+m` can be used to "promote"
-the current monitor to the master monitor and `mod+ctrl+space` to
+window to monitor 1,2,3 or 4. Moreover, `mod+ctrl+m` can be used to "promote"
+the current monitor to the master monitor and `mod+ctrl+tab` to
 quickly swap the content between two adjacent monitors.
 
 #### tilegap
