@@ -509,16 +509,18 @@ buttonpress(XEvent *e)
 	}
 	if (ev->window == selmon->barwin) {
 		i = x = 0;
-        x += TEXTW(montags[m->num]);
-        if (ev->x < x){
-            if (ev->button == 1){
-                makemastermon(selmon);
+        if (mons->next){
+            x += TEXTW(montags[m->num]);
+            if (ev->x < x){
+                if (ev->button == 1){
+                    makemastermon(selmon);
+                }
+                return;
             }
-            return;
+            x += TEXTW(" ");
+            if (ev->x < x)
+                return;
         }
-        x += TEXTW(" ");
-        if (ev->x < x)
-            return;
 
         if (selmon == mastermon){
             do
