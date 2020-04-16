@@ -1813,7 +1813,7 @@ swapmon(const Arg *arg)
     if (!mons->next)
         return;
 
-    if (arg->i != -1 && arg->i != +1)
+    if (arg->i < -1 || arg->i > 1)
         return;
 
     Monitor *m1, *m2;
@@ -1821,11 +1821,18 @@ swapmon(const Arg *arg)
     unsigned int N, n, p;
 
     m1 = selmon;
-    if (arg->i == -1){
+    if (arg->i == -1)
         for (m2=mons; (m2->next && m2->next==m1); m2=m2->next);
-    } else {
+    else if (arg->i == +1)
         m2 = m1->next ? m1->next : mons;
-    }
+    else if (mastermon && (mastermon != selmon))
+        m2 = mastermon;
+    else if (selmon->next)
+        m2 = selmon->next;
+    else
+        m2 = mons;
+
+
     unfocus(m1->sel, 1);
     unfocus(m2->sel, 1);
 
