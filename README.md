@@ -122,6 +122,14 @@ Place floating windows in the center of the screen.
 
 Only allow clients to fullscreen into space currently given to them.
 
+#### fullscreen
+
+* download [patch](https://github.com/flaport/dwm/compare/upstream..fullscreen.diff)
+* see [branch](https://github.com/flaport/dwm/tree/fullscreen)
+
+Due to fakefullscreen, which limits the fullscreen of an application
+to its window size, we need a way to force fullscreen when we want it.
+
 ## Requirements
 In order to build `dwm` you need the Xlib header files.
 
