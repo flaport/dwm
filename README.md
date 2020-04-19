@@ -115,6 +115,13 @@ In order to build `dwm` you need the Xlib header files.
 
 Place floating windows in the center of the screen.
 
+#### fakefullscreen
+
+* download [patch](https://github.com/flaport/dwm/compare/upstream..fakefullscreen.diff)
+* see [branch](https://github.com/flaport/dwm/tree/fakefullscreen)
+
+Only allow clients to fullscreen into space currently given to them.
+
 ## Requirements
 In order to build `dwm` you need the Xlib header files.
 
