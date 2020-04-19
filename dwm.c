@@ -1934,13 +1934,29 @@ Layout *last_layout;
 void
 fullscreen(const Arg *arg)
 {
+	XWindowChanges wc;
 	if (selmon->showbar) {
 		for(last_layout = (Layout *)layouts; last_layout != selmon->lt[selmon->sellt]; last_layout++);
 		setlayout(&((Arg) { .v = &layouts[2] }));
+        selmon->sel->bw = 0;
+        selmon->showbar = 0;
 	} else {
 		setlayout(&((Arg) { .v = last_layout }));
+        selmon->sel->bw = borderpx;
+        selmon->showbar = 1;
 	}
-	togglebar(arg);
+    updatebarpos(selmon);
+    wc.border_width = selmon->sel->bw;
+    XConfigureWindow(dpy, selmon->sel->win, CWBorderWidth, &wc);
+	XSetWindowBorder(dpy, selmon->sel->win, scheme[SchemeNorm][ColBorder].pixel);
+    XMoveResizeWindow(dpy, selmon->barwin, selmon->wx, selmon->by, selmon->ww, bh);
+    arrange(selmon);
+    /* Clear status bar to avoid artifacts beneath systray icons */
+    if (showsystray){
+        drw_setscheme(drw, scheme[SchemeNorm]);
+        drw_text(drw, 0, 0, sw, bh, 0, "", 0);
+        drw_map(drw, selmon->barwin, 0, 0, selmon->ww, bh);
+    }
 }
 
 void
@@ -1948,6 +1964,9 @@ setlayout(const Arg *arg)
 {
 	if (!arg || !arg->v || arg->v != selmon->lt[selmon->sellt])
 		selmon->sellt ^= 1;
+        selmon->showbar = 1;
+        updatebarpos(selmon);
+        XMoveResizeWindow(dpy, selmon->barwin, selmon->wx, selmon->by, selmon->ww, bh);
 	if (arg && arg->v)
 		selmon->lt[selmon->sellt] = (Layout *)arg->v;
 	strncpy(selmon->ltsymbol, selmon->lt[selmon->sellt]->symbol, sizeof selmon->ltsymbol);
