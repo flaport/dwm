@@ -47,31 +47,31 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Anki",           NULL,       NULL,       0,            1,           -1 }, /* Anki */
-	{ "Arandr",         NULL,       NULL,       0,            1,           -1 }, /* Arandr */
-	{ "Barrier",        NULL,       NULL,       0,            1,           -1 }, /* Barrier */
-	{ "Blueman",        NULL,       NULL,       0,            1,           -1 }, /* Blueman */
-	{ "CfgDFInput",     NULL,       NULL,       0,            1,           -1 }, /* PCSXR */
-	{ "Conky",          NULL,       NULL,       0,            1,           -1 }, /* Conky */
-	{ "Fceux",          NULL,       NULL,       0,            1,           -1 }, /* Fceux NES emulator */
-	{ "Gimp",           NULL,       NULL,       0,            1,           -1 }, /* Gimp */
-	{ "Helpdesk DICT",  NULL,       NULL,       0,            1,           -1 }, /* Steam */
-	{ "mpv",            NULL,       NULL,       0,            1,           -1 }, /* MPV Media Player */
-	{ "Nextcloud",      NULL,       NULL,       0,            1,           -1 }, /* Nextcloud client */
-	{ "Nm-applet",      NULL,       NULL,       0,            1,           -1 }, /* NetworkManager Applets */
-	{ "Nm-connection-editor", NULL, NULL,       0,            1,           -1 }, /* NetworkManager Connections */
-	{ "Pavucontrol",    NULL,       NULL,       0,            1,           -1 }, /* Pavucontrol */
-	{ "PCSXR",          NULL,       NULL,       0,            1,           -1 }, /* PCSXR */
-	{ "SimpleScreenRecorder", NULL, NULL,       0,            1,           -1 }, /* SimpleScreenRecorder */
-	{ "Steam",          NULL,       NULL,       0,            1,           -1 }, /* Steam */
-	{ "Wfica",          NULL,       NULL,       0,            1,           -1 }, /* ICA Client */
+	/* class      instance    title       tags mask     iscentered, isfloating   monitor */
+	{ "Anki",           NULL,       NULL,         0,          1,          1,           -1 }, /* Anki */
+	{ "Arandr",         NULL,       NULL,         0,          1,          1,           -1 }, /* Arandr */
+	{ "Barrier",        NULL,       NULL,         0,          1,          1,           -1 }, /* Barrier */
+	{ "Blueman",        NULL,       NULL,         0,          1,          1,           -1 }, /* Blueman */
+	{ "CfgDFInput",     NULL,       NULL,         0,          1,          1,           -1 }, /* PCSXR */
+	{ "Conky",          NULL,       NULL,         0,          1,          1,           -1 }, /* Conky */
+	{ "Fceux",          NULL,       NULL,         0,          1,          1,           -1 }, /* Fceux NES emulator */
+	{ "Gimp",           NULL,       NULL,         0,          1,          1,           -1 }, /* Gimp */
+	{ "Helpdesk DICT",  NULL,       NULL,         0,          1,          1,           -1 }, /* DICT */
+	{ "mpv",            NULL,       NULL,         0,          1,          1,           -1 }, /* MPV Media Player */
+	{ "Nextcloud",      NULL,       NULL,         0,          1,          1,           -1 }, /* Nextcloud client */
+	{ "Nm-applet",      NULL,       NULL,         0,          1,          1,           -1 }, /* NetworkManager Applets */
+	{ "Nm-connection-editor", NULL, NULL,         0,          1,          1,           -1 }, /* NetworkManager Connections */
+	{ "Pavucontrol",    NULL,       NULL,         0,          1,          1,           -1 }, /* Pavucontrol */
+	{ "PCSXR",          NULL,       NULL,         0,          1,          1,           -1 }, /* PCSXR */
+	{ "SimpleScreenRecorder", NULL, NULL,         0,          1,          1,           -1 }, /* SimpleScreenRecorder */
+	{ "Steam",          NULL,       NULL,         0,          1,          1,           -1 }, /* Steam */
+	{ "Wfica",          NULL,       NULL,         0,          1,          1,           -1 }, /* ICA Client */
 
-	{ NULL,             "float",    NULL,       0,            1,           -1 }, /* st -n float */
+	{ NULL,             "float",    NULL,         0,          1,          1,           -1 }, /* st -n float */
 
-	{ NULL,             NULL,       "Figure",   0,            1,           -1 }, /* Matplotlib */
-	{ NULL, NULL, "Microsoft Teams Notification", 0,          1,           -1 }, /* Microsoft Teams Notifications */
-	{ NULL, NULL, "Message from webpage",       0,            1,           -1 }, /* SAP notifications */
+	{ NULL,             NULL,       "Figure",     0,          1,          1,           -1 }, /* Matplotlib */
+	{ NULL,   NULL,   "Message from webpage",     0,          1,          1,           -1 }, /* SAP notifications */
+	{ NULL, NULL, "Microsoft Teams Notification", 0,          0,          1,           -1 }, /* Microsoft Teams Notifications */
 };
 
 /* layout(s) */
