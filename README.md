@@ -108,6 +108,16 @@ Read in colors from Xresources and apply them to dwm.
 ## Requirements
 In order to build `dwm` you need the Xlib header files.
 
+#### center
+
+* download [patch](https://github.com/flaport/dwm/compare/upstream..center.diff)
+* see [branch](https://github.com/flaport/dwm/tree/center)
+
+Place floating windows in the center of the screen.
+
+## Requirements
+In order to build `dwm` you need the Xlib header files.
+
 
 ## Installation
 Edit config.mk to match your local setup (`dwm` is installed into
