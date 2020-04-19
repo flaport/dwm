@@ -85,7 +85,7 @@ from non-active windows as well.
 * download [patch](https://github.com/flaport/dwm/compare/upstream..restartsig.diff)
 * see [branch](https://github.com/flaport/dwm/tree/restartsig)
 
-Restart `dwm` with mod+ctrl+shift+q
+Restart `dwm` with `mod+ctrl+shift+q`
 
 #### libxft-bgra
 
@@ -104,9 +104,6 @@ ignored.
 * see [branch](https://github.com/flaport/dwm/tree/xrdb)
 
 Read in colors from Xresources and apply them to dwm.
-
-## Requirements
-In order to build `dwm` you need the Xlib header files.
 
 #### center
 
@@ -127,12 +124,12 @@ Only allow clients to fullscreen into space currently given to them.
 * download [patch](https://github.com/flaport/dwm/compare/upstream..fullscreen.diff)
 * see [branch](https://github.com/flaport/dwm/tree/fullscreen)
 
-Due to fakefullscreen, which limits the fullscreen of an application
-to its window size, we need a way to force fullscreen when we want it.
+Due to `fakefullscreen`, which limits the fullscreen of an application
+to its window size, we need a way to force fullscreen when we want it:
+`mod+ctrl+f`.
 
 ## Requirements
 In order to build `dwm` you need the Xlib header files.
-
 
 ## Installation
 Edit config.mk to match your local setup (`dwm` is installed into
