@@ -342,6 +342,8 @@ static Display *dpy;
 static Drw *drw;
 static Monitor *mons, *selmon, *mastermon;
 static Window root, wmcheckwin;
+static Layout *last_layout;
+
 
 static int useargb = 0;
 static Visual *visual;
@@ -1930,7 +1932,6 @@ setfullscreen(Client *c, int fullscreen)
 	}
 }
 
-Layout *last_layout;
 void
 fullscreen(const Arg *arg)
 {
