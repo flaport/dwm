@@ -128,6 +128,39 @@ Due to `fakefullscreen`, which limits the fullscreen of an application
 to its window size, we need a way to force fullscreen when we want it:
 `mod+ctrl+f`.
 
+## Older versions
+This repository also contains some older versions of my dwm build as
+seperate branches of this repository:
+
+#### dwm v2
+
+* download as [patch](https://github.com/flaport/dwm/compare/upstream..v2.diff)
+* see [branch](https://github.com/flaport/dwm/tree/v2)
+
+the current version (should be more or less up to date with master)
+
+
+#### dwm v1
+
+* download as [patch](https://github.com/flaport/dwm/compare/upstream..v1.diff)
+* see [branch](https://github.com/flaport/dwm/tree/v1)
+
+The previous version: a build with similar features as v2 but with
+more bugs and less clean separation of the applied patches.
+
+#### dwm v0
+
+* download as [patch](https://github.com/flaport/dwm/compare/upstream..v0.diff)
+* see [branch](https://github.com/flaport/dwm/tree/v0)
+
+My first attempt at customizing `dwm`. Only here to archive. I do not
+recommend building this one.
+
+#### upstream
+
+This branch attempts to be up to date with upstream dwm:
+[git.suckless.org/dwm](http://git.suckless.org/dwm).
+
 ## Requirements
 In order to build `dwm` you need the Xlib header files.
 
@@ -144,7 +177,7 @@ necessary as root):
 
 
 ## Running dwm
-Add the following line to your .xinitrc to start `dwm` using `startx`:
+Add the following line to your `.xinitrc` to start `dwm` using `startx`:
 
 ```
     exec dwm
