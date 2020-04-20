@@ -1019,6 +1019,7 @@ killclient(const Arg *arg)
 void
 manage(Window w, XWindowAttributes *wa)
 {
+    Monitor *m;
 	Client *c, *t = NULL;
 	Window trans = None;
 	XWindowChanges wc;
@@ -1051,11 +1052,6 @@ manage(Window w, XWindowAttributes *wa)
 		&& (c->x + (c->w / 2) < c->mon->wx + c->mon->ww)) ? bh : c->mon->my);
 	c->bw = borderpx;
 
-	if(c->iscentered) {
-		c->x = (c->mon->mw - WIDTH(c)) / 2;
-		c->y = (c->mon->mh - HEIGHT(c)) / 2;
-	}
-
 	wc.border_width = c->bw;
 	XConfigureWindow(dpy, w, CWBorderWidth, &wc);
 	XSetWindowBorder(dpy, w, scheme[SchemeNorm][ColBorder].pixel);
@@ -1067,8 +1063,15 @@ manage(Window w, XWindowAttributes *wa)
 	grabbuttons(c, 0);
 	if (!c->isfloating)
 		c->isfloating = c->oldstate = trans != None || c->isfixed;
-	if (c->isfloating)
+	if (c->isfloating){
 		XRaiseWindow(dpy, c->win);
+        if(c->iscentered) {
+            c->x = (c->mon->mw - WIDTH(c)) / 2;
+            c->y = (c->mon->mh - HEIGHT(c)) / 2;
+            for (m=mons; m != c->mon; m = m->next)
+                c->x += m->mw;
+        }
+    }
 	attach(c);
 	attachstack(c);
 	XChangeProperty(dpy, root, netatom[NetClientList], XA_WINDOW, 32, PropModeAppend,
