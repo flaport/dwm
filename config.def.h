@@ -80,10 +80,11 @@ static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
-	/* symbol     arrange function */
+	/* symbol   arrange function */
 	{ "",      tile },    /* first entry is default */
 	{ "",      NULL },    /* no layout function means floating behavior */
-	{ "",      monocle },
+	{ "",      monocle }, /* maximized layout (bar still visible) */
+	{ NULL,     NULL },  /* sentinel to allow for cycling through layouts */
 };
 
 /* key definitions */
@@ -132,6 +133,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
+	{ MODKEY,		                XK_semicolon, cyclelayout, {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_semicolon, cyclelayout, {.i = +1 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_comma,  setmastermon,   {.i = -1 } },
