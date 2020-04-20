@@ -268,6 +268,8 @@ static Display *dpy;
 static Drw *drw;
 static Monitor *mons, *selmon;
 static Window root, wmcheckwin;
+static Layout *last_layout;
+
 
 /* configuration, allows nested code to access above variables */
 #include "config.h"
@@ -1498,17 +1500,26 @@ setfullscreen(Client *c, int fullscreen)
 	}
 }
 
-Layout *last_layout;
 void
 fullscreen(const Arg *arg)
 {
+	XWindowChanges wc;
 	if (selmon->showbar) {
 		for(last_layout = (Layout *)layouts; last_layout != selmon->lt[selmon->sellt]; last_layout++);
 		setlayout(&((Arg) { .v = &layouts[2] }));
+        selmon->sel->bw = 0;
+        selmon->showbar = 0;
 	} else {
 		setlayout(&((Arg) { .v = last_layout }));
+        selmon->sel->bw = borderpx;
+        selmon->showbar = 1;
 	}
-	togglebar(arg);
+    updatebarpos(selmon);
+    wc.border_width = selmon->sel->bw;
+    XConfigureWindow(dpy, selmon->sel->win, CWBorderWidth, &wc);
+	XSetWindowBorder(dpy, selmon->sel->win, scheme[SchemeNorm][ColBorder].pixel);
+    XMoveResizeWindow(dpy, selmon->barwin, selmon->wx, selmon->by, selmon->ww, bh);
+    arrange(selmon);
 }
 
 void
