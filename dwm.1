@@ -45,13 +45,14 @@ example `dwm_autostart` script is supplied with this dwm repository.
 is read and displayed in the status text area. It can be set with the
 .BR xsetroot (1)
 command. By using a predefined delimiter (space by default), the status bar can
-be made interactive. Dwm will call `dwm_status` (place this in your path) with
+be made interactive: dwm will call `dwm_status` (place this in your path) with
 two arguments: $1: widget index clicked, $2: mouse button index. An example
 `dwm_status` script is supplied with this dwm repository.
 .TP
 .B Button1
 click on a tag label to display all windows with that tag, click on the layout
-label toggles between tiled and floating layout.
+label toggles between tiled and floating layout, click on the monitor label to
+make it the master monitor.
 .TP
 .B Button3
 click on a tag label adds/removes all windows with that tag to/from the view.
@@ -63,11 +64,11 @@ click on a tag label applies that tag to the focused window.
 click on a tag label adds/removes that tag to/from the focused window.
 .SS Keyboard commands
 .TP
-.B Mod1\-Shift\-Return
+.B Mod1\-Return
 Start
 .BR st(1).
 .TP
-.B Mod1\-p
+.B Mod1\-s
 Spawn
 .BR dmenu(1)
 for launching other programs.
@@ -88,22 +89,43 @@ Send focused window to next screen, if any.
 Toggles bar on and off.
 .TP
 .B Mod1\-t
+Toggles between current and previous layout.
+.TP
+.B Mod1\-Shift\-t
 Sets tiled layout.
 .TP
 .B Mod1\-f
 Sets floating layout.
 .TP
-.B Mod1\-m
-Sets monocle layout.
+.B Mod1\-Shift\-f
+Sets monocle (maximized) layout.
 .TP
-.B Mod1\-space
-Toggles between current and previous layout.
+.B Mod1\-Control\-f
+Sets fullscreen layout (monocle with hidden status bar).
 .TP
 .B Mod1\-;
 Cycles backwards in layout list.
 .TP
 .B Mod1\-Shift\-;
 Cycles forwards in layout list.
+.TP
+.B Mod1\-,
+Focus on monitor left.
+.TP
+.B Mod1\-Shift\-,
+Send focused window to monitor left.
+.TP
+.B Mod1\-Control\-,
+Set monitor to your left as mastermonitor.
+.TP
+.B Mod1\-.
+Focus on monitor right.
+.TP
+.B Mod1\-Shift\-.
+Send focused window to monitor right.
+.TP
+.B Mod1\-Control\-.
+Set monitor to your right as mastermonitor.
 .TP
 .B Mod1\-j
 Focus next window.
@@ -123,14 +145,14 @@ Increase master area size.
 .B Mod1\-h
 Decrease master area size.
 .TP
+.B Mod1\-Control\-m
+Make current monitor the master monitor.
+.TP
 .B Mod1\-o
 Select view of the window in focus. The list of tags to be displayed is matched to the window tag list.
 .TP
-.B Mod1\-Return
+.B Mod1\-Space
 Zooms/cycles focused window to/from master area (tiled layouts only).
-.TP
-.B Mod1\-Shift\-c
-Close focused window.
 .TP
 .B Mod1\-Shift\-space
 Toggle focused window between tiled and floating state.
@@ -138,11 +160,19 @@ Toggle focused window between tiled and floating state.
 .B Mod1\-Tab
 Toggles to the previously selected tags.
 .TP
+.B Mod1\-Control\-Tab
+Swap windows between current monitor and the master monitor. Swap windows
+between the current monitor and the next monitor if the current monitor is the
+master monitor.
+.TP
 .B Mod1\-Shift\-[1..n]
 Apply nth tag to focused window.
 .TP
 .B Mod1\-Shift\-0
 Apply all tags to focused window.
+.TP
+.B Mod1\-Shift\-`
+Apply the hidden tag to focused window.
 .TP
 .B Mod1\-Control\-Shift\-[1..n]
 Add/remove nth tag to/from focused window.
@@ -153,8 +183,14 @@ View all windows with nth tag.
 .B Mod1\-0
 View all windows with any tag.
 .TP
+.B Mod1\-`
+View all windows with the hidden tag.
+.TP
 .B Mod1\-Control\-[1..n]
 Add/remove all windows with nth tag to/from the view.
+.TP
+.B Mod1\-q
+Close focused window.
 .TP
 .B Mod1\-Shift\-q
 Quit dwm.
