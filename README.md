@@ -127,8 +127,14 @@ Only allow clients to fullscreen into space currently given to them.
 
 Due to `fakefullscreen`, which limits the fullscreen of an application
 to its window size, we need a way to force fullscreen when we want it:
-`mod+ctrl+f`. I modified this patch to remove the border of the
-fullscreen window.
+`mod+ctrl+f`. I
+
+#### cyclelayouts
+
+* download [my modified patch](https://github.com/flaport/dwm/compare/upstream..cyclelayouts.diff)
+* see [branch](https://github.com/flaport/dwm/tree/cyclelayouts)
+
+Simply cycle through the available layouts with `mod+;`.
 
 ## Older versions
 This repository also contains some older versions of my dwm build as
