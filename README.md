@@ -37,10 +37,13 @@ This is a completely custom patch I use to make the `dwm` status bar
 interactive. The statusbar is still set with `xsetroot`, however a
 unique character is used as delimiter between each widget. By using
 this delimiter, `dwm` can figure out which widget was clicked and
-calls in turn `dwm_status` (which should be placed in your path) with two
-arguments: the widget index and the mouse button. The `dwm_status`
+calls in turn `dwm_status` (which should be placed in your path) with
+two arguments: the widget index and the mouse button. The `dwm_status`
 script can then use that info to start a specific action. An example
 [`dwm_status`](dwm_status) script can be found in this repository.
+Note that the supplied `dwm_status` script requires
+[FontAwesome](https://github.com/gabrielelana/awesome-terminal-fonts/blob/master/fonts/fontawesome-regular.ttf)
+to render the status bar icons.
 
 #### hiddentag
 
