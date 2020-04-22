@@ -13,13 +13,6 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = {
     "monospace:pixelsize=14:antialias=true:autohint=true",
-	"Symbola:pixelsize=12:antialias=true:autohint=true",
-	"Pomodoro:pixelsize=12:antialias=true:autohint=true",
-	"FontAwesome:pixelsize=12:antialias=true:autohint=true",
-	"Octicons:pixelsize=12:antialias=true:autohint=true",
-	"Icomoon:pixelsize=12:antialias=true:autohint=true",
-	"Hack Nerd Font:pixelsize=12:antialias=true:autohint=true",
-	"PowerlineSymbols:pixelsize=12:antialias=true:autohint=true",
 };
 static const char dmenufont[]       = "monospace:size=10";
 static char black[]					= "#222222";
