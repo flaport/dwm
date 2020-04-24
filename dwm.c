@@ -2168,12 +2168,20 @@ xerrorstart(Display *dpy, XErrorEvent *ee)
 void
 xrdb(const Arg *arg)
 {
+  Client *c;
+  Monitor *m;
+
+  m = selmon;
+  c = selmon->sel;
+
   loadxrdb();
   int i;
   for (i = 0; i < LENGTH(colors); i++)
                 scheme[i] = drw_scm_create(drw, colors[i], 3);
-  focus(NULL);
-  arrange(NULL);
+
+  selmon = m;
+  arrange(selmon);
+  focus(c);
 }
 
 void
