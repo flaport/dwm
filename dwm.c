@@ -2995,12 +2995,21 @@ xinitvisual()
 void
 xrdb(const Arg *arg)
 {
-  loadxrdb();
   int i;
+  Client *c;
+  Monitor *m;
+
+  m = selmon;
+  c = selmon->sel;
+
+  loadxrdb();
+
   for (i = 0; i < LENGTH(colors); i++)
                 scheme[i] = drw_scm_create(drw, colors[i], alphas[i], 3);
-  focus(NULL);
-  arrange(NULL);
+
+  selmon = m;
+  arrange(selmon);
+  focus(c);
 }
 
 void
