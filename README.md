@@ -2,9 +2,12 @@
 `dwm` is an extremely fast, small, and dynamic window manager for X.
 
 ## Patches
-Each branch in this repository represents a single, often modified,
-patch to vanilla dwm. Below you find all the applied patches in the
-order they were merged into the master branch of this repository.
+Each patch applied to this version of dwm lives in a separate branch
+in this repository. Such a branch can either be a vanilla patch like
+they can be downloaded from the suckless website, or a modified patch,
+or a completely custom patch. Below you find all the applied patches
+in the order they were merged into the master branch of this
+repository.
 
 #### systray+alpha
 
