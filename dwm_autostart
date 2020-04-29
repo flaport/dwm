@@ -1,12 +1,15 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 # Example `dwm_autostart` file. Place this file in your $PATH.
 
 start(){
-    pidof "$1" &> /dev/null || "$@" &
+    pidof "$1" > /dev/null 2> /dev/null || "$@" &
 }
 
-# hotkey daemon
+# enable x settings daemon
+start xsettingsd
+
+# enable hotkeys
 start sxhkd
 
 # compositor
@@ -15,8 +18,11 @@ start picom
 # notifications
 start dunst
 
-# network manager
+# network manager applet
 start nm-applet
+
+# bluetooth manager applet
+start blueman-applet
 
 # automatically lock screen after 10 minutes
 start xautolock -time 10 -locker i3lock
@@ -24,11 +30,14 @@ start xautolock -time 10 -locker i3lock
 # make the mouse invisible after a brief period of not using it.
 start unclutter
 
-# dashboard
+# conky dashboards
 start conky
 
-# apply Xresources
-start xrdb ~/.Xresources
+# update xrdb database
+start xrdb "$HOME/.Xresources"
+
+# enable transparent windows
+start picom
 
 # set cursor speed
 start xset r rate 200 45
@@ -36,19 +45,18 @@ start xset r rate 200 45
 # update dwm status bar every 10 seconds
 while true; do
     sleep 2s
-    dwm_status &> /dev/null & # add dwm_status to $PATH
+    dwm_status >/dev/null 2> /dev/null &
     sleep 8s
 done &
 
 # check battery status every 10 minutes
 while true; do
     sleep 10s
-    capacity=$(cat /sys/class/power_supply/BAT*/capacity | head -1)
-    [ -z $capacity ] && break
+    capacity="$(cat /sys/class/power_supply/BAT*/capacity | head -1)"
+    [ -z "$capacity" ] && break
     batstatus=$(cat /sys/class/power_supply/BAT*/status | head -1)
     if [ "$batstatus" = "Discharging" ] && [ "$capacity" -lt 5 ]; then
         notify-send --urgency=CRITICAL "battery low" "   $capacity%" &
     fi
     sleep 590s
 done &
-
