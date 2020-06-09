@@ -142,6 +142,14 @@ to its window size, we need a way to force fullscreen when we want it:
 
 Simply cycle through the available layouts with `mod+;`.
 
+#### swallow
+
+* download [patch](https://github.com/flaport/dwm/compare/upstream..swallow.diff)
+* see [branch](https://github.com/flaport/dwm/tree/swallow)
+
+If a terminal spawns a process without disowning it, the terminal will try to "swallow" the program,
+i.e. the terminal hides itself behind the window it spawned until the spawned window/process is stopped.
+
 ## Older versions
 This repository also contains some older versions of my dwm build as
 seperate branches of this repository:
