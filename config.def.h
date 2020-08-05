@@ -53,6 +53,7 @@ static const Rule rules[] = {
 	{ "Conky",          NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* Conky */
 	{ "Fceux",          NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* Fceux NES emulator */
 	{ "Helpdesk DICT",  NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* DICT */
+	{ "MEGAsync",       NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* MEGA sync client */
 	{ "mpv",            NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* MPV Media Player */
 	{ "Nextcloud",      NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* Nextcloud client */
 	{ "Nm-applet",      NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* NetworkManager Applets */
