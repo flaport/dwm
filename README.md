@@ -1,7 +1,9 @@
 # dwm - dynamic window manager
+
 `dwm` is an extremely fast, small, and dynamic window manager for X.
 
 ## Patches
+
 Each patch applied to this version of dwm lives in a separate branch
 in this repository. Such a branch can either be a vanilla patch like
 they can be downloaded from the suckless website, or a modified patch,
@@ -11,8 +13,8 @@ repository.
 
 #### systray+alpha
 
-* download [my combined patch](https://github.com/flaport/dwm/compare/upstream..systray+alpha.diff) ‧ [my alpha patch](https://github.com/flaport/dwm/compare/upstream..alpha.diff) ‧ [my systray patch](https://github.com/flaport/dwm/compare/upstream..systray.diff)
-* see [combined branch](https://github.com/flaport/dwm/tree/systray+alpha) ‧ [alpha branch](https://github.com/flaport/dwm/tree/alpha) ‧ [systray branch](https://github.com/flaport/dwm/tree/systray)
+- download [my combined patch](https://github.com/flaport/dwm/compare/upstream..systray+alpha.diff) ‧ [my alpha patch](https://github.com/flaport/dwm/compare/upstream..alpha.diff) ‧ [my systray patch](https://github.com/flaport/dwm/compare/upstream..systray.diff)
+- see [combined branch](https://github.com/flaport/dwm/tree/systray+alpha) ‧ [alpha branch](https://github.com/flaport/dwm/tree/alpha) ‧ [systray branch](https://github.com/flaport/dwm/tree/systray)
 
 Combining the `alpha` patch with the `systray` patch is not easy.
 Hence, I first combined them in a separate branch, `systray+alpha`,
@@ -21,9 +23,9 @@ patch if you want both `alpha` and `systray` at the same time.
 
 #### autostart
 
-* download [my modified patch](https://github.com/flaport/dwm/compare/upstream..autostart.diff)
-* see [branch](https://github.com/flaport/dwm/tree/autostart)
-* see example [dwm_autostart](dwm_autostart) script.
+- download [my modified patch](https://github.com/flaport/dwm/compare/upstream..autostart.diff)
+- see [branch](https://github.com/flaport/dwm/tree/autostart)
+- see example [dwm_autostart](dwm_autostart) script.
 
 The vanilla autostart patch from the suckless website is already very
 minimal. In this modified patch, I removed the blocking call and
@@ -32,9 +34,9 @@ assumed the script `dwm_autostart` is added to the path. An example
 
 #### interactivestatusbar
 
-* download [my custom patch](https://github.com/flaport/dwm/compare/upstream..interactivestatusbar.diff)
-* see [branch](https://github.com/flaport/dwm/tree/interactivestatusbar)
-* see example [dwm_status](dwm_status) script.
+- download [my custom patch](https://github.com/flaport/dwm/compare/upstream..interactivestatusbar.diff)
+- see [branch](https://github.com/flaport/dwm/tree/interactivestatusbar)
+- see example [dwm_status](dwm_status) script.
 
 This is a completely custom patch I use to make the `dwm` status bar
 interactive. The statusbar is still set with `xsetroot`, however a
@@ -50,16 +52,15 @@ to render the status bar icons.
 
 #### hiddentag
 
-* download [my custom patch](https://github.com/flaport/dwm/compare/upstream..hiddentag.diff)
-* see [branch](https://github.com/flaport/dwm/tree/hiddentag)
+- download [my custom patch](https://github.com/flaport/dwm/compare/upstream..hiddentag.diff)
+- see [branch](https://github.com/flaport/dwm/tree/hiddentag)
 
 This small custom patch adds a hidden (invisible) tag to the tagset.
 
-
 #### mastermon
 
-* download [my custom patch](https://github.com/flaport/dwm/compare/upstream..mastermon.diff)
-* see [branch](https://github.com/flaport/dwm/tree/mastermon)
+- download [my custom patch](https://github.com/flaport/dwm/compare/upstream..mastermon.diff)
+- see [branch](https://github.com/flaport/dwm/tree/mastermon)
 
 The mastermon patch introduces a "master" monitor. The master monitor
 is the only monitor with tags. All other monitors will have no tags.
@@ -73,30 +74,30 @@ important and will mostly be used to station content in view. If this
 resembles your workflow, this patch is for you!
 
 Some new kind of keybindings were added: `mod+[z|x|c|v]` to move focus
-to monitor 1,2,3 or 4 and  `mod+shift+[z|x|c|v]` to move the focused
+to monitor 1,2,3 or 4 and `mod+shift+[z|x|c|v]` to move the focused
 window to monitor 1,2,3 or 4. Moreover, `mod+ctrl+m` can be used to "promote"
 the current monitor to the master monitor and `mod+ctrl+tab` to
 quickly swap the content between two adjacent monitors.
 
 #### tilegap
 
-* download [my modified patch](https://github.com/flaport/dwm/compare/upstream..tilegap.diff)
-* see [branch](https://github.com/flaport/dwm/tree/tilegap)
+- download [my modified patch](https://github.com/flaport/dwm/compare/upstream..tilegap.diff)
+- see [branch](https://github.com/flaport/dwm/tree/tilegap)
 
 Gaps between windows. Who doesn't want them? I removed the borders
 from non-active windows as well.
 
 #### restartsig
 
-* download [patch](https://github.com/flaport/dwm/compare/upstream..restartsig.diff)
-* see [branch](https://github.com/flaport/dwm/tree/restartsig)
+- download [patch](https://github.com/flaport/dwm/compare/upstream..restartsig.diff)
+- see [branch](https://github.com/flaport/dwm/tree/restartsig)
 
 Restart `dwm` with `mod+ctrl+shift+q`
 
 #### libxft-bgra
 
-* download [my custom patch](https://github.com/flaport/dwm/compare/upstream..libxft-bgra.diff)
-* see [branch](https://github.com/flaport/dwm/tree/libxft-bgra)
+- download [my custom patch](https://github.com/flaport/dwm/compare/upstream..libxft-bgra.diff)
+- see [branch](https://github.com/flaport/dwm/tree/libxft-bgra)
 
 Enables color emojis when
 [`libxft-bgra`](https://gitlab.freedesktop.org/xorg/lib/libxft/-/merge_requests/1)
@@ -106,30 +107,30 @@ ignored.
 
 #### xrdb
 
-* download [my modified patch](https://github.com/flaport/dwm/compare/upstream..xrdb.diff)
-* see [branch](https://github.com/flaport/dwm/tree/xrdb)
+- download [my modified patch](https://github.com/flaport/dwm/compare/upstream..xrdb.diff)
+- see [branch](https://github.com/flaport/dwm/tree/xrdb)
 
 Read in colors from Xresources and apply them to dwm.
 
 #### center
 
-* download [my modified patch](https://github.com/flaport/dwm/compare/upstream..center.diff)
-* see [branch](https://github.com/flaport/dwm/tree/center)
+- download [my modified patch](https://github.com/flaport/dwm/compare/upstream..center.diff)
+- see [branch](https://github.com/flaport/dwm/tree/center)
 
 Place floating windows in the center of the screen. I fixed this patch
 for multi-monitor setups.
 
 #### fakefullscreen
 
-* download [patch](https://github.com/flaport/dwm/compare/upstream..fakefullscreen.diff)
-* see [branch](https://github.com/flaport/dwm/tree/fakefullscreen)
+- download [patch](https://github.com/flaport/dwm/compare/upstream..fakefullscreen.diff)
+- see [branch](https://github.com/flaport/dwm/tree/fakefullscreen)
 
 Only allow clients to fullscreen into space currently given to them.
 
 #### fullscreen
 
-* download [my modified patch](https://github.com/flaport/dwm/compare/upstream..fullscreen.diff)
-* see [branch](https://github.com/flaport/dwm/tree/fullscreen)
+- download [my modified patch](https://github.com/flaport/dwm/compare/upstream..fullscreen.diff)
+- see [branch](https://github.com/flaport/dwm/tree/fullscreen)
 
 Due to `fakefullscreen`, which limits the fullscreen of an application
 to its window size, we need a way to force fullscreen when we want it:
@@ -137,43 +138,50 @@ to its window size, we need a way to force fullscreen when we want it:
 
 #### cyclelayouts
 
-* download [my modified patch](https://github.com/flaport/dwm/compare/upstream..cyclelayouts.diff)
-* see [branch](https://github.com/flaport/dwm/tree/cyclelayouts)
+- download [my modified patch](https://github.com/flaport/dwm/compare/upstream..cyclelayouts.diff)
+- see [branch](https://github.com/flaport/dwm/tree/cyclelayouts)
 
 Simply cycle through the available layouts with `mod+;`.
 
 #### swallow
 
-* download [patch](https://github.com/flaport/dwm/compare/upstream..swallow.diff)
-* see [branch](https://github.com/flaport/dwm/tree/swallow)
+- download [patch](https://github.com/flaport/dwm/compare/upstream..swallow.diff)
+- see [branch](https://github.com/flaport/dwm/tree/swallow)
 
 If a terminal spawns a process without disowning it, the terminal will try to "swallow" the program,
 i.e. the terminal hides itself behind the window it spawned until the spawned window/process is stopped.
 
+#### sticky
+
+- download [patch](https://github.com/flaport/dwm/compare/upstream..sticky.diff)
+- see [branch](https://github.com/flaport/dwm/tree/sticky)
+
+Make a window 'sticky', i.e. show it on _all_ tags with `mod+shift+o`.
+
 ## Older versions
+
 This repository also contains some older versions of my dwm build as
 seperate branches of this repository:
 
 #### dwm v2
 
-* download as [patch](https://github.com/flaport/dwm/compare/upstream..v2.diff)
-* see [branch](https://github.com/flaport/dwm/tree/v2)
+- download as [patch](https://github.com/flaport/dwm/compare/upstream..v2.diff)
+- see [branch](https://github.com/flaport/dwm/tree/v2)
 
 the current version (should be more or less up to date with master)
 
-
 #### dwm v1
 
-* download as [patch](https://github.com/flaport/dwm/compare/upstream..v1.diff)
-* see [branch](https://github.com/flaport/dwm/tree/v1)
+- download as [patch](https://github.com/flaport/dwm/compare/upstream..v1.diff)
+- see [branch](https://github.com/flaport/dwm/tree/v1)
 
 The previous version: a build with similar features as v2 but with
 more bugs and less clean separation of the applied patches.
 
 #### dwm v0
 
-* download as [patch](https://github.com/flaport/dwm/compare/upstream..v0.diff)
-* see [branch](https://github.com/flaport/dwm/tree/v0)
+- download as [patch](https://github.com/flaport/dwm/compare/upstream..v0.diff)
+- see [branch](https://github.com/flaport/dwm/tree/v0)
 
 My first attempt at customizing `dwm`. Only here to archive. I do not
 recommend building this one.
@@ -184,9 +192,11 @@ This branch attempts to be up to date with upstream dwm:
 [git.suckless.org/dwm](http://git.suckless.org/dwm).
 
 ## Requirements
+
 In order to build `dwm` you need the Xlib header files.
 
 ## Installation
+
 Edit config.mk to match your local setup (`dwm` is installed into
 the `/usr/local` namespace by default).
 
@@ -197,8 +207,8 @@ necessary as root):
     make clean install
 ```
 
-
 ## Running dwm
+
 Add the following line to your `.xinitrc` to start `dwm` using `startx`:
 
 ```
@@ -225,10 +235,11 @@ like this in your `.xinitrc`:
     exec dwm
 ```
 
-
 ## Configuration
+
 The configuration of `dwm` is done by creating a custom `config.h`
 and (re)compiling the source code.
 
 ## Credits
+
 This `dwm` fork is based on the suckless upstream: [https://dwm.suckless.org/](https://dwm.suckless.org/)

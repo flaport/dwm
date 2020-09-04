@@ -134,6 +134,7 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_m,      setmastermon,   {.i = 0} },
 	{ MODKEY,                       XK_space,  zoom,           {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	{ MODKEY|ShiftMask,             XK_o,      togglesticky,   {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,		                XK_semicolon, cyclelayout, {.i = -1 } },
