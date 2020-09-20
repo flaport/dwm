@@ -44,6 +44,7 @@ static const Rule rules[] = {
 	 */
 
 	/* class        instance       title      tags mask  iscentered isfloating  isterminal  noswallow  monitor */
+	{ "Alacritty",      NULL,       NULL,         0,          1,         0,          1,          0,      -1 }, /* Alacritty */
 	{ "Anki",           NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* Anki */
 	{ "autorun.exe",    NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* Wine */
 	{ "Arandr",         NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* Arandr */
@@ -67,6 +68,7 @@ static const Rule rules[] = {
 	{ "Wfica",          NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* ICA Client */
 	{ "winecfg.exe",    NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* Wine */
 
+	{ "Alacritty",   "float",       NULL,         0,          1,         1,          1,          0,      -1 }, /* Alacritty -t float */
 	{ "St",          "float",       NULL,         0,          1,         1,          1,          0,      -1 }, /* st -n float */
 	{ "st-256color", "float",       NULL,         0,          1,         1,          1,          0,      -1 }, /* st -n float */
 
