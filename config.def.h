@@ -73,7 +73,7 @@ static const Rule rules[] = {
 	{ "st-256color", "float",       NULL,         0,          1,         1,          1,          0,      -1 }, /* st -n float */
 
 	{ NULL,      NULL,     "Event Tester",        0,          1,         1,          0,          1,      -1 }, /* xev */
-	{ NULL,             NULL,       "Figure",     0,          1,         1,          0,          0,      -1 }, /* Matplotlib */
+	{ NULL,             NULL,       "Figure",     0,          1,         1,          0,          1,      -1 }, /* Matplotlib */
 	{ NULL,   NULL,   "Message from webpage",     0,          1,         1,          0,          0,      -1 }, /* SAP notifications */
 	{ NULL, NULL, "Microsoft Teams Notification", 0,          0,         1,          0,          0,      -1 }, /* Microsoft Teams Notifications */
 	{ NULL,          NULL, "PlayOnLinux",         0,          1,         1,          0,          0,      -1 }, /* PlayOnLinux */
