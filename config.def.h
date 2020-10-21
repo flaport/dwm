@@ -52,6 +52,7 @@ static const Rule rules[] = {
 	{ "Blueman",        NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* Blueman */
 	{ "CfgDFInput",     NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* PCSXR */
 	{ "Conky",          NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* Conky */
+	{ "Eid-viewer",     NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* eid viewer */
 	{ "Fceux",          NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* Fceux NES emulator */
 	{ "Helpdesk DICT",  NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* DICT */
 	{ "MEGAsync",       NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* MEGA sync client */
