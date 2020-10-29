@@ -127,8 +127,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ControlMask,           XK_Tab,    swapmon,        {.i = 0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} },
+	{ MODKEY|ShiftMask,             XK_q,      quit,           {1} }, /* restart dwm */
+	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {0} }, /* quit dwm */
 	{ MODKEY,                       XK_t,      setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[1]} },
