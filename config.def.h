@@ -73,11 +73,18 @@ static const Rule rules[] = {
 	{ "St",          "float",       NULL,         0,          1,         1,          1,          0,      -1 }, /* st -n float */
 	{ "st-256color", "float",       NULL,         0,          1,         1,          1,          0,      -1 }, /* st -n float */
 
-	{ NULL,      NULL,     "Event Tester",        0,          1,         1,          0,          1,      -1 }, /* xev */
-	{ NULL,             NULL,       "Figure",     0,          1,         1,          0,          1,      -1 }, /* Matplotlib */
-	{ NULL,   NULL,   "Message from webpage",     0,          1,         1,          0,          0,      -1 }, /* SAP notifications */
+	{ NULL, NULL, "Confirm Exit",                 0,          1,         1,          0,          1,      -1 }, /* PyCharm */
+	{ NULL, NULL, "Customize PyCharm",            0,          1,         1,          0,          1,      -1 }, /* PyCharm */
+	{ NULL, NULL, "Event Tester",                 0,          1,         1,          0,          1,      -1 }, /* xev */
+	{ NULL, NULL, "Figure",                       0,          1,         1,          0,          1,      -1 }, /* Matplotlib */
+	{ NULL, NULL, "Import PyCharm Settings",      0,          1,         1,          0,          1,      -1 }, /* PyCharm */
+	{ NULL, NULL, "License Activation",           0,          1,         1,          0,          1,      -1 }, /* PyCharm */
+	{ NULL, NULL, "Message from webpage",         0,          1,         1,          0,          0,      -1 }, /* SAP notifications */
 	{ NULL, NULL, "Microsoft Teams Notification", 0,          0,         1,          0,          0,      -1 }, /* Microsoft Teams Notifications */
-	{ NULL,          NULL, "PlayOnLinux",         0,          1,         1,          0,          0,      -1 }, /* PlayOnLinux */
+	{ NULL, NULL, "PlayOnLinux",                  0,          1,         1,          0,          0,      -1 }, /* PlayOnLinux */
+	{ NULL, NULL, "PyCharm User Agreement",       0,          1,         1,          0,          1,      -1 }, /* PyCharm */
+	{ NULL, NULL, "Tip of the Day",               0,          1,         1,          0,          1,      -1 }, /* PyCharm */
+	{ NULL, NULL, "Welcome to PyCharm",           0,          1,         1,          0,          1,      -1 }, /* PyCharm */
 };
 
 /* layout(s) */
