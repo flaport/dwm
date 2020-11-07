@@ -46,8 +46,8 @@ static const Rule rules[] = {
 	/* class        instance       title      tags mask  iscentered isfloating  isterminal  noswallow  monitor */
 	{ "Alacritty",      NULL,       NULL,         0,          1,         0,          1,          0,      -1 }, /* Alacritty */
 	{ "Anki",           NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* Anki */
-	{ "autorun.exe",    NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* Wine */
 	{ "Arandr",         NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* Arandr */
+	{ "autorun.exe",    NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* Wine */
 	{ "Barrier",        NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* Barrier */
 	{ "Blueman",        NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* Blueman */
 	{ "CfgDFInput",     NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* PCSXR */
@@ -69,22 +69,25 @@ static const Rule rules[] = {
 	{ "Wfica",          NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* ICA Client */
 	{ "winecfg.exe",    NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* Wine */
 
-	{ "Alacritty",   "float",       NULL,         0,          1,         1,          1,          0,      -1 }, /* Alacritty -t float */
-	{ "St",          "float",       NULL,         0,          1,         1,          1,          0,      -1 }, /* st -n float */
+	{ "Alacritty",   NULL,       "float",         0,          1,         1,          1,          0,      -1 }, /* Alacritty -t float */
 	{ "st-256color", "float",       NULL,         0,          1,         1,          1,          0,      -1 }, /* st -n float */
+	{ "St",          "float",       NULL,         0,          1,         1,          1,          0,      -1 }, /* st -n float */
 
-	{ NULL, NULL, "Confirm Exit",                 0,          1,         1,          0,          1,      -1 }, /* PyCharm */
-	{ NULL, NULL, "Customize PyCharm",            0,          1,         1,          0,          1,      -1 }, /* PyCharm */
+	{ NULL, NULL, "Confirm Exit",                 0,          1,         1,          0,          0,      -1 }, /* PyCharm */
+	{ NULL, NULL, "Customize PyCharm",            0,          1,         1,          0,          0,      -1 }, /* PyCharm */
 	{ NULL, NULL, "Event Tester",                 0,          1,         1,          0,          1,      -1 }, /* xev */
 	{ NULL, NULL, "Figure",                       0,          1,         1,          0,          1,      -1 }, /* Matplotlib */
-	{ NULL, NULL, "Import PyCharm Settings",      0,          1,         1,          0,          1,      -1 }, /* PyCharm */
-	{ NULL, NULL, "License Activation",           0,          1,         1,          0,          1,      -1 }, /* PyCharm */
+	{ NULL, NULL, "Import PyCharm Settings",      0,          1,         1,          0,          0,      -1 }, /* PyCharm */
+	{ NULL, NULL, "License Activation",           0,          1,         1,          0,          0,      -1 }, /* PyCharm */
 	{ NULL, NULL, "Message from webpage",         0,          1,         1,          0,          0,      -1 }, /* SAP notifications */
 	{ NULL, NULL, "Microsoft Teams Notification", 0,          0,         1,          0,          0,      -1 }, /* Microsoft Teams Notifications */
 	{ NULL, NULL, "PlayOnLinux",                  0,          1,         1,          0,          0,      -1 }, /* PlayOnLinux */
-	{ NULL, NULL, "PyCharm User Agreement",       0,          1,         1,          0,          1,      -1 }, /* PyCharm */
-	{ NULL, NULL, "Tip of the Day",               0,          1,         1,          0,          1,      -1 }, /* PyCharm */
-	{ NULL, NULL, "Welcome to PyCharm",           0,          1,         1,          0,          1,      -1 }, /* PyCharm */
+	{ NULL, NULL, "PyCharm User Agreement",       0,          1,         1,          0,          0,      -1 }, /* PyCharm */
+	{ NULL, NULL, "Tip of the Day",               0,          1,         1,          0,          0,      -1 }, /* PyCharm */
+	{ NULL, NULL, "Welcome to PyCharm",           0,          1,         1,          0,          0,      -1 }, /* PyCharm */
+
+	{ "Skype", NULL, "Skype Preview",             0,          0,         0,          0,          0,      -1 }, /* Main Skype Window [defined before popups!]*/
+	{ "Skype", NULL, NULL,                        0,          0,         1,          0,          0,      -1 }, /* Skype Popups [defined after main window!]*/
 };
 
 /* layout(s) */
