@@ -81,6 +81,7 @@ static const Rule rules[] = {
 	{ NULL, NULL, "License Activation",           0,          1,         1,          0,          0,      -1 }, /* PyCharm */
 	{ NULL, NULL, "Message from webpage",         0,          1,         1,          0,          0,      -1 }, /* SAP notifications */
 	{ NULL, NULL, "Microsoft Teams Notification", 0,          0,         1,          0,          0,      -1 }, /* Microsoft Teams Notifications */
+	{ NULL, NULL, "Network Operations Manager",   0,          1,         1,          0,          0,      -1 }, /* VirtualBox */
 	{ NULL, NULL, "PlayOnLinux",                  0,          1,         1,          0,          0,      -1 }, /* PlayOnLinux */
 	{ NULL, NULL, "PyCharm User Agreement",       0,          1,         1,          0,          0,      -1 }, /* PyCharm */
 	{ NULL, NULL, "Tip of the Day",               0,          1,         1,          0,          0,      -1 }, /* PyCharm */
