@@ -79,6 +79,7 @@ static const Rule rules[] = {
 	{ NULL, NULL, "Figure",                       0,          1,         1,          0,          1,      -1 }, /* Matplotlib */
 	{ NULL, NULL, "Import PyCharm Settings",      0,          1,         1,          0,          0,      -1 }, /* PyCharm */
 	{ NULL, NULL, "License Activation",           0,          1,         1,          0,          0,      -1 }, /* PyCharm */
+	{ NULL, NULL, "Marker Database Browser",      0,          1,         1,          0,          0,      -1 }, /* KLayout */
 	{ NULL, NULL, "Message from webpage",         0,          1,         1,          0,          0,      -1 }, /* SAP notifications */
 	{ NULL, NULL, "Microsoft Teams Notification", 0,          0,         1,          0,          0,      -1 }, /* Microsoft Teams Notifications */
 	{ NULL, NULL, "Network Operations Manager",   0,          1,         1,          0,          0,      -1 }, /* VirtualBox */
