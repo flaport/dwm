@@ -158,6 +158,13 @@ i.e. the terminal hides itself behind the window it spawned until the spawned wi
 
 Make a window 'sticky', i.e. show it on _all_ tags with `mod+shift+o`.
 
+#### pertag
+
+- download [patch](https://github.com/flaport/dwm/compare/upstream..pertag.diff)
+- see [branch](https://github.com/flaport/dwm/tree/pertag)
+
+Default 'pertag' patch: this patch keeps layout, mwfact, barpos and nmaster per tag.
+
 ## Older versions
 
 This repository also contains some older versions of my dwm build as
