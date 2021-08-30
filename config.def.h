@@ -89,6 +89,7 @@ static const Rule rules[] = {
 	{ NULL, NULL, "PyCharm User Agreement",       0,          1,         1,          0,          0,      -1 }, /* PyCharm */
 	{ NULL, NULL, "Tip of the Day",               0,          1,         1,          0,          0,      -1 }, /* PyCharm */
 	{ NULL, NULL, "Welcome to PyCharm",           0,          1,         1,          0,          0,      -1 }, /* PyCharm */
+	{ NULL, NULL, "zoom",                         0,          1,         1,          0,          0,      -1 }, /* Wine */
 
 	{ "Skype", NULL, "Skype Preview",             0,          0,         0,          0,          0,      -1 }, /* Main Skype Window [defined before popups!]*/
 	{ "Skype", NULL, NULL,                        0,          0,         1,          0,          0,      -1 }, /* Skype Popups [defined after main window!]*/
