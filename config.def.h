@@ -54,6 +54,8 @@ static const Rule rules[] = {
 	{ "Conky",          NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* Conky */
 	{ "Eid-viewer",     NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* eid viewer */
 	{ "Fceux",          NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* Fceux NES emulator */
+	{ "fdtd-solutions-app", NULL,   NULL,         0,          1,         1,          0,          0,      -1 }, /* Lumerical FDTD */
+	{ "mode-solutions-app", NULL,   NULL,         0,          1,         1,          0,          0,      -1 }, /* Lumerical MODE */
 	{ "Helpdesk DICT",  NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* DICT */
 	{ "MEGAsync",       NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* MEGA sync client */
 	{ "mpv",            NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* MPV Media Player */
@@ -73,6 +75,8 @@ static const Rule rules[] = {
 	{ "Alacritty",   NULL,       "float",         0,          1,         1,          1,          0,      -1 }, /* Alacritty -t float */
 	{ "st-256color", "float",       NULL,         0,          1,         1,          1,          0,      -1 }, /* st -n float */
 	{ "St",          "float",       NULL,         0,          1,         1,          1,          0,      -1 }, /* st -n float */
+	{ NULL, "fdtd-solutions-app",   NULL,         0,          1,         1,          0,          0,      -1 }, /* Lumerical FDTD */
+	{ NULL, "mode-solutions-app",   NULL,         0,          1,         1,          0,          0,      -1 }, /* Lumerical MODE */
 
 	{ NULL, NULL, "Confirm Exit",                 0,          1,         1,          0,          0,      -1 }, /* PyCharm */
 	{ NULL, NULL, "Customize PyCharm",            0,          1,         1,          0,          0,      -1 }, /* PyCharm */
