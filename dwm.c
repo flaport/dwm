@@ -712,7 +712,7 @@ void
 clickstatus(char *stext, unsigned int x, unsigned int btn){
     char c;
     char command[512];
-    char stextcpy[strlen(stext)];
+    char stextcpy[strlen(stext)+1];
     unsigned int i, j, stextlen;
 
     sprintf(stextcpy, "%s", stext);
