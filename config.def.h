@@ -54,6 +54,7 @@ static const Rule rules[] = {
 	{ "Conky",          NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* Conky */
 	{ "Eid-viewer",     NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* eid viewer */
 	{ "Fceux",          NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* Fceux NES emulator */
+	{ "com.mitchellh.ghostty", NULL, NULL,       0,          1,         0,          1,          0,      -1 }, /* Ghostty */
 	{ "fdtd-solutions-app", NULL,   NULL,         0,          1,         1,          0,          0,      -1 }, /* Lumerical FDTD */
 	{ "mode-solutions-app", NULL,   NULL,         0,          1,         1,          0,          0,      -1 }, /* Lumerical MODE */
 	{ "Helpdesk DICT",  NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* DICT */
@@ -74,6 +75,7 @@ static const Rule rules[] = {
 	{ "winecfg.exe",    NULL,       NULL,         0,          1,         1,          0,          0,      -1 }, /* Wine */
 
 	{ "Alacritty",   NULL,       "float",         0,          1,         1,          1,          0,      -1 }, /* Alacritty -t float */
+	{ "com.mitchellh.ghostty", NULL, "float",  0,          1,         1,          1,          0,      -1 }, /* Ghostty --title=float */
 	{ "st-256color", "float",       NULL,         0,          1,         1,          1,          0,      -1 }, /* st -n float */
 	{ "St",          "float",       NULL,         0,          1,         1,          1,          0,      -1 }, /* st -n float */
 	{ NULL, "fdtd-solutions-app",   NULL,         0,          1,         1,          0,          0,      -1 }, /* Lumerical FDTD */
@@ -132,7 +134,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, NULL };
-static const char *termcmd[]  = { "alacritty", NULL };
+static const char *termcmd[]  = { "ghostty", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
