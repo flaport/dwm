@@ -320,6 +320,7 @@ static int isdescprocess(pid_t p, pid_t c);
 static Client *swallowingclient(Window w);
 static Client *termforwin(const Client *c);
 static pid_t winpid(Window w);
+static Window windowidforprocess(pid_t p);
 
 /* variables */
 static Systray *systray =  NULL;
@@ -3104,14 +3105,60 @@ isdescprocess(pid_t p, pid_t c)
 	return (int)c;
 }
 
+Window
+windowidforprocess(pid_t p)
+{
+#if defined(__linux__)
+	FILE *f;
+	char path[64], name[64];
+	int ch, n = 0;
+	Window win = 0;
+
+	snprintf(path, sizeof(path), "/proc/%u/environ", (unsigned)p);
+	if (!(f = fopen(path, "r")))
+		return 0;
+
+	while ((ch = fgetc(f)) != EOF) {
+		if (ch == '\0') {
+			name[n] = '\0';
+			if (n > 9 && strncmp(name, "WINDOWID=", 9) == 0) {
+				win = (Window)strtoul(name + 9, NULL, 10);
+				break;
+			}
+			n = 0;
+		} else if (n < (int)sizeof(name) - 1) {
+			name[n++] = ch;
+		}
+	}
+	fclose(f);
+
+	return win;
+#else
+	return 0;
+#endif
+}
+
 Client *
 termforwin(const Client *w)
 {
 	Client *c;
 	Monitor *m;
+	Window winid;
 
 	if (!w->pid || w->isterminal)
 		return NULL;
+
+	/* Terminals such as ghostty share a single process for all of their
+	 * windows, so the pid-based descendant check below cannot tell which one
+	 * spawned the new client. Match the terminal's WINDOWID instead. */
+	if ((winid = windowidforprocess(w->pid))) {
+		for (m = mons; m; m = m->next) {
+			for (c = m->clients; c; c = c->next) {
+				if (c->isterminal && !c->swallowing && c->win == winid)
+					return c;
+			}
+		}
+	}
 
 	for (m = mons; m; m = m->next) {
 		for (c = m->clients; c; c = c->next) {
